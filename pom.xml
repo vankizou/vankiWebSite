@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zoufanqi</groupId>
+  <artifactId>vanki</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>vanki</name>
+  <modules>
+  	<module>vanki-web-pc</module>
+  	<module>vanki-service</module>
+  	<module>vanki-service-impl</module>
+  	<module>vanki-entity</module>
+  	<module>vanki-common</module>
+  	<module>vanki-mapper</module>
+  </modules>
+</project>
