@@ -15,8 +15,8 @@
 
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.10.10.244:3306/lofficiel?generateSimpleParameterMetadata=true"
-                        userId="root" password="zd252!@#aa">
+                        connectionURL="jdbc:mysql://localhost:3306/vankiWebSite?generateSimpleParameterMetadata=true"
+                        userId="root" password="">
         </jdbcConnection>
 
         <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -29,7 +29,7 @@
         </javaTypeResolver>
 
         <!-- generate Model -->
-        <javaModelGenerator targetPackage="cn.lofficiel.entity"
+        <javaModelGenerator targetPackage="com.zoufanqi.entity"
                             targetProject="./src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
@@ -42,55 +42,19 @@
 
         <!-- generate Mapper -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="cn.lofficiel.mapper"
+                             targetPackage="com.zoufanqi.mapper"
                              targetProject="./src/main/java" implementationPackage="">
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
 
 
-        <!-- <table tableName="t_attribute" domainObjectName="Attribute" />
-        <table tableName="t_attribute_value" domainObjectName="AttributeValue" />
-        <table tableName="t_city" domainObjectName="City" />
-        <table tableName="t_collect" domainObjectName="Collect" />
-        <table tableName="t_collect_folder" domainObjectName="CollectFolder" />
-        <table tableName="t_comment" domainObjectName="Comment" />
-        <table tableName="t_data_dic" domainObjectName="DataDic" />
-        <table tableName="t_data_dic_value" domainObjectName="DataDicValue" />
-
-        <table tableName="t_domain" domainObjectName="Domain" />
-        <table tableName="t_findpwd" domainObjectName="Findpwd" />
-        <table tableName="t_manage_menu" domainObjectName="ManageMenu" />
-
-        <table tableName="t_picture" domainObjectName="Picture" />
-
-        <table tableName="t_picture_cut_setting" domainObjectName="PictureCutSetting" />
-
-        <table tableName="t_picture_folder" domainObjectName="PictureFolder" />
-        <table tableName="t_resource" domainObjectName="Resource" />
-        <table tableName="t_role" domainObjectName="Role" />
-        <table tableName="t_role_resource" domainObjectName="RoleResource" />
-        <table tableName="t_street_snap" domainObjectName="StreetSnap" />
-        <table tableName="t_support" domainObjectName="Support" />
-
-        <table tableName="t_sys_ad" domainObjectName="SysAd" />
-        <table tableName="t_sys_article" domainObjectName="SysArticle" />
-        <table tableName="t_sys_logs" domainObjectName="SysLogs" />
-        <table tableName="t_sys_sensitive" domainObjectName="SysSensitive" />
-        <table tableName="t_sys_var" domainObjectName="SysVar" />
-
-        <table tableName="t_tag" domainObjectName="Tag" />
-        <table tableName="t_unite" domainObjectName="Unite" />
-        <table tableName="t_user" domainObjectName="User" />
-        <table tableName="t_user_info" domainObjectName="UserInfo" />
-        <table tableName="t_user_picture" domainObjectName="UserPicture" />
-        <table tableName="t_user_role" domainObjectName="UserRole" /> -->
-        <!--
-               <table tableName="t_picture_folder" domainObjectName="PictureFolder" />
-              <table tableName="t_recent_activity" domainObjectName="RecentActivity" />
-              -->
-
-        <table tableName="t_role_menu" domainObjectName="RoleMenu"/>
+        <!--<table tableName="t_user" domainObjectName="User"/>-->
+        <!--<table tableName="t_my_file" domainObjectName="MyFile"/>-->
+        <table tableName="t_tree" domainObjectName="Tree"/>
+        <!--<table tableName="t_note" domainObjectName="Note"/>-->
+        <!--<table tableName="t_note_content" domainObjectName="NoteContent"/>-->
+        <!--<table tableName="t_variable" domainObjectName="Variable"/>-->
 
 
     </context>
