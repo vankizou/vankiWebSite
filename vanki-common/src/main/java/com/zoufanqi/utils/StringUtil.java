@@ -175,6 +175,6 @@ public final class StringUtil {
     }
 
     public static boolean isNotAutoId(Long id) {
-        return id == null || id <= 0;
+        return id == null || id < -1;
     }
 }

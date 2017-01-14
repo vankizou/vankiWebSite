@@ -16,4 +16,5 @@
 
 <script type="text/javascript" src="statics/js/common/myAjax.js"></script>
 <script type="text/javascript" src="statics/js/constant/constAjaxUrl.js"></script>
+<script type="text/javascript" src="statics/js/constant/constDB.js"></script>
 <script type="text/javascript" src="statics/js/common/easyuiUtil.js"></script>

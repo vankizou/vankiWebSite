@@ -164,7 +164,7 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public Tree getById(Long id, boolean isLogin) throws ZouFanqiException {
-        if (StringUtil.isAutoId(id)) return null;
+        if (StringUtil.isNotAutoId(id)) return null;
 
         TreeExample example = new TreeExample();
         TreeExample.Criteria c = example.createCriteria();

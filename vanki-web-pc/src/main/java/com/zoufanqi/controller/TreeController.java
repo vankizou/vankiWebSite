@@ -58,7 +58,7 @@ public class TreeController extends BaseSessionController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getListByParentId.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/getListByParentId.json", method = {RequestMethod.GET, RequestMethod.POST})
     public ResultJson getListByParentId(Long userId, Long parentId) throws ZouFanqiException {
         boolean isLogin = false;
         if (userId == null) {

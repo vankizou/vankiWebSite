@@ -60,7 +60,7 @@ public class BaseSessionController {
     protected Long justGetUserId() throws ZouFanqiException {
         UserContext uc = (UserContext) request.getSession().getAttribute(ConstService.SESSION_LOGIN_USER);
         User user;
-        if (uc == null || (user = uc.getUser()) == null) return null;
+//        if (uc == null || (user = uc.getUser()) == null) return null;
 //        return user.getId();
         return 1L;
     }

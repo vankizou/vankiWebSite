@@ -13,7 +13,8 @@
     <title>邹凡奇个人网站</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="statics/js/common/jquery1.11.1.min.js"></script>
+    <jsp:include page="../common/common.jsp"></jsp:include>
+    <%--<script type="text/javascript" src="statics/js/common/jquery1.11.1.min.js"></script>--%>
     <script type="text/javascript" src="statics/bootstrap/js/bootstrap.min.js"></script>
     <link href="statics/css/common/common.css" rel="stylesheet" type="text/css">
 

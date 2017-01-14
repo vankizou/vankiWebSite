@@ -5,6 +5,7 @@
 var ConstAjaxUrl = {
     tree: {
         add: ['/tree/add.json.login', 'POST', 'JSON'],
+        deleteById: ['/tree/deleteById.json.login', 'POST', 'JSON'],
         getRootList: ['/tree/getRootList.json', 'POST', 'JSON'],
         getListByParentId: ['/tree/getListByParentId.json', 'POST', 'JSON']
     },
