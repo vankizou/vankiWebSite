@@ -82,6 +82,7 @@ $(function () {
             node.name = title;
 
             tree.updateNode(node);
+            updateViewTitle(title);
             updateDiyDom(node, 0);
         };
         vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
@@ -154,10 +155,7 @@ function buildViewNoteCommonInfo(note) {
 
     // 标题
     var originTitle = note['title'];
-    var title = originTitle;
-    if (originTitle.length > 48) title = originTitle.substring(0, 48) + "...";
-    $('#j_note_info_title').html('<label title="' + originTitle + '">' + title + '</label>');
-    $('#j_note_info_edit_title').val(originTitle);
+    updateViewTitle(originTitle);
 
     // 私密
     var pwd = note['password'];
@@ -177,6 +175,17 @@ function buildViewNoteCommonInfo(note) {
     var viewNum = note['viewNum'];
     $('#j_note_info_viewNum').html(viewNum);
     $('#j_note_info_edit_viewNum').html(viewNum);
+}
+
+/**
+ * 显示标题更新
+ * @param originTitle
+ */
+function updateViewTitle(originTitle) {
+    var title = originTitle;
+    if (originTitle.length > 48) title = originTitle.substring(0, 48) + "...";
+    $('#j_note_info_title').html('<label title="' + originTitle + '">' + title + '</label>');
+    $('#j_note_info_edit_title').val(originTitle);
 }
 
 function getViewSecretStr(secretType, pwd) {
