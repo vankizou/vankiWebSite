@@ -19,7 +19,6 @@ import com.zoufanqi.service.redis.RedisTemplate;
 import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.StringUtil;
 import com.zoufanqi.vo.NoteVo;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -132,20 +131,21 @@ public class NoteServiceImpl implements NoteService {
             note.setPassword("");
         }
 
+        int countNoteDetail = this.addOrUpdateNoteDetail(note.getId(), loginUserId, noteDetailList);
+        if (countNoteDetail > -1) note.setCountNoteContent(countNoteDetail);
+
         int status = this.noteMapper.updateByPrimaryKeySelective(note);
         if (status > 0) {
-            this.addOrUpdateNoteDetail(note.getId(), loginUserId, noteDetailList);
-
-            /**
-             * 更新旧父节点笔记数量
-             */
-
-            if (StringUtil.notEquals(old.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
-                int s = updateCountNote(loginUserId, old.getParentId(), -1);
-                if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
-            }
             if (StringUtil.isId(note.getParentId()) &&
                     StringUtil.notEquals(note.getParentId(), old.getParentId())) {
+                /**
+                 * 更新旧父节点笔记数量
+                 */
+
+                if (StringUtil.notEquals(old.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
+                    int s = updateCountNote(loginUserId, old.getParentId(), -1);
+                    if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
+                }
                 /**
                  * 更新新父节点笔记数量
                  */
@@ -167,13 +167,13 @@ public class NoteServiceImpl implements NoteService {
      *
      * @param loginUserId
      * @param parentId
-     * @param num
+     * @param changeNum
      *
      * @return
      *
      * @throws ZouFanqiException
      */
-    private int updateCountNote(Long loginUserId, Long parentId, Integer num) throws ZouFanqiException {
+    private int updateCountNote(Long loginUserId, Long parentId, Integer changeNum) throws ZouFanqiException {
         if (StringUtil.isNotId(loginUserId) || StringUtil.isNotId(parentId)) return -1;
         if (parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
@@ -182,7 +182,7 @@ public class NoteServiceImpl implements NoteService {
 
         Integer pcn = this.countNote(parentId);
         pcn = pcn == null ? 0 : pcn;
-        pcn += num;
+        pcn += changeNum;
         if (pcn < 0) pcn = 0;
 
         pNote.setCountNote(pcn);
@@ -192,7 +192,7 @@ public class NoteServiceImpl implements NoteService {
 
     private int addOrUpdateNoteDetail(Long noteId, Long userId, List<NoteDetail> noteDetailList) throws ZouFanqiException {
         if (StringUtil.isNotId(noteId) || StringUtil.isNotId(userId) ||
-                noteDetailList == null || noteDetailList.isEmpty()) return 0;
+                noteDetailList == null || noteDetailList.isEmpty()) return -1;
 
         List<Long> uDetailIdList = new ArrayList<>();
         for (NoteDetail detail : noteDetailList) {

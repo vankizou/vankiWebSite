@@ -89,7 +89,7 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
         /**
          * 不需要登录
          */
-        if (requestUri == null || !AUTO_LOGIN_URI_LIST.contains(requestUri)) return false;
+        if (requestUri == null) return false;
 
         // session有值，已登录
         UserContext uc = (UserContext) this.request.getSession().getAttribute(ConstService.SESSION_LOGIN_USER);
