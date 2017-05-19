@@ -50,6 +50,7 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
 
         String requestUri = request.getRequestURI();
 
+        requestUri = StringUtil.isEmpty(requestUri) ? "/" : requestUri;
         /**
          * 静态数据依赖于接口. 所以, 可以直接过滤
          */
