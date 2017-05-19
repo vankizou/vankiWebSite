@@ -103,13 +103,11 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
          * 有token, 但session过期，从缓存中获取数据到session
          */
         String userId = this.redisTemplate.hget(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token);
-        if (StringUtil.isEmpty(userId)) {   // 用户不存在
-            this.clearCookieAndSessionInfo();
-            return false;
-        }
+        if (StringUtil.isEmpty(userId)) return false;   // 用户之前未登录过
+
         User user = this.userService.getById(Long.valueOf(userId));
         if (user == null) {
-            this.clearCookieAndSessionInfo(String.valueOf(user.getId()));
+            this.clearCookieAndSessionInfo(userId);
             return false;
         }
         this.buildUCAndSetSessionData(user);
