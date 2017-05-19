@@ -22,9 +22,9 @@ public interface NoteService {
 
     List<NoteVo> getTreeList(Long loginUserId, Long userId, Long parentId, Integer deep) throws ZouFanqiException;
 
-    Page<Note> getPage(Long loginUserId, Long userId, Long parentId, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
+    Page<Note> getTreePage(Long loginUserId, Long userId, Long parentId, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
 
-    Page<Note> getPage(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
+    Page<Note> getHomePage(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
 
     void updateNoteViewNumInRedis(Long noteId, long currViewNum) throws ZouFanqiException;
 

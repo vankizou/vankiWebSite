@@ -309,7 +309,7 @@ public class NoteServiceImpl implements NoteService {
         List<Note> temp;
 
         do {
-            Page<Note> page = this.getPage(loginUserId, userId, parentId, pageNo, pageSize, navNum);
+            Page<Note> page = this.getTreePage(loginUserId, userId, parentId, pageNo, pageSize, navNum);
             if (page == null || (temp = page.getData()) == null || temp.isEmpty()) break;
             if (count == null || list == null) {
                 count = page.getRowCount();
@@ -340,8 +340,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Page<Note> getPage(Long loginUserId, Long userId, Long parentId,
-                              Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
+    public Page<Note> getTreePage(Long loginUserId, Long userId, Long parentId,
+                                  Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
         if (StringUtil.isNotId(loginUserId) && StringUtil.isNotId(userId)) return null;
         if (StringUtil.isNotId(userId)) userId = loginUserId;
         if (StringUtil.isNotId(parentId)) parentId = ConstDB.DEFAULT_PARENT_ID;
@@ -416,7 +416,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Page<Note> getPage(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
+    public Page<Note> getHomePage(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
         Page page = new Page(pageNo, pageSize, 0, navNum);
 
         String mapKey = new StringBuffer().
@@ -446,6 +446,7 @@ public class NoteServiceImpl implements NoteService {
         c.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
         c.andSecretEqualTo(ConstDB.Note.SECRET_OPEN);
         c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
+        c.andCountNoteContentGreaterThan(0);
 
         int count = this.noteMapper.countByExample(example);
 

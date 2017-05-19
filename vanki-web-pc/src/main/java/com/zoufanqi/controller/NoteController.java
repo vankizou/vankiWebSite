@@ -132,8 +132,8 @@ public class NoteController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/getPageForHome.json")
-    public ResultJson getPageNoFolder(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
-        Page<Note> page = this.noteService.getPage(pageNo, pageSize, navNum);
+    public ResultJson getHomePage(Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
+        Page<Note> page = this.noteService.getHomePage(pageNo, pageSize, navNum);
         if (page == null) return ResultBuilder.build();
         List<Note> noteList = page.getData();
 
