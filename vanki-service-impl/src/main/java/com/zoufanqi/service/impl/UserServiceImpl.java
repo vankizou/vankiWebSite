@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtil.isNotEmpty(user.getName()))
             this.redisTemplate.hdel(EnumRedisKey.MAP_NAME_USER.name(), user.getName());
 
-        return ResultBuilder.build();
+        return ResultBuilder.build(user);
     }
 
     /**
