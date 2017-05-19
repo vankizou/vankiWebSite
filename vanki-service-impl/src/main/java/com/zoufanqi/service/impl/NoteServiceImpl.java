@@ -19,6 +19,7 @@ import com.zoufanqi.service.redis.RedisTemplate;
 import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.StringUtil;
 import com.zoufanqi.vo.NoteVo;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class NoteServiceImpl implements NoteService {
         if (note.getSequence() == null) note.setSequence(ConstDB.FIRST_SEQUENCE);
         if (note.getParentId() == null) note.setParentId(ConstDB.DEFAULT_PARENT_ID);
 
-        if (!StringUtil.equals(note.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
+        if (StringUtil.notEquals(note.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
             Note parent = this.getById(note.getParentId());
             if (parent == null || !note.getUserId().equals(parent.getUserId()))
                 return ResultBuilder.buildError(EnumStatusCode.DB_PARENT_NOT_FOUND);
@@ -105,7 +106,7 @@ public class NoteServiceImpl implements NoteService {
         Note old = this.getById(note.getId());
         if (old == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
 
-        if (!StringUtil.equals(old.getUserId(), loginUserId))
+        if (StringUtil.notEquals(old.getUserId(), loginUserId))
             return ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
 
         if (null != note.getTitle() &&
@@ -135,15 +136,16 @@ public class NoteServiceImpl implements NoteService {
         if (status > 0) {
             this.addOrUpdateNoteDetail(note.getId(), loginUserId, noteDetailList);
 
+            /**
+             * 更新旧父节点笔记数量
+             */
+
+            if (StringUtil.notEquals(old.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
+                int s = updateCountNote(loginUserId, old.getParentId(), -1);
+                if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
+            }
             if (StringUtil.isId(note.getParentId()) &&
-                    !StringUtil.equals(note.getParentId(), old.getParentId())) {
-                /**
-                 * 更新旧父节点笔记数量
-                 */
-                if (StringUtil.notEquals(old.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
-                    int s = updateCountNote(loginUserId, old.getParentId(), -1);
-                    if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
-                }
+                    StringUtil.notEquals(note.getParentId(), old.getParentId())) {
                 /**
                  * 更新新父节点笔记数量
                  */
@@ -176,7 +178,7 @@ public class NoteServiceImpl implements NoteService {
         if (parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
         Note pNote = this.getById(parentId);
-        if (pNote == null || !StringUtil.equals(loginUserId, pNote.getUserId())) return 0;
+        if (pNote == null || StringUtil.notEquals(loginUserId, pNote.getUserId())) return 0;
 
         Integer pcn = this.countNote(parentId);
         pcn = pcn == null ? 0 : pcn;
@@ -256,7 +258,7 @@ public class NoteServiceImpl implements NoteService {
         if (!note.getUserId().equals(loginUserId) && secret == ConstDB.Note.SECRET_CLOSE) return null;
         if (!note.getUserId().equals(loginUserId) &&
                 secret == ConstDB.Note.SECRET_PWD &&
-                !StringUtil.equals(note.getPassword(), password)) {
+                StringUtil.notEquals(note.getPassword(), password)) {
             Note pwdNote = new Note();
             pwdNote.setId(id);
             pwdNote.setTitle(note.getTitle());
