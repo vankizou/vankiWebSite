@@ -49,7 +49,7 @@ public class NoteServiceImpl implements NoteService {
         if (note.getSequence() == null) note.setSequence(ConstDB.FIRST_SEQUENCE);
         if (note.getParentId() == null) note.setParentId(ConstDB.DEFAULT_PARENT_ID);
 
-        if (note.getParentId() != ConstDB.DEFAULT_PARENT_ID) {
+        if (!StringUtil.equals(note.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
             Note parent = this.getById(note.getParentId());
             if (parent == null || !note.getUserId().equals(parent.getUserId()))
                 return ResultBuilder.buildError(EnumStatusCode.DB_PARENT_NOT_FOUND);
@@ -104,7 +104,8 @@ public class NoteServiceImpl implements NoteService {
 
         Note old = this.getById(note.getId());
         if (old == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
-        if (old.getUserId() != loginUserId)
+
+        if (!StringUtil.equals(old.getUserId(), loginUserId))
             return ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
 
         if (null != note.getTitle() &&
@@ -135,18 +136,18 @@ public class NoteServiceImpl implements NoteService {
             this.addOrUpdateNoteDetail(note.getId(), loginUserId, noteDetailList);
 
             if (StringUtil.isId(note.getParentId()) &&
-                    note.getParentId() != old.getParentId()) {
+                    !StringUtil.equals(note.getParentId(), old.getParentId())) {
                 /**
                  * 更新旧父节点笔记数量
                  */
-                if (old.getParentId() != ConstDB.DEFAULT_PARENT_ID) {
+                if (StringUtil.notEquals(old.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
                     int s = updateCountNote(loginUserId, old.getParentId(), -1);
                     if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
                 }
                 /**
                  * 更新新父节点笔记数量
                  */
-                if (note.getParentId() != ConstDB.DEFAULT_PARENT_ID) {
+                if (StringUtil.notEquals(note.getParentId(), ConstDB.DEFAULT_PARENT_ID)) {
                     int s = updateCountNote(loginUserId, note.getParentId(), 1);
                     if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
                 }
@@ -175,7 +176,7 @@ public class NoteServiceImpl implements NoteService {
         if (parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
         Note pNote = this.getById(parentId);
-        if (pNote == null || loginUserId != pNote.getUserId()) return 0;
+        if (pNote == null || !StringUtil.equals(loginUserId, pNote.getUserId())) return 0;
 
         Integer pcn = this.countNote(parentId);
         pcn = pcn == null ? 0 : pcn;
@@ -295,7 +296,7 @@ public class NoteServiceImpl implements NoteService {
         int hCount = 0;
 
         boolean isMine = false;
-        if (loginUserId != null && userId == loginUserId) {
+        if (loginUserId != null && StringUtil.equals(userId, loginUserId)) {
             isMine = true;
         }
 
@@ -349,7 +350,7 @@ public class NoteServiceImpl implements NoteService {
         Page page = new Page(pageNo, pageSize, 0, navNum);
 
         int flag = 0;
-        if (StringUtil.isId(loginUserId) && loginUserId == userId) {
+        if (StringUtil.isId(loginUserId) && StringUtil.equals(loginUserId, userId)) {
             flag = 1;   // 自己打开的树与别人打开的树是不一样的
         }
 
@@ -500,7 +501,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public boolean isNoteOpenedInRedis(Long userId, Long noteId) throws ZouFanqiException {
         if (StringUtil.isNotId(userId) || StringUtil.isNotId(noteId) ||
-                ConstDB.DEFAULT_PARENT_ID == noteId) return false;
+                StringUtil.equals(ConstDB.DEFAULT_PARENT_ID, noteId)) return false;
         return this.redisTemplate.sismember(EnumRedisKey.S_OPENED_NOTE_ID_.name() + userId, String.valueOf(noteId));
     }
 
@@ -515,7 +516,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void closeNoteInRedis(Long userId, Long noteId) throws ZouFanqiException {
         if (StringUtil.isNotId(userId) || StringUtil.isNotId(noteId) ||
-                ConstDB.DEFAULT_PARENT_ID == noteId) return;
+                StringUtil.equals(ConstDB.DEFAULT_PARENT_ID, noteId)) return;
         this.redisTemplate.srem(EnumRedisKey.S_OPENED_NOTE_ID_.name() + userId, String.valueOf(noteId));
     }
 
@@ -529,12 +530,12 @@ public class NoteServiceImpl implements NoteService {
      */
     public void openNoteInRedis(Long userId, Long noteId) throws ZouFanqiException {
         if (StringUtil.isNotId(userId) || StringUtil.isNotId(noteId) ||
-                ConstDB.DEFAULT_PARENT_ID == noteId) return;
+                StringUtil.equals(ConstDB.DEFAULT_PARENT_ID, noteId)) return;
         this.redisTemplate.sadd(EnumRedisKey.S_OPENED_NOTE_ID_.name() + userId, String.valueOf(noteId));
     }
 
     private Note getByIdInRedis(Long loginUserId, Long id) throws ZouFanqiException {
-        if (StringUtil.isNotId(id) || id == ConstDB.DEFAULT_PARENT_ID) return null;
+        if (StringUtil.isNotId(id) || StringUtil.equals(id, ConstDB.DEFAULT_PARENT_ID)) return null;
 
         String redisKey = EnumRedisKey.TIME_NOTE_.name() + id;
         String redisInfo = this.redisTemplate.get(redisKey);
@@ -546,7 +547,7 @@ public class NoteServiceImpl implements NoteService {
 
             Note note = JSON.parseObject(redisInfo, Note.class);
 
-            if (loginUserId == null || loginUserId != note.getUserId())
+            if (loginUserId == null || StringUtil.equals(loginUserId, note.getUserId()))
                 this.updateNoteViewNumInRedis(id, ++redisViewNum);
 
             note.setViewNum(redisViewNum);
@@ -583,7 +584,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     private Note getById(Long id) throws ZouFanqiException {
-        if (StringUtil.isNotId(id) || id == ConstDB.DEFAULT_PARENT_ID) return null;
+        if (StringUtil.isNotId(id) || StringUtil.equals(id, ConstDB.DEFAULT_PARENT_ID)) return null;
         NoteExample example = new NoteExample();
         example.createCriteria().andIsDelEqualTo(ConstDB.ISDEL_FALSE).andIdEqualTo(id);
 

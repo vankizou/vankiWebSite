@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         if ((old = this.getById(id)) == null)
             return ResultBuilder.buildError(EnumStatusCode.USER_NOT_EXISTS);
 
-        if (loginUserId != old.getId())
+        if (!StringUtil.equals(loginUserId, old.getId()))
             return ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
 
         ResultJson validateNameResult;
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 
         Long avatarId;
         if (StringUtil.isNotId(avatarId = user.getAvatarId()) &&
-                (old.getAvatarId() == null || old.getAvatarId() != avatarId)) {
+                (old.getAvatarId() == null || !StringUtil.equals(old.getAvatarId(), avatarId))) {
             Picture avatar = this.pictureService.getById(avatarId);
             if (avatar != null) {
                 user.setAvatarId(avatar.getId());

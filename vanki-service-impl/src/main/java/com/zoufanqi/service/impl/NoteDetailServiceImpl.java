@@ -56,7 +56,7 @@ public class NoteDetailServiceImpl implements NoteDetailService {
         if (StringUtil.isNotId(userId)) {
             NoteDetail old = this.getById(noteDetail.getId());
             if (old == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
-            if (userId != old.getUserId()) ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
+            if (!StringUtil.equals(userId, old.getUserId())) ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
         }
         int status = this.noteDetailMapper.updateByPrimaryKeyWithBLOBs(noteDetail);
         if (status > 0)

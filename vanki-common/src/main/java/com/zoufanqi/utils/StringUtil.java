@@ -178,10 +178,12 @@ public final class StringUtil {
         return !isId(id);
     }
 
-    public static boolean equals(String str1, String str2) {
-        if (isEmpty(str1) && isEmpty(str2)) return true;
-        if (isEmpty(str1) || isEmpty(str2)) return false;
-        if (str1.equals(str2)) return true;
-        return false;
+    public static boolean equals(Object o1, Object o2) {
+        if (o1 == null || o2 == null) return false;
+        return String.valueOf(o1).equals(String.valueOf(o2));
+    }
+
+    public static boolean notEquals(Object o1, Object o2) {
+        return !equals(o1, o2);
     }
 }
