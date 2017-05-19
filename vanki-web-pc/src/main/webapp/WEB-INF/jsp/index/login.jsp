@@ -30,10 +30,8 @@
         <div class="login-top">
             <h1>登录</h1>
             <form>
-                <input id="j_login_id" type="text" value="ID/手机号" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'ID/登录名';}">
-                <input id="j_login_pwd" type="password" value="******" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = '******';}">
+                <input id="j_login_id" type="text" placeholder="ID/登录名">
+                <input id="j_login_pwd" type="password" placeholder="密码">
             </form>
             <div class="forgot">
                 <a href="#">忘记密码？</a>

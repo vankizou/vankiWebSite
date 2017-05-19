@@ -75,7 +75,7 @@
             <div class="login-top">
                 <h1>登录</h1>
                 <form>
-                    <input id="j_login_id" type="text" placeholder="ID/手机号">
+                    <input id="j_login_id" type="text" placeholder="ID/登录名">
                     <input id="j_login_pwd" type="password" placeholder="密码">
                 </form>
                 <div class="forgot">
