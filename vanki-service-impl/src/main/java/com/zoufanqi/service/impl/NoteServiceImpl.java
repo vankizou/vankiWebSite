@@ -549,7 +549,7 @@ public class NoteServiceImpl implements NoteService {
 
             Note note = JSON.parseObject(redisInfo, Note.class);
 
-            if (loginUserId == null || StringUtil.equals(loginUserId, note.getUserId()))
+            if (StringUtil.notEquals(loginUserId, note.getUserId()))
                 this.updateNoteViewNumInRedis(id, ++redisViewNum);
 
             note.setViewNum(redisViewNum);
