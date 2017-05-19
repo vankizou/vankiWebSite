@@ -88,7 +88,7 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
         /**
          * 不需要登录
          */
-        if (requestUri == null || !AUTO_LOGIN_URI_LIST.contains(requestUri)) return true;
+        if (requestUri == null || !AUTO_LOGIN_URI_LIST.contains(requestUri)) return false;
 
         // session有值，已登录
         UserContext uc = (UserContext) this.request.getSession().getAttribute(ConstService.SESSION_LOGIN_USER);
@@ -104,10 +104,14 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
          */
         String userId = this.redisTemplate.hget(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token);
         if (StringUtil.isEmpty(userId)) {   // 用户不存在
-            this.clearCookieAndSessionInfo(userId);
+            this.clearCookieAndSessionInfo();
             return false;
         }
         User user = this.userService.getById(Long.valueOf(userId));
+        if (user == null) {
+            this.clearCookieAndSessionInfo(String.valueOf(user.getId()));
+            return false;
+        }
         this.buildUCAndSetSessionData(user);
         return true;
     }
