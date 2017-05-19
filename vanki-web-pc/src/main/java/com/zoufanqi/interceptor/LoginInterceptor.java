@@ -50,9 +50,6 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
 
         String requestUri = request.getRequestURI();
 
-        if (requestUri == null || AUTO_LOGIN_URI_LIST.contains(requestUri)) {
-            return checkLogin(requestUri);
-        }
         /**
          * 静态数据依赖于接口. 所以, 可以直接过滤
          */
@@ -67,7 +64,7 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
             }
         }
 
-        checkLogin(null);
+        autoLogin(requestUri);
 
         /*if (userContextObj == null) {
             String head = request.getHeader("X-Requested-With");
@@ -87,37 +84,31 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
         return true;
     }
 
-    private boolean checkLogin(String requestUri) throws ZouFanqiException {
+    private boolean autoLogin(String requestUri) throws ZouFanqiException {
         /**
-         * 需要登录
+         * 不需要登录
          */
+        if (requestUri == null || !AUTO_LOGIN_URI_LIST.contains(requestUri)) return true;
+
+        // session有值，已登录
+        UserContext uc = (UserContext) this.request.getSession().getAttribute(ConstService.SESSION_LOGIN_USER);
+        if (uc != null) return true;
+
+        String token = this.getCookie(ConstService.COOKIE_LOGIN_TOKEN);
+
+        // 无token，不晓得身份
+        if (StringUtil.isEmpty(token)) return false;
 
         /**
-         * 检验cookie中的token
+         * 有token, 但session过期，从缓存中获取数据到session
          */
-        String token = this.getCookie(ConstService.COOKIE_LOGIN_TOKEN);
-        UserContext uc = (UserContext) this.request.getSession().getAttribute(ConstService.SESSION_LOGIN_USER);
-        if (StringUtil.isEmpty(token)) {
-            if (uc == null && requestUri == null) {
-//                throw new ZouFanqiException(EnumStatusCode.NOT_LOGIN);
-                return false;
-            } else {
-                this.updateCookieAndSessionInfo(uc);
-                return true;
-            }
+        String userId = this.redisTemplate.hget(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token);
+        if (StringUtil.isEmpty(userId)) {   // 用户不存在
+            this.clearCookieAndSessionInfo(userId);
+            return false;
         }
-        /**
-         * 有token, 可直接登录, 若无UserContext数据, 则补数据
-         */
-        if (uc == null) {
-            String userId = this.redisTemplate.hget(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token);
-            if (StringUtil.isEmpty(userId)) {
-                if (requestUri == null) return false;//throw new ZouFanqiException(EnumStatusCode.NOT_LOGIN);
-                return true;
-            }
-            User user = this.userService.getById(Long.valueOf(userId));
-            this.buildUCAndSetSessionData(user);
-        }
+        User user = this.userService.getById(Long.valueOf(userId));
+        this.buildUCAndSetSessionData(user);
         return true;
     }
 
