@@ -37,6 +37,9 @@ public class ConstDB {
         public static final int SEX_DEFAULT = 0;    // 性别, 默认
         public static final int SEX_MALE = 1;       // 性别, 男
         public static final int SEX_FEMALE = 2;     // 性别, 女
+
+        public static final int STATUS_CLOSE = 0;   // 用户状态，禁用
+        public static final int STATUS_OPEN = 1;    // 用户状态，启用
     }
 
     public static final class UserLoginRecord {

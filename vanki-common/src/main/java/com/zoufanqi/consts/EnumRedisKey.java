@@ -7,6 +7,9 @@ public enum EnumRedisKey {
     MAP_USER_ID_TOKEN,  // 用户ID -> TOKEN
     MAP_TOKEN_USER_ID,  // TOKEN -> 用户ID
 
+    MAP_USER_ID_USER,   // 用户ID -> Object
+    MAP_NAME_USER,      // 用户name -> Object
+
     TIME_NOTE_(60 * 60 * 2),            // 单个笔记信息，#_noteId -> Note
     TIME_NOTE_DETAIL_LIST_(60 * 60 * 2),     // 单个笔记详情，#_noteId -> List<NoteDetail>
     TIME_NOTE_PAGE_TREE_(60 * 60 * 2),   // 笔记树分页信息，#_userId: {parentId_pageNo_pageSize_navNum -> Page<Note>}

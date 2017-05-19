@@ -12,7 +12,7 @@ public interface UserService {
 
     ResultJson updateById(Long loginUserId, User user) throws ZouFanqiException;
 
-    ResultJson deleteById(String id) throws ZouFanqiException;
+    ResultJson deleteById(Long id) throws ZouFanqiException;
 
     User getById(Long id) throws ZouFanqiException;
 

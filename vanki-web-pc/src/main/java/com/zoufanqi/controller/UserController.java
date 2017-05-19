@@ -50,11 +50,19 @@ public class UserController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/{userId}.html")
-    public ModelAndView listHtml(@PathVariable("userId") Long userId) throws ZouFanqiException {
-        if (StringUtil.isNotId(userId)) userId = this.getUserId();
+    @RequestMapping(value = "/{userIdOrName}.html")
+    public ModelAndView listHtml(@PathVariable("userIdOrName") String userIdOrName) throws ZouFanqiException {
+        if (StringUtil.isEmpty(userIdOrName)) userIdOrName = String.valueOf(this.getUserId());
+        if (StringUtil.isEmpty(userIdOrName)) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
+        User user;
+        if (RegexUtil.isNumber(userIdOrName)) {
+            user = this.userService.getById(Long.valueOf(userIdOrName));
+        } else {
+            user = this.userService.getByName(userIdOrName);
+        }
+        if (user == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
         ModelAndView mv = new ModelAndView("note/list");
-        mv.addObject("userId", userId);
+        mv.addObject("userId", user.getId());
         return mv;
     }
 

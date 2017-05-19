@@ -1,7 +1,9 @@
 package com.zoufanqi.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.zoufanqi.consts.ConstDB;
 import com.zoufanqi.consts.ConstService;
+import com.zoufanqi.consts.EnumRedisKey;
 import com.zoufanqi.entity.Picture;
 import com.zoufanqi.entity.User;
 import com.zoufanqi.entity.UserExample;
@@ -11,6 +13,7 @@ import com.zoufanqi.result.ResultBuilder;
 import com.zoufanqi.result.ResultJson;
 import com.zoufanqi.service.PictureService;
 import com.zoufanqi.service.UserService;
+import com.zoufanqi.service.redis.RedisTemplate;
 import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.EncryptUtil;
 import com.zoufanqi.utils.RegexUtil;
@@ -30,6 +33,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private PictureService pictureService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * @return <br />
@@ -64,9 +69,13 @@ public class UserServiceImpl implements UserService {
         user.setCreateDatetime(date);
 
         int status = this.userMapper.insertSelective(user);
-        if (status > 0) return ResultBuilder.build(user);
+        if (status <= 0) return ResultBuilder.buildDBError();
 
-        return ResultBuilder.buildDBError();
+        this.redisTemplate.hdel(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(user.getId()));
+        if (StringUtil.isNotEmpty(user.getName()))
+            this.redisTemplate.hdel(EnumRedisKey.MAP_NAME_USER.name(), user.getName());
+
+        return ResultBuilder.build();
     }
 
     /**
@@ -122,37 +131,78 @@ public class UserServiceImpl implements UserService {
             }
         }
         int status = this.userMapper.updateByPrimaryKeySelective(user);
-        if (status > 0) return ResultBuilder.build();
-        return ResultBuilder.buildDBError();
-    }
+        if (status <= 0) return ResultBuilder.buildDBError();
 
-    @Override
-    public ResultJson deleteById(String id) throws ZouFanqiException {
-        if (!RegexUtil.isPhone(id)) return ResultBuilder.build();
-
-        UserExample example = new UserExample();
-        example.createCriteria().andPhoneEqualTo(id).andIsDelEqualTo(ConstDB.ISDEL_FALSE);
-
-        User user = new User();
-        user.setIsDel(ConstDB.ISDEL_TRUE);
-
-        this.userMapper.updateByExampleSelective(user, example);
+        this.redisTemplate.hdel(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(id));
+        if (StringUtil.isNotEmpty(old.getName()))
+            this.redisTemplate.hdel(EnumRedisKey.MAP_NAME_USER.name(), old.getName());
+        if (StringUtil.isNotEmpty(user.getName()) && !user.getName().equals(old.getName()))
+            this.redisTemplate.hdel(EnumRedisKey.MAP_NAME_USER.name(), user.getName());
 
         return ResultBuilder.build();
     }
 
     @Override
+    public ResultJson deleteById(Long id) throws ZouFanqiException {
+        User old = this.getById(id);
+        if (old == null) return ResultBuilder.build();
+
+        User user = new User();
+        user.setId(id);
+        user.setIsDel(ConstDB.ISDEL_TRUE);
+
+        int status = this.userMapper.updateByPrimaryKeySelective(user);
+        if (status > 0) {
+            this.redisTemplate.hdel(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(id));
+            if (StringUtil.isNotEmpty(old.getName()))
+                this.redisTemplate.hdel(EnumRedisKey.MAP_NAME_USER.name(), old.getName());
+        }
+        return ResultBuilder.build();
+    }
+
+    @Override
     public User getById(Long id) throws ZouFanqiException {
-        if (StringUtil.isNotId(id) || id > 1000000000) return null;
-        return this.userMapper.selectByPrimaryKey(id);
+        if (StringUtil.isNotId(id)) return null;
+
+        String redisInfo = this.redisTemplate.hget(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(id));
+        if (StringUtil.isNotEmpty(redisInfo)) {
+            if (ConstService.REDIS_DEFAULT_INFO.equals(redisInfo)) return null;
+            return JSON.parseObject(redisInfo, User.class);
+        }
+        /**
+         * 缓存
+         */
+        UserExample example = new UserExample();
+        example.createCriteria().
+                andIdEqualTo(id).
+                andStatusEqualTo(ConstDB.User.STATUS_OPEN).
+                andIsDelEqualTo(ConstDB.ISDEL_FALSE);
+        List<User> userList = this.userMapper.selectByExample(example);
+        if (userList == null || userList.isEmpty()) {
+            this.redisTemplate.hset(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(id), ConstService.REDIS_DEFAULT_INFO);
+            return null;
+        } else {
+            this.redisTemplate.hset(EnumRedisKey.MAP_USER_ID_USER.name(), String.valueOf(id), JSON.toJSONString(userList.get(0)));
+            return userList.get(0);
+        }
     }
 
     @Override
     public User getByName(String name) throws ZouFanqiException {
         if (StringUtil.isEmpty(name)) return null;
-
+        String redisInfo = this.redisTemplate.hget(EnumRedisKey.MAP_NAME_USER.name(), name);
+        if (StringUtil.isNotEmpty(redisInfo)) {
+            if (ConstService.REDIS_DEFAULT_INFO.equals(redisInfo)) return null;
+            return JSON.parseObject(redisInfo, User.class);
+        }
+        /**
+         * 缓存
+         */
         UserExample example = new UserExample();
-        example.createCriteria().andIsDelEqualTo(ConstDB.ISDEL_FALSE).andNameEqualTo(name);
+        example.createCriteria().
+                andIsDelEqualTo(ConstDB.ISDEL_FALSE).
+                andNameEqualTo(name).
+                andStatusEqualTo(ConstDB.User.STATUS_OPEN);
 
         List<User> list = this.userMapper.selectByExample(example);
         int len;
@@ -162,10 +212,15 @@ public class UserServiceImpl implements UserService {
             for (int i = 1; i < len; i++) {
                 User user = list.get(i);
                 if (user == null) continue;
-                this.deleteById(user.getPhone());
+                this.deleteById(user.getId());
             }
         }
-        return list.get(0);
+        User user = list.get(0);
+        if (user == null)
+            this.redisTemplate.hset(EnumRedisKey.MAP_USER_ID_USER.name(), name, ConstService.REDIS_DEFAULT_INFO);
+        else
+            this.redisTemplate.hset(EnumRedisKey.MAP_USER_ID_USER.name(), name, JSON.toJSONString(user));
+        return user;
     }
 
     /**

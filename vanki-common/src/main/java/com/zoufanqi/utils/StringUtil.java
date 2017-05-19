@@ -171,11 +171,11 @@ public final class StringUtil {
     }
 
     public static boolean isId(Long id) {
-        return id != null && id > 0;
+        return id != null && id > 0 && id < 1000000000;
     }
 
     public static boolean isNotId(Long id) {
-        return id == null || id < -1;
+        return !isId(id);
     }
 
     public static boolean equals(String str1, String str2) {
