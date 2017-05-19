@@ -25,7 +25,7 @@
 </head>
 <body>
 <div id="j_loginRegister" class="login">
-    <h2>欢迎您！</h2>
+    <h2>欢&nbsp;&nbsp;迎</h2>
     <div id="j_login">
         <div class="login-top">
             <h1>登录</h1>

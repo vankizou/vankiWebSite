@@ -70,7 +70,7 @@
     </div>
 
     <div id="j_win_loginRegister" class="login" style="display:none; cursor: default" is_pop_win="1">
-        <h2>欢迎您！</h2>
+        <h2>欢&nbsp;&nbsp;迎</h2>
         <div id="j_login">
             <div class="login-top">
                 <h1>登录</h1>
