@@ -4,18 +4,17 @@ import com.zoufanqi.entity.User;
 import com.zoufanqi.exception.ZouFanqiException;
 import com.zoufanqi.result.ResultJson;
 
+/**
+ * Created by vanki on 2017/4/10.
+ */
 public interface UserService {
-    ResultJson add(String phone, String password, Long avatarId,
-                   Integer sex, String nickname, Long cityId, String description, String registerIp) throws ZouFanqiException;
+    ResultJson register(User user) throws ZouFanqiException;
 
-    ResultJson updateById(Long loginUserId, Long id, String phone, String password, Long avatarId,
-                          Integer sex, String nickname, Long cityId, String description) throws ZouFanqiException;
+    ResultJson updateById(Long loginUserId, User user) throws ZouFanqiException;
 
-    int autoUpdateLoginDataById(Long id, String loginIp) throws ZouFanqiException;
-
-    ResultJson deleteByPhone(String phone) throws ZouFanqiException;
+    ResultJson deleteById(String id) throws ZouFanqiException;
 
     User getById(Long id) throws ZouFanqiException;
 
-    User getByPhone(String phone) throws ZouFanqiException;
+    User getByName(String name) throws ZouFanqiException;
 }

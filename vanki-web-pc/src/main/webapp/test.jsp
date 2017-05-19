@@ -15,10 +15,24 @@
 <head>
     <base href="<%=basePath%>">
     <title>test</title>
-    <link href="statics/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="statics/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <script src="statics/js/common/jquery1.11.1.min.js"></script>
-    <script src="statics/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/statics/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/statics/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/statics/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" >
+        $(function () {
+            var params = {id: 123, folderId: 222, title: "i am the title"};
+            $.ajax({
+                url: '/test/aa.html',
+                type: 'GET',
+                dataType: 'JSON',
+                data: params,
+                success: function (data) {
+                    console.info(data);
+                }
+            })
+        });
+    </script>
 </head>
 <body>
 

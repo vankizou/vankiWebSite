@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zoufanqi.mapper.UserLoginRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zoufanqi.entity.UserLoginRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="USER_ID" property="userId" jdbcType="BIGINT" />
+    <result column="ORIGIN" property="origin" jdbcType="INTEGER" />
+    <result column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="PROTOCOL" property="protocol" jdbcType="VARCHAR" />
+    <result column="SCHEME" property="scheme" jdbcType="VARCHAR" />
+    <result column="SERVER_NAME" property="serverName" jdbcType="VARCHAR" />
+    <result column="REMOTE_ADDR" property="remoteAddr" jdbcType="VARCHAR" />
+    <result column="REMOTE_HOST" property="remoteHost" jdbcType="VARCHAR" />
+    <result column="CHARACTER_ENCODING" property="characterEncoding" jdbcType="VARCHAR" />
+    <result column="ACCEPT" property="accept" jdbcType="VARCHAR" />
+    <result column="ACCEPT_ENCODING" property="acceptEncoding" jdbcType="VARCHAR" />
+    <result column="ACCEPT_LANGUAGE" property="acceptLanguage" jdbcType="VARCHAR" />
+    <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
+    <result column="CONNECTION" property="connection" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, ORIGIN, CREATE_DATETIME, IP, PROTOCOL, SCHEME, SERVER_NAME, REMOTE_ADDR, 
+    REMOTE_HOST, CHARACTER_ENCODING, ACCEPT, ACCEPT_ENCODING, ACCEPT_LANGUAGE, USER_AGENT, 
+    CONNECTION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zoufanqi.entity.UserLoginRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_login_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="offset != null and rows != null" >
+      limit #{offset},#{rows}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_login_record
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user_login_record
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zoufanqi.entity.UserLoginRecordExample" >
+    delete from t_user_login_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zoufanqi.entity.UserLoginRecord" >
+    insert into t_user_login_record (ID, USER_ID, ORIGIN, 
+      CREATE_DATETIME, IP, PROTOCOL, 
+      SCHEME, SERVER_NAME, REMOTE_ADDR, 
+      REMOTE_HOST, CHARACTER_ENCODING, ACCEPT, 
+      ACCEPT_ENCODING, ACCEPT_LANGUAGE, USER_AGENT, 
+      CONNECTION)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{origin,jdbcType=INTEGER}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR}, 
+      #{scheme,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, #{remoteAddr,jdbcType=VARCHAR}, 
+      #{remoteHost,jdbcType=VARCHAR}, #{characterEncoding,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR}, 
+      #{acceptEncoding,jdbcType=VARCHAR}, #{acceptLanguage,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, 
+      #{connection,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zoufanqi.entity.UserLoginRecord" >
+    insert into t_user_login_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="origin != null" >
+        ORIGIN,
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL,
+      </if>
+      <if test="scheme != null" >
+        SCHEME,
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME,
+      </if>
+      <if test="remoteAddr != null" >
+        REMOTE_ADDR,
+      </if>
+      <if test="remoteHost != null" >
+        REMOTE_HOST,
+      </if>
+      <if test="characterEncoding != null" >
+        CHARACTER_ENCODING,
+      </if>
+      <if test="accept != null" >
+        ACCEPT,
+      </if>
+      <if test="acceptEncoding != null" >
+        ACCEPT_ENCODING,
+      </if>
+      <if test="acceptLanguage != null" >
+        ACCEPT_LANGUAGE,
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT,
+      </if>
+      <if test="connection != null" >
+        CONNECTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="scheme != null" >
+        #{scheme,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null" >
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteHost != null" >
+        #{remoteHost,jdbcType=VARCHAR},
+      </if>
+      <if test="characterEncoding != null" >
+        #{characterEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="accept != null" >
+        #{accept,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptEncoding != null" >
+        #{acceptEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptLanguage != null" >
+        #{acceptLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="connection != null" >
+        #{connection,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zoufanqi.entity.UserLoginRecordExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_login_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_login_record
+    <set >
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.origin != null" >
+        ORIGIN = #{record.origin,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDatetime != null" >
+        CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protocol != null" >
+        PROTOCOL = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scheme != null" >
+        SCHEME = #{record.scheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverName != null" >
+        SERVER_NAME = #{record.serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remoteAddr != null" >
+        REMOTE_ADDR = #{record.remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remoteHost != null" >
+        REMOTE_HOST = #{record.remoteHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characterEncoding != null" >
+        CHARACTER_ENCODING = #{record.characterEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accept != null" >
+        ACCEPT = #{record.accept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptEncoding != null" >
+        ACCEPT_ENCODING = #{record.acceptEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acceptLanguage != null" >
+        ACCEPT_LANGUAGE = #{record.acceptLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAgent != null" >
+        USER_AGENT = #{record.userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.connection != null" >
+        CONNECTION = #{record.connection,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_login_record
+    set ID = #{record.id,jdbcType=BIGINT},
+      USER_ID = #{record.userId,jdbcType=BIGINT},
+      ORIGIN = #{record.origin,jdbcType=INTEGER},
+      CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      PROTOCOL = #{record.protocol,jdbcType=VARCHAR},
+      SCHEME = #{record.scheme,jdbcType=VARCHAR},
+      SERVER_NAME = #{record.serverName,jdbcType=VARCHAR},
+      REMOTE_ADDR = #{record.remoteAddr,jdbcType=VARCHAR},
+      REMOTE_HOST = #{record.remoteHost,jdbcType=VARCHAR},
+      CHARACTER_ENCODING = #{record.characterEncoding,jdbcType=VARCHAR},
+      ACCEPT = #{record.accept,jdbcType=VARCHAR},
+      ACCEPT_ENCODING = #{record.acceptEncoding,jdbcType=VARCHAR},
+      ACCEPT_LANGUAGE = #{record.acceptLanguage,jdbcType=VARCHAR},
+      USER_AGENT = #{record.userAgent,jdbcType=VARCHAR},
+      CONNECTION = #{record.connection,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zoufanqi.entity.UserLoginRecord" >
+    update t_user_login_record
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="origin != null" >
+        ORIGIN = #{origin,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="scheme != null" >
+        SCHEME = #{scheme,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null" >
+        REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteHost != null" >
+        REMOTE_HOST = #{remoteHost,jdbcType=VARCHAR},
+      </if>
+      <if test="characterEncoding != null" >
+        CHARACTER_ENCODING = #{characterEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="accept != null" >
+        ACCEPT = #{accept,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptEncoding != null" >
+        ACCEPT_ENCODING = #{acceptEncoding,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptLanguage != null" >
+        ACCEPT_LANGUAGE = #{acceptLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null" >
+        USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="connection != null" >
+        CONNECTION = #{connection,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zoufanqi.entity.UserLoginRecord" >
+    update t_user_login_record
+    set USER_ID = #{userId,jdbcType=BIGINT},
+      ORIGIN = #{origin,jdbcType=INTEGER},
+      CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      IP = #{ip,jdbcType=VARCHAR},
+      PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      SCHEME = #{scheme,jdbcType=VARCHAR},
+      SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      REMOTE_HOST = #{remoteHost,jdbcType=VARCHAR},
+      CHARACTER_ENCODING = #{characterEncoding,jdbcType=VARCHAR},
+      ACCEPT = #{accept,jdbcType=VARCHAR},
+      ACCEPT_ENCODING = #{acceptEncoding,jdbcType=VARCHAR},
+      ACCEPT_LANGUAGE = #{acceptLanguage,jdbcType=VARCHAR},
+      USER_AGENT = #{userAgent,jdbcType=VARCHAR},
+      CONNECTION = #{connection,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -9,6 +9,7 @@ public class EncryptUtil {
             '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
     private static String saltValue = "B602CDB2BB5EEEB3187BCCE5CAAE9D11";
 
+
     private static String encrypt(String message, String type) {
         try {
             if (message == null || StringUtil.isEmpty(message)) {
@@ -81,10 +82,9 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args) {
-        String pwd = EncryptUtil.sha("521happy125");
+        String pwd = EncryptUtil.sha("521happysldfksldfjlskdfjlskfjlsdkfjslkdfjsldkfjsldkfjlskdfjsldkfjsdf125");
 
         System.out.println(pwd);
-        System.out.println("6d32f534151c72a42da66ff900554d76cddbef4e41cf4869f9b81b73e4c73898".equals(pwd));
         System.out.println(pwd.length());
     }
 

@@ -3,14 +3,25 @@
 <mapper namespace="com.zoufanqi.mapper.NoteMapper" >
   <resultMap id="BaseResultMap" type="com.zoufanqi.entity.Note" >
     <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
     <result column="USER_ID" property="userId" jdbcType="BIGINT" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="COUNT_NOTE" property="countNote" jdbcType="INTEGER" />
+    <result column="COUNT_NOTE_CONTENT" property="countNoteContent" jdbcType="INTEGER" />
+    <result column="SECRET" property="secret" jdbcType="INTEGER" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
     <result column="TITLE" property="title" jdbcType="VARCHAR" />
-    <result column="STATUS" property="status" jdbcType="INTEGER" />
-    <result column="IS_PUBLIC" property="isPublic" jdbcType="INTEGER" />
     <result column="KEYWORD" property="keyword" jdbcType="VARCHAR" />
+    <result column="SEQUENCE" property="sequence" jdbcType="INTEGER" />
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
     <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
     <result column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="VIEW_NUM" property="viewNum" jdbcType="BIGINT" />
+    <result column="DIGEST" property="digest" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="ORIGIN_URL" property="originUrl" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="STATUS_DESCRIPTION" property="statusDescription" jdbcType="VARCHAR" />
     <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -72,8 +83,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, USER_ID, TITLE, STATUS, IS_PUBLIC, KEYWORD, DESCRIPTION, UPDATE_DATETIME, CREATE_DATETIME, 
-    IS_DEL
+    ID, PARENT_ID, USER_ID, TYPE, COUNT_NOTE, COUNT_NOTE_CONTENT, SECRET, PASSWORD, TITLE, 
+    KEYWORD, SEQUENCE, DESCRIPTION, UPDATE_DATETIME, CREATE_DATETIME, VIEW_NUM, DIGEST, 
+    AUTHOR, ORIGIN_URL, STATUS, STATUS_DESCRIPTION, IS_DEL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zoufanqi.entity.NoteExample" >
     select
@@ -109,35 +121,58 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zoufanqi.entity.Note" >
-    insert into t_note (ID, USER_ID, TITLE, 
-      STATUS, IS_PUBLIC, KEYWORD, 
-      DESCRIPTION, UPDATE_DATETIME, CREATE_DATETIME, 
-      IS_DEL)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{isPublic,jdbcType=INTEGER}, #{keyword,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}, #{createDatetime,jdbcType=TIMESTAMP}, 
-      #{isDel,jdbcType=INTEGER})
+    insert into t_note (ID, PARENT_ID, USER_ID, 
+      TYPE, COUNT_NOTE, COUNT_NOTE_CONTENT, 
+      SECRET, PASSWORD, TITLE, 
+      KEYWORD, SEQUENCE, DESCRIPTION, 
+      UPDATE_DATETIME, CREATE_DATETIME, VIEW_NUM, 
+      DIGEST, AUTHOR, ORIGIN_URL, 
+      STATUS, STATUS_DESCRIPTION, IS_DEL
+      )
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{type,jdbcType=INTEGER}, #{countNote,jdbcType=INTEGER}, #{countNoteContent,jdbcType=INTEGER}, 
+      #{secret,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{keyword,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{updateDatetime,jdbcType=TIMESTAMP}, #{createDatetime,jdbcType=TIMESTAMP}, #{viewNum,jdbcType=BIGINT}, 
+      #{digest,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{originUrl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{statusDescription,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.zoufanqi.entity.Note" >
+  <insert id="insertSelective" parameterType="com.zoufanqi.entity.Note" useGeneratedKeys="true" keyProperty="id" >
     insert into t_note
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
       <if test="userId != null" >
         USER_ID,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="countNote != null" >
+        COUNT_NOTE,
+      </if>
+      <if test="countNoteContent != null" >
+        COUNT_NOTE_CONTENT,
+      </if>
+      <if test="secret != null" >
+        SECRET,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
       </if>
       <if test="title != null" >
         TITLE,
       </if>
-      <if test="status != null" >
-        STATUS,
-      </if>
-      <if test="isPublic != null" >
-        IS_PUBLIC,
-      </if>
       <if test="keyword != null" >
         KEYWORD,
+      </if>
+      <if test="sequence != null" >
+        SEQUENCE,
       </if>
       <if test="description != null" >
         DESCRIPTION,
@@ -148,6 +183,24 @@
       <if test="createDatetime != null" >
         CREATE_DATETIME,
       </if>
+      <if test="viewNum != null" >
+        VIEW_NUM,
+      </if>
+      <if test="digest != null" >
+        DIGEST,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="originUrl != null" >
+        ORIGIN_URL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="statusDescription != null" >
+        STATUS_DESCRIPTION,
+      </if>
       <if test="isDel != null" >
         IS_DEL,
       </if>
@@ -156,20 +209,35 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="countNote != null" >
+        #{countNote,jdbcType=INTEGER},
+      </if>
+      <if test="countNoteContent != null" >
+        #{countNoteContent,jdbcType=INTEGER},
+      </if>
+      <if test="secret != null" >
+        #{secret,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="isPublic != null" >
-        #{isPublic,jdbcType=INTEGER},
-      </if>
       <if test="keyword != null" >
         #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -179,6 +247,24 @@
       </if>
       <if test="createDatetime != null" >
         #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="viewNum != null" >
+        #{viewNum,jdbcType=BIGINT},
+      </if>
+      <if test="digest != null" >
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="originUrl != null" >
+        #{originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusDescription != null" >
+        #{statusDescription,jdbcType=VARCHAR},
       </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
@@ -194,20 +280,35 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_note
     <set >
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+      </if>
       <if test="record.userId != null" >
         USER_ID = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.countNote != null" >
+        COUNT_NOTE = #{record.countNote,jdbcType=INTEGER},
+      </if>
+      <if test="record.countNoteContent != null" >
+        COUNT_NOTE_CONTENT = #{record.countNoteContent,jdbcType=INTEGER},
+      </if>
+      <if test="record.secret != null" >
+        SECRET = #{record.secret,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.title != null" >
         TITLE = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null" >
-        STATUS = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.isPublic != null" >
-        IS_PUBLIC = #{record.isPublic,jdbcType=INTEGER},
-      </if>
       <if test="record.keyword != null" >
         KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sequence != null" >
+        SEQUENCE = #{record.sequence,jdbcType=INTEGER},
       </if>
       <if test="record.description != null" >
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
@@ -217,6 +318,24 @@
       </if>
       <if test="record.createDatetime != null" >
         CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.viewNum != null" >
+        VIEW_NUM = #{record.viewNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.digest != null" >
+        DIGEST = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        AUTHOR = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originUrl != null" >
+        ORIGIN_URL = #{record.originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusDescription != null" >
+        STATUS_DESCRIPTION = #{record.statusDescription,jdbcType=VARCHAR},
       </if>
       <if test="record.isDel != null" >
         IS_DEL = #{record.isDel,jdbcType=INTEGER},
@@ -229,14 +348,25 @@
   <update id="updateByExample" parameterType="map" >
     update t_note
     set ID = #{record.id,jdbcType=BIGINT},
+      PARENT_ID = #{record.parentId,jdbcType=BIGINT},
       USER_ID = #{record.userId,jdbcType=BIGINT},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      COUNT_NOTE = #{record.countNote,jdbcType=INTEGER},
+      COUNT_NOTE_CONTENT = #{record.countNoteContent,jdbcType=INTEGER},
+      SECRET = #{record.secret,jdbcType=INTEGER},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
       TITLE = #{record.title,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=INTEGER},
-      IS_PUBLIC = #{record.isPublic,jdbcType=INTEGER},
       KEYWORD = #{record.keyword,jdbcType=VARCHAR},
+      SEQUENCE = #{record.sequence,jdbcType=INTEGER},
       DESCRIPTION = #{record.description,jdbcType=VARCHAR},
       UPDATE_DATETIME = #{record.updateDatetime,jdbcType=TIMESTAMP},
       CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      VIEW_NUM = #{record.viewNum,jdbcType=BIGINT},
+      DIGEST = #{record.digest,jdbcType=VARCHAR},
+      AUTHOR = #{record.author,jdbcType=VARCHAR},
+      ORIGIN_URL = #{record.originUrl,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      STATUS_DESCRIPTION = #{record.statusDescription,jdbcType=VARCHAR},
       IS_DEL = #{record.isDel,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -245,20 +375,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zoufanqi.entity.Note" >
     update t_note
     <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      </if>
       <if test="userId != null" >
         USER_ID = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="countNote != null" >
+        COUNT_NOTE = #{countNote,jdbcType=INTEGER},
+      </if>
+      <if test="countNoteContent != null" >
+        COUNT_NOTE_CONTENT = #{countNoteContent,jdbcType=INTEGER},
+      </if>
+      <if test="secret != null" >
+        SECRET = #{secret,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         TITLE = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        STATUS = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="isPublic != null" >
-        IS_PUBLIC = #{isPublic,jdbcType=INTEGER},
-      </if>
       <if test="keyword != null" >
         KEYWORD = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        SEQUENCE = #{sequence,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         DESCRIPTION = #{description,jdbcType=VARCHAR},
@@ -269,6 +414,24 @@
       <if test="createDatetime != null" >
         CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="viewNum != null" >
+        VIEW_NUM = #{viewNum,jdbcType=BIGINT},
+      </if>
+      <if test="digest != null" >
+        DIGEST = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="originUrl != null" >
+        ORIGIN_URL = #{originUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusDescription != null" >
+        STATUS_DESCRIPTION = #{statusDescription,jdbcType=VARCHAR},
+      </if>
       <if test="isDel != null" >
         IS_DEL = #{isDel,jdbcType=INTEGER},
       </if>
@@ -277,14 +440,25 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zoufanqi.entity.Note" >
     update t_note
-    set USER_ID = #{userId,jdbcType=BIGINT},
+    set PARENT_ID = #{parentId,jdbcType=BIGINT},
+      USER_ID = #{userId,jdbcType=BIGINT},
+      TYPE = #{type,jdbcType=INTEGER},
+      COUNT_NOTE = #{countNote,jdbcType=INTEGER},
+      COUNT_NOTE_CONTENT = #{countNoteContent,jdbcType=INTEGER},
+      SECRET = #{secret,jdbcType=INTEGER},
+      PASSWORD = #{password,jdbcType=VARCHAR},
       TITLE = #{title,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=INTEGER},
-      IS_PUBLIC = #{isPublic,jdbcType=INTEGER},
       KEYWORD = #{keyword,jdbcType=VARCHAR},
+      SEQUENCE = #{sequence,jdbcType=INTEGER},
       DESCRIPTION = #{description,jdbcType=VARCHAR},
       UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
       CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      VIEW_NUM = #{viewNum,jdbcType=BIGINT},
+      DIGEST = #{digest,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      ORIGIN_URL = #{originUrl,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      STATUS_DESCRIPTION = #{statusDescription,jdbcType=VARCHAR},
       IS_DEL = #{isDel,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}
   </update>

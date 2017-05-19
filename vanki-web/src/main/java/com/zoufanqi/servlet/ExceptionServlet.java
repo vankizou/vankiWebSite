@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.zoufanqi.exception.ZouFanqiException;
 import com.zoufanqi.result.ResultBuilder;
 import com.zoufanqi.result.ResultJson;
+import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,31 +31,37 @@ public class ExceptionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ResultJson result = ResultBuilder.buildError500();
-        
+        ResultJson result = ResultBuilder.buildError();
+
         Object exObject = req.getAttribute("ex");
         if (exObject instanceof ZouFanqiException) {
             ZouFanqiException ex = (ZouFanqiException) exObject;
-        	result = new ResultJson();
-        	result.setCode(ex.getCode());
-        	result.setMsg(ex.getMessage());
-        	result.setData(null);
+            result = new ResultJson();
+            result.setCode(ex.getCode());
+            result.setMsg(ex.getMessage());
+            result.setData(null);
             LOG.error("{}", ExceptionUtil.getExceptionAllMsg(ex));
+            if (ex.getCode() == EnumStatusCode.NOT_LOGIN.getCode()) {
+                resp.sendRedirect("/user/login.html");
+            } else if (ex.getCode() == EnumStatusCode.NOT_FOUND.getCode()) {
+                resp.sendRedirect("/404.html");
+            }
         } else {
-        	String uri = req.getRequestURI();
-	        if (uri.endsWith(EXCEPTION_INDEX)) {
-	            result = ResultBuilder.buildError500();
-	
-	            Exception exObj = (Exception)req.getAttribute("ex");
-	            if (exObj != null) {
-	                LOG.error(ExceptionUtil.getExceptionAllMsg(exObj));
-	            }
-	
-	        } else if (uri.endsWith(EXCEPTION_404)) {
-	            result = ResultBuilder.buildError404();
-	        } else if (uri.endsWith(EXCEPTION_500)) {
-	            result = ResultBuilder.buildError500();
-	        }
+            String uri = req.getRequestURI();
+            if (uri.endsWith(EXCEPTION_INDEX)) {
+                result = ResultBuilder.buildError();
+
+                Exception exObj = (Exception) req.getAttribute("ex");
+                if (exObj != null) {
+                    LOG.error(ExceptionUtil.getExceptionAllMsg(exObj));
+                }
+
+            } else if (uri.endsWith(EXCEPTION_404)) {
+                result = ResultBuilder.buildNotFound();
+                resp.sendRedirect("/404.html");
+            } else if (uri.endsWith(EXCEPTION_500)) {
+                result = ResultBuilder.buildError();
+            }
         }
 
         resp.setContentType(CONTENT_TYPE);

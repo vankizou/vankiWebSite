@@ -170,11 +170,18 @@ public final class StringUtil {
         return !StringUtil.isUUID(id);
     }
 
-    public static boolean isAutoId(Long id) {
+    public static boolean isId(Long id) {
         return id != null && id > 0;
     }
 
-    public static boolean isNotAutoId(Long id) {
+    public static boolean isNotId(Long id) {
         return id == null || id < -1;
+    }
+
+    public static boolean equals(String str1, String str2) {
+        if (isEmpty(str1) && isEmpty(str2)) return true;
+        if (isEmpty(str1) || isEmpty(str2)) return false;
+        if (str1.equals(str2)) return true;
+        return false;
     }
 }

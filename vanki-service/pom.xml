@@ -20,5 +20,11 @@
             <artifactId>vanki-mapper</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.zoufanqi</groupId>
+            <artifactId>vanki-redis</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

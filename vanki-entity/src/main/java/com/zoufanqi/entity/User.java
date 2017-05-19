@@ -7,31 +7,41 @@ import java.util.Date;
 public class User {
     private Long id;
 
-    private String phone;
+    private String name;
 
+    private String alias;
+
+    @JsonIgnore
     private String password;
-
-    private String nickname;
 
     private Long avatarId;
 
-    private String avatarPath;
+    private Integer gender;
 
+    @JsonIgnore
+    private Integer status;
+
+    @JsonIgnore
+    private String findPwdValidation;
+
+    private String motto;
+
+    private String phone;
+
+    private String email;
+
+    private String contact;
+
+    @JsonIgnore
+    private Integer registerOrigin;
+
+    @JsonIgnore
     private String registerIp;
 
-    private Date registerDatetime;
-
-    private Integer loginCount;
-
-    private String lastLoginIp;
-
-    private Date lastLoginDatetime;
-
-    private Long cityId;
-
-    private Integer sex;
-
     private String description;
+
+    @JsonIgnore
+    private Date createDatetime;
 
     @JsonIgnore
     private Integer isDel;
@@ -44,12 +54,20 @@ public class User {
         this.id = id;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getName() {
+        return name;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public String getPassword() {
@@ -60,14 +78,6 @@ public class User {
         this.password = password;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public Long getAvatarId() {
         return avatarId;
     }
@@ -76,12 +86,68 @@ public class User {
         this.avatarId = avatarId;
     }
 
-    public String getAvatarPath() {
-        return avatarPath;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getFindPwdValidation() {
+        return findPwdValidation;
+    }
+
+    public void setFindPwdValidation(String findPwdValidation) {
+        this.findPwdValidation = findPwdValidation;
+    }
+
+    public String getMotto() {
+        return motto;
+    }
+
+    public void setMotto(String motto) {
+        this.motto = motto;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Integer getRegisterOrigin() {
+        return registerOrigin;
+    }
+
+    public void setRegisterOrigin(Integer registerOrigin) {
+        this.registerOrigin = registerOrigin;
     }
 
     public String getRegisterIp() {
@@ -92,60 +158,20 @@ public class User {
         this.registerIp = registerIp;
     }
 
-    public Date getRegisterDatetime() {
-        return registerDatetime;
-    }
-
-    public void setRegisterDatetime(Date registerDatetime) {
-        this.registerDatetime = registerDatetime;
-    }
-
-    public Integer getLoginCount() {
-        return loginCount;
-    }
-
-    public void setLoginCount(Integer loginCount) {
-        this.loginCount = loginCount;
-    }
-
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
-
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp;
-    }
-
-    public Date getLastLoginDatetime() {
-        return lastLoginDatetime;
-    }
-
-    public void setLastLoginDatetime(Date lastLoginDatetime) {
-        this.lastLoginDatetime = lastLoginDatetime;
-    }
-
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreateDatetime() {
+        return createDatetime;
+    }
+
+    public void setCreateDatetime(Date createDatetime) {
+        this.createDatetime = createDatetime;
     }
 
     public Integer getIsDel() {

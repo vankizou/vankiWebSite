@@ -1,20 +1,20 @@
 package com.zoufanqi.exception;
 
-import com.zoufanqi.status.StatusCode;
+import com.zoufanqi.status.EnumStatusCode;
 
-public class ZouFanqiException extends Exception{
+public class ZouFanqiException extends Exception {
 
-	private static final long serialVersionUID = -4010787523984781564L;
+    private static final long serialVersionUID = -4010787523984781561L;
 
-	private int code;
+    private int code;
 
-	public ZouFanqiException(StatusCode code) {
-		super(code.getMsg());
-		this.code = code.getCode();
-	}
+    public ZouFanqiException(EnumStatusCode code) {
+        super(code.getMsg());
+        this.code = code.getCode();
+    }
 
-	public int getCode() {
-		return code;
-	}
+    public int getCode() {
+        return code;
+    }
 
 }

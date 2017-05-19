@@ -15,7 +15,7 @@
 
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/vankiWebSite?generateSimpleParameterMetadata=true"
+                        connectionURL="jdbc:mysql://localhost:3306/vanki?generateSimpleParameterMetadata=true"
                         userId="root" password="">
         </jdbcConnection>
 
@@ -49,12 +49,16 @@
         </javaClientGenerator>
 
 
-        <!--<table tableName="t_user" domainObjectName="User"/>-->
-        <!--<table tableName="t_my_file" domainObjectName="MyFile"/>-->
-        <table tableName="t_tree" domainObjectName="Tree"/>
+        <!--<table tableName="t_env_var" domainObjectName="EnvVar"/>-->
         <!--<table tableName="t_note" domainObjectName="Note"/>-->
-        <!--<table tableName="t_note_content" domainObjectName="NoteContent"/>-->
-        <!--<table tableName="t_variable" domainObjectName="Variable"/>-->
+        <!--<table tableName="t_note_detail" domainObjectName="NoteDetail"/>-->
+        <!--<table tableName="t_picture" domainObjectName="Picture"/>-->
+        <table tableName="t_user" domainObjectName="User"/>
+        <!--<table tableName="t_auth_role" domainObjectName="AuthRole"/>-->
+        <!--<table tableName="t_auth_user_role" domainObjectName="AuthUserRole"/>-->
+        <!--<table tableName="t_auth_resource" domainObjectName="AuthResource"/>-->
+        <!--<table tableName="t_auth_role_operation" domainObjectName="AuthOperation"/>-->
+        <!--<table tableName="t_user_login_record" domainObjectName="UserLoginRecord"/>-->
 
 
     </context>

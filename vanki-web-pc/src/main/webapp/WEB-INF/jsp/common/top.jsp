@@ -7,22 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <meta name="keywords" content="邹凡奇 个人网站">
-    <title>邹凡奇个人网站</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <jsp:include page="../common/common.jsp"></jsp:include>
-    <%--<script type="text/javascript" src="statics/js/common/jquery1.11.1.min.js"></script>--%>
-    <script type="text/javascript" src="statics/bootstrap/js/bootstrap.min.js"></script>
-    <link href="statics/css/common/common.css" rel="stylesheet" type="text/css">
 
-    <link href="statics/css/common/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="statics/css/common/top.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div class="navbar navbar-default navbar-fixed-top">
+<link href="/statics/css/common/top/top.css" rel="stylesheet" type="text/css">
+<link href="/statics/css/common/body.css" rel="stylesheet" type="text/css">
+<link href="/statics/css/index/login_pop.css" rel="stylesheet" type="text/css" media="all"/>
+
+<script type="text/javascript" src="/statics/third/popwindow/jquery.blockUI.js"></script>
+<script type="text/javascript" src="/statics/js/common/top/top.js"></script>
+<script type="text/javascript" src="/statics/js/common/top/loginRegister.js"></script>
+
+
+<div class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -31,45 +26,96 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">www.zoufanqi.com</a>
+            <a class="navbar-brand" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
+                <i class="fa fa-paint-brush"></i>&nbsp;奇奇笔记
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                    <a href="#"><i class="fa fa-fw"></i>主页</a>
+                    <%--<a href="/"><i class="fa fa-home"></i>&nbsp;主页</a>--%>
                 </li>
+
                 <%--<li class="active">
                     <a href="#">Contacts</a>
                 </li>--%>
-                <c:if test="${userContext != null}">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello. ${userContext.user.nickname}
-                            <i class="fa"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">Action</a>
-                            </li>
-                            <li>
-                                <a href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">Separated link</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">One more separated link</a>
-                            </li>
-                        </ul>
-                    </li>
-                </c:if>
+                <c:choose>
+                    <c:when test="${userContext == null}">
+                        <li id="j_login_register">
+                            <a href="javascript:;"><i class="fa fa-home"></i>&nbsp;登录注册</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                <i class="fa fa-street-view"></i>&nbsp;Hi. ${userContext.user.alias}
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="javascript:;"
+                                       style="font-weight: 700; color: red;"><i
+                                            class="fa fa-bell"></i>&nbsp;您的登录ID：${userContext.user.id}</a>
+                                </li>
+                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp;我的笔记</a>
+                                </li>
+                                <li><a href="/logout.html"><i class="fa fa-sign-out"></i>&nbsp;退出</a></li>
+                            </ul>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
+
+    <div id="j_win_loginRegister" class="login" style="display:none; cursor: default" is_pop_win="1">
+        <h2>欢迎您！</h2>
+        <div id="j_login">
+            <div class="login-top">
+                <h1>登录</h1>
+                <form>
+                    <input id="j_login_id" type="text" placeholder="ID/手机号">
+                    <input id="j_login_pwd" type="password" placeholder="密码">
+                </form>
+                <div class="forgot">
+                    <a href="#">忘记密码？</a>
+                    <input id="j_login_submit" type="submit" value="登录">
+                </div>
+            </div>
+            <div class="login-bottom">
+                <h3>新朋友 &nbsp;<a class="j_change" href="javascript:;">注册</a></h3>
+            </div>
+        </div>
+
+        <div id="j_register" style="display: none;">
+            <div class="login-top">
+                <h1>注册</h1>
+                <form>
+                    <input id="j_reg_alias" type="text" placeholder="昵称" title="用户昵称，只作显示">
+                    &nbsp;<i style="color:black;" class="fa fa-question-circle" title="用户昵称，只作显示"></i>
+                    <input id="j_reg_pwd" type="password" placeholder="登录密码" title="登录密码">
+                    &nbsp;<i style="color:black;" class="fa fa-question-circle" title="登录密码"></i>
+                    <input id="j_reg_confirm_pwd" type="password" placeholder="确认密码" title="确认密码">
+                    &nbsp;<i style="color:black;" class="fa fa-question-circle" title="确认密码"></i>
+                    <input id="j_reg_find_pwd_validation" type="text" placeholder="密保验证符"
+                           title="可为任意字符，用于校验身份。如：忘记原密码更改新密码。请勿必牢记！">
+                    &nbsp;<i style="color:black;" class="fa fa-question-circle"
+                             title="可为任意字符，用于校验身份。如：忘记原密码更改新密码。请勿必牢记！"></i>
+                    <div class="c_imgcode_div">
+                        <input class="c_imagecode" id="j_reg_imagecode" placeholder="验证码计算值"/>
+                        <img class="c_imagecode_img" id="j_reg_imagecode_img" src=""/>
+                    </div>
+                </form>
+                <div class="forgot">
+                    <input id="j_register_submit" type="submit" value="注册">
+                </div>
+            </div>
+            <div class="login-bottom">
+                <h3>老朋友 &nbsp;<a class="j_change" href="javascript:;">登录</a></h3>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
-</html>
+
+

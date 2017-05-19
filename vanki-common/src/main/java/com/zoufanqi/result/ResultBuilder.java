@@ -1,6 +1,6 @@
 package com.zoufanqi.result;
 
-import com.zoufanqi.status.StatusCode;
+import com.zoufanqi.status.EnumStatusCode;
 
 public class ResultBuilder {
 
@@ -10,36 +10,40 @@ public class ResultBuilder {
         return new ResultJson(NULL);
     }
 
-    public static ResultJson buildError500() {
-        return new ResultJson(StatusCode.ERROR_500, NULL);
+    public static ResultJson build(Object data) {
+        return new ResultJson(EnumStatusCode.SUCCESS, data);
     }
 
-    public static ResultJson buildError404() {
-        return new ResultJson(StatusCode.ERROR_404, NULL);
-    }
-
-    public static ResultJson buildErrorDB() {
-        return new ResultJson(StatusCode.ERROR_DB, NULL);
-    }
-
-    public static ResultJson buildException() {
-        return new ResultJson(StatusCode.EXCEPTION, NULL);
-    }
-
-    public static ResultJson buildParamError() {
-        return new ResultJson(StatusCode.ERROR_PARAM, NULL);
-    }
-
-    public static ResultJson build(StatusCode code, Object data) {
+    public static ResultJson build(EnumStatusCode code, Object data) {
         return new ResultJson(code, data);
     }
 
-    public static ResultJson buildError(StatusCode code) {
+    public static ResultJson buildError() {
+        return new ResultJson(EnumStatusCode.ERROR, NULL);
+    }
+
+    public static ResultJson buildError(EnumStatusCode code) {
         return build(code, NULL);
     }
 
-    public static ResultJson build(Object data) {
-        return new ResultJson(StatusCode.SUCCESS, data);
+    public static ResultJson buildError(EnumStatusCode code, Object data) {
+        return build(code, data);
+    }
+
+    public static ResultJson buildNotFound() {
+        return new ResultJson(EnumStatusCode.NOT_FOUND, NULL);
+    }
+
+    public static ResultJson buildDBError() {
+        return new ResultJson(EnumStatusCode.DB_ERROR, NULL);
+    }
+
+    public static ResultJson buildException() {
+        return new ResultJson(EnumStatusCode.EXCEPTION, NULL);
+    }
+
+    public static ResultJson buildParamError() {
+        return new ResultJson(EnumStatusCode.ERROR_PARAM, NULL);
     }
 
 

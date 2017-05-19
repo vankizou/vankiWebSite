@@ -12,8 +12,52 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="com.zoufanqi.controller"/>
+
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <context:annotation-config/>
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.zoufanqi.interceptor.LoginInterceptor">
+                <property name="commonExcludedUrls">
+                    <list>
+                        <value>.html</value>
+                        <value>.json</value>
+
+                        <!-- 静态文件 -->
+                        <value>.js</value>
+                        <value>.css</value>
+                        <value>.jpg</value>
+                        <value>.jpeg</value>
+                        <value>.png</value>
+                        <value>.ico</value>
+                        <value>.gif</value>
+                        <value>.mp4</value>
+
+                        <!-- 字体 -->
+                        <value>.ttf</value>
+                        <value>.eot</value>
+                        <value>.woff</value>
+                        <value>.woff2</value>
+                        <value>.svg</value>
+
+                        <!-- 异常 -->
+                        <value>/exception</value>
+                        <value>/404</value>
+                        <value>/405</value>
+                        <value>/500</value>
+                    </list>
+                </property>
+                <property name="excludedUrls">
+                    <list>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -46,6 +90,7 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--<property name="suffix" value=".jsp"/>-->
         <property name="suffix" value=".jsp"/>
     </bean>
 
@@ -53,5 +98,4 @@
         <property name="defaultErrorView" value="forward:/exception/index"></property>
         <property name="exceptionAttribute" value="ex"></property>
     </bean>
-
 </beans>

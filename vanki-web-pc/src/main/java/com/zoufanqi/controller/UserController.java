@@ -1,18 +1,27 @@
 package com.zoufanqi.controller;
 
+import com.zoufanqi.consts.ConstDB;
 import com.zoufanqi.entity.User;
+import com.zoufanqi.entity.UserLoginRecord;
 import com.zoufanqi.exception.ZouFanqiException;
 import com.zoufanqi.result.ResultBuilder;
 import com.zoufanqi.result.ResultJson;
+import com.zoufanqi.service.UserLoginRecordService;
 import com.zoufanqi.service.UserService;
-import com.zoufanqi.status.UserCode;
+import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.EncryptUtil;
+import com.zoufanqi.utils.RegexUtil;
+import com.zoufanqi.utils.RemoteRequestUtil;
 import com.zoufanqi.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 /**
  * 用户
@@ -20,21 +29,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseSessionController {
+public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImageCodeController imageCodeController;
+    @Autowired
+    private UserLoginRecordService userLoginRecordService;
+
+    @RequestMapping(value = "/login.html")
+    public ModelAndView loginHtml() throws IOException {
+        ModelAndView mv = new ModelAndView("index/login");
+        return mv;
+    }
+
+    @RequestMapping(value = "/home.html")
+    public String homeHtml() throws ZouFanqiException {
+        Long userId;
+        if ((userId = this.justGetUserId()) != null) return "redirect:/user/" + userId + ".html";
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{userId}.html")
+    public ModelAndView listHtml(@PathVariable("userId") Long userId) throws ZouFanqiException {
+        if (StringUtil.isNotId(userId)) userId = this.getUserId();
+        ModelAndView mv = new ModelAndView("note/list");
+        mv.addObject("userId", userId);
+        return mv;
+    }
 
     /**
      * 添加用户
-     *
-     * @param phone
-     * @param password
-     * @param avatarId
-     * @param sex
-     * @param nickname
-     * @param cityId
-     * @param description
-     * @param registerIp
      *
      * @return <br />
      * 10001 用户密码长度不符
@@ -43,17 +68,26 @@ public class UserController extends BaseSessionController {
      * @throws ZouFanqiException
      */
     @ResponseBody
-    @RequestMapping(value = "/add.json", method = RequestMethod.POST)
-    public ResultJson add(String phone, String password, Long avatarId,
-                          Integer sex, String nickname, Long cityId, String description, String registerIp) throws ZouFanqiException {
-        return this.userService.add(phone, password, avatarId,
-                sex, nickname, cityId, description, registerIp);
+    @RequestMapping(value = "/register.json", method = RequestMethod.POST)
+    public ResultJson register(User user, String imageCode) throws ZouFanqiException, IOException {
+        if (!imageCodeController.validate(imageCode)) {
+            String newImageCode = this.imageCodeController.getImageCodeBase64(null, null);
+            return ResultBuilder.buildError(EnumStatusCode.IMAGE_CODE_VALIDATE_FAIL, newImageCode);
+        }
+        String ip = RemoteRequestUtil.getRequestIP(this.request);
+        user.setRegisterIp(ip);
+        ResultJson result = this.userService.register(user);
+        if (result.getCode() == EnumStatusCode.SUCCESS.getCode()) {
+            this.buildUCAndSetSessionData(user);
+            this.userLoginRecordService.add(UserLoginRecord.build(user.getId(), ConstDB.UserLoginRecord.ORIGIN_NONE, request));
+        }
+        return result;
     }
 
     /**
-     * 手机号登录
+     * ID/NAME
      *
-     * @param phone
+     * @param account
      * @param password
      *
      * @return <br />
@@ -64,18 +98,34 @@ public class UserController extends BaseSessionController {
      * @throws ZouFanqiException
      */
     @ResponseBody
-    @RequestMapping(value = "/loginByPhone.json", method = RequestMethod.GET)
-    public ResultJson loginByPhone(String phone, String password) throws ZouFanqiException {
+    @RequestMapping(value = "/login.json", method = RequestMethod.GET)
+    public ResultJson login(String account, String password) throws ZouFanqiException {
+        if (StringUtil.isEmpty(account))
+            return ResultBuilder.buildParamError();
         if (StringUtil.isEmpty(password))
-            return ResultBuilder.buildError(UserCode.PASSWORD_LEN_NOT_ALLOW);
-        User user = this.userService.getByPhone(phone);
-        if (user == null) return ResultBuilder.buildError(UserCode.USER_NOT_EXISTS);
+            return ResultBuilder.buildError(EnumStatusCode.USER_PASSWORD_LEN_NOT_ALLOW);
+
+        User user;
+        if (RegexUtil.isNumber(account)) {
+            user = this.userService.getById(Long.valueOf(account));
+        } else {
+            user = this.userService.getByName(account);
+        }
+        if (user == null) return ResultBuilder.buildError(EnumStatusCode.USER_NOT_EXISTS);
 
         if (!EncryptUtil.sha(password).equals(user.getPassword()))
-            return ResultBuilder.buildError(UserCode.PASSWORD_ERROR);
+            return ResultBuilder.buildError(EnumStatusCode.USER_PASSWORD_ERROR);
 
-        this.assembledUCAndSetSessionData(user);
+        this.buildUCAndSetSessionData(user);
+
+        this.userLoginRecordService.add(UserLoginRecord.build(user.getId(), ConstDB.UserLoginRecord.ORIGIN_NONE, request));
 
         return ResultBuilder.build();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateById.json", method = RequestMethod.POST)
+    public ResultJson updateById(User user) throws ZouFanqiException {
+        return this.userService.updateById(this.getUserId(), user);
     }
 }

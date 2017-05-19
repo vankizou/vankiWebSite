@@ -5,16 +5,31 @@
   Time: 12:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script type="text/javascript" src="statics/js/common/jquery-3.1.1.min.js"></script>
+<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
 
-<script type="text/javascript" src="statics/easyUI/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="statics/easyUI/src/jquery.draggable.js"></script>
-<script type="text/javascript" src="statics/easyUI/src/jquery.droppable.js"></script>
-<link href="statics/easyUI/themes/icon.css" rel="stylesheet" type="text/css">
-<link href="statics/easyUI/themes/default/easyui.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" type="image/x-icon" href="/statics/images/common/logo/logo.ico"/>
+<script type="text/javascript" src="/statics/third/jquery/jquery-3.1.1.min.js"></script>
+<%--<script type="text/javascript" src="/statics/third/popwindow/jquery.js"></script>--%>
+<%-- dialog --%>
+<link rel="stylesheet" href="/statics/third/dialog/css/ui-dialog.css">
+<%--<script src="/statics/third/dialog/lib/jquery-1.10.2.js"></script>--%>
+<script src="/statics/third/dialog/dist/dialog-min.js"></script>
+<%------------%>
 
-<script type="text/javascript" src="statics/js/common/myAjax.js"></script>
-<script type="text/javascript" src="statics/js/constant/constAjaxUrl.js"></script>
-<script type="text/javascript" src="statics/js/constant/constDB.js"></script>
-<script type="text/javascript" src="statics/js/common/easyuiUtil.js"></script>
+<script type="text/javascript" src="/statics/third/bootstrap/js/bootstrap.min.js"></script>
+<link href="/statics/third/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/statics/third/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/statics/third/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="/statics/third/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/statics/css/common/common.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/statics/js/common/varUtil.js"></script>
+<script type="text/javascript" src="/statics/js/common/msgUtil.js"></script>
+<script type="text/javascript" src="/statics/js/common/vankiAjax.js"></script>
+<script type="text/javascript" src="/statics/js/constant/constAjaxUrl.js"></script>
+<script type="text/javascript" src="/statics/js/constant/constDB.js"></script>
+<script type="text/javascript" src="/statics/js/constant/constStatusCode.js"></script>
+
+

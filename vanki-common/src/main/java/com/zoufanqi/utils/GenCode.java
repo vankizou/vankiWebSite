@@ -16,8 +16,8 @@ public class GenCode {
 //		list1 = getBeanName();
 
         ArrayList<String> list1 = new ArrayList<String>();
-        list1.add("User");
-        list1.add("MyFile");
+        list1.add("ShareBicycle");
+//        list1.add("MyFile");
 
 		writeServiceInterface(list1,"f:/service");
 		writeServiceImplCls(list1, "f:/service/impl");

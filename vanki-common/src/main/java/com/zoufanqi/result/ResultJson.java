@@ -1,6 +1,6 @@
 package com.zoufanqi.result;
 
-import com.zoufanqi.status.StatusCode;
+import com.zoufanqi.status.EnumStatusCode;
 
 public class ResultJson {
 
@@ -9,14 +9,14 @@ public class ResultJson {
     private Object data;
 
     public ResultJson() {
-        this(StatusCode.SUCCESS, null);
+        this(EnumStatusCode.SUCCESS, null);
     }
 
     public ResultJson(Object data) {
-        this(StatusCode.SUCCESS, data);
+        this(EnumStatusCode.SUCCESS, data);
     }
 
-    public ResultJson(StatusCode code, Object data) {
+    public ResultJson(EnumStatusCode code, Object data) {
         this.setCode(code.getCode());
         this.setMsg(code.getMsg());
         this.data = data;

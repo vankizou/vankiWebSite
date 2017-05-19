@@ -3,19 +3,21 @@
 <mapper namespace="com.zoufanqi.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.zoufanqi.entity.User" >
     <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ALIAS" property="alias" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
-    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
     <result column="AVATAR_ID" property="avatarId" jdbcType="BIGINT" />
-    <result column="AVATAR_PATH" property="avatarPath" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="FIND_PWD_VALIDATION" property="findPwdValidation" jdbcType="VARCHAR" />
+    <result column="MOTTO" property="motto" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="REGISTER_ORIGIN" property="registerOrigin" jdbcType="INTEGER" />
     <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
-    <result column="REGISTER_DATETIME" property="registerDatetime" jdbcType="TIMESTAMP" />
-    <result column="LOGIN_COUNT" property="loginCount" jdbcType="INTEGER" />
-    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
-    <result column="LAST_LOGIN_DATETIME" property="lastLoginDatetime" jdbcType="TIMESTAMP" />
-    <result column="CITY_ID" property="cityId" jdbcType="BIGINT" />
-    <result column="SEX" property="sex" jdbcType="INTEGER" />
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP" />
     <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -77,8 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, PHONE, PASSWORD, NICKNAME, AVATAR_ID, AVATAR_PATH, REGISTER_IP, REGISTER_DATETIME, 
-    LOGIN_COUNT, LAST_LOGIN_IP, LAST_LOGIN_DATETIME, CITY_ID, SEX, DESCRIPTION, IS_DEL
+    ID, NAME, ALIAS, PASSWORD, AVATAR_ID, GENDER, STATUS, FIND_PWD_VALIDATION, MOTTO, 
+    PHONE, EMAIL, CONTACT, REGISTER_ORIGIN, REGISTER_IP, DESCRIPTION, CREATE_DATETIME, 
+    IS_DEL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zoufanqi.entity.UserExample" >
     select
@@ -114,63 +117,69 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zoufanqi.entity.User" >
-    insert into t_user (ID, PHONE, PASSWORD, 
-      NICKNAME, AVATAR_ID, AVATAR_PATH, 
-      REGISTER_IP, REGISTER_DATETIME, LOGIN_COUNT, 
-      LAST_LOGIN_IP, LAST_LOGIN_DATETIME, CITY_ID, 
-      SEX, DESCRIPTION, IS_DEL
-      )
-    values (#{id,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{avatarId,jdbcType=BIGINT}, #{avatarPath,jdbcType=VARCHAR}, 
-      #{registerIp,jdbcType=VARCHAR}, #{registerDatetime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=INTEGER}, 
-      #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginDatetime,jdbcType=TIMESTAMP}, #{cityId,jdbcType=BIGINT}, 
-      #{sex,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
-      )
+    insert into t_user (ID, NAME, ALIAS, 
+      PASSWORD, AVATAR_ID, GENDER, 
+      STATUS, FIND_PWD_VALIDATION, MOTTO, 
+      PHONE, EMAIL, CONTACT, 
+      REGISTER_ORIGIN, REGISTER_IP, DESCRIPTION, 
+      CREATE_DATETIME, IS_DEL)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{avatarId,jdbcType=BIGINT}, #{gender,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{findPwdValidation,jdbcType=VARCHAR}, #{motto,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{registerOrigin,jdbcType=INTEGER}, #{registerIp,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zoufanqi.entity.User" >
+  <insert id="insertSelective" parameterType="com.zoufanqi.entity.User" useGeneratedKeys="true" keyProperty="id" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="phone != null" >
-        PHONE,
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="alias != null" >
+        ALIAS,
       </if>
       <if test="password != null" >
         PASSWORD,
       </if>
-      <if test="nickname != null" >
-        NICKNAME,
-      </if>
       <if test="avatarId != null" >
         AVATAR_ID,
       </if>
-      <if test="avatarPath != null" >
-        AVATAR_PATH,
+      <if test="gender != null" >
+        GENDER,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="findPwdValidation != null" >
+        FIND_PWD_VALIDATION,
+      </if>
+      <if test="motto != null" >
+        MOTTO,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="contact != null" >
+        CONTACT,
+      </if>
+      <if test="registerOrigin != null" >
+        REGISTER_ORIGIN,
       </if>
       <if test="registerIp != null" >
         REGISTER_IP,
       </if>
-      <if test="registerDatetime != null" >
-        REGISTER_DATETIME,
-      </if>
-      <if test="loginCount != null" >
-        LOGIN_COUNT,
-      </if>
-      <if test="lastLoginIp != null" >
-        LAST_LOGIN_IP,
-      </if>
-      <if test="lastLoginDatetime != null" >
-        LAST_LOGIN_DATETIME,
-      </if>
-      <if test="cityId != null" >
-        CITY_ID,
-      </if>
-      <if test="sex != null" >
-        SEX,
-      </if>
       <if test="description != null" >
         DESCRIPTION,
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME,
       </if>
       <if test="isDel != null" >
         IS_DEL,
@@ -180,44 +189,50 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null" >
-        #{nickname,jdbcType=VARCHAR},
-      </if>
       <if test="avatarId != null" >
         #{avatarId,jdbcType=BIGINT},
       </if>
-      <if test="avatarPath != null" >
-        #{avatarPath,jdbcType=VARCHAR},
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="findPwdValidation != null" >
+        #{findPwdValidation,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null" >
+        #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="registerOrigin != null" >
+        #{registerOrigin,jdbcType=INTEGER},
       </if>
       <if test="registerIp != null" >
         #{registerIp,jdbcType=VARCHAR},
       </if>
-      <if test="registerDatetime != null" >
-        #{registerDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="loginCount != null" >
-        #{loginCount,jdbcType=INTEGER},
-      </if>
-      <if test="lastLoginIp != null" >
-        #{lastLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginDatetime != null" >
-        #{lastLoginDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cityId != null" >
-        #{cityId,jdbcType=BIGINT},
-      </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
-      </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
@@ -233,44 +248,50 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_user
     <set >
-      <if test="record.phone != null" >
-        PHONE = #{record.phone,jdbcType=VARCHAR},
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alias != null" >
+        ALIAS = #{record.alias,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null" >
         PASSWORD = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null" >
-        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      </if>
       <if test="record.avatarId != null" >
         AVATAR_ID = #{record.avatarId,jdbcType=BIGINT},
       </if>
-      <if test="record.avatarPath != null" >
-        AVATAR_PATH = #{record.avatarPath,jdbcType=VARCHAR},
+      <if test="record.gender != null" >
+        GENDER = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.findPwdValidation != null" >
+        FIND_PWD_VALIDATION = #{record.findPwdValidation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motto != null" >
+        MOTTO = #{record.motto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null" >
+        CONTACT = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerOrigin != null" >
+        REGISTER_ORIGIN = #{record.registerOrigin,jdbcType=INTEGER},
       </if>
       <if test="record.registerIp != null" >
         REGISTER_IP = #{record.registerIp,jdbcType=VARCHAR},
       </if>
-      <if test="record.registerDatetime != null" >
-        REGISTER_DATETIME = #{record.registerDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.loginCount != null" >
-        LOGIN_COUNT = #{record.loginCount,jdbcType=INTEGER},
-      </if>
-      <if test="record.lastLoginIp != null" >
-        LAST_LOGIN_IP = #{record.lastLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastLoginDatetime != null" >
-        LAST_LOGIN_DATETIME = #{record.lastLoginDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.cityId != null" >
-        CITY_ID = #{record.cityId,jdbcType=BIGINT},
-      </if>
-      <if test="record.sex != null" >
-        SEX = #{record.sex,jdbcType=INTEGER},
-      </if>
       <if test="record.description != null" >
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.isDel != null" >
         IS_DEL = #{record.isDel,jdbcType=INTEGER},
@@ -283,19 +304,21 @@
   <update id="updateByExample" parameterType="map" >
     update t_user
     set ID = #{record.id,jdbcType=BIGINT},
-      PHONE = #{record.phone,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ALIAS = #{record.alias,jdbcType=VARCHAR},
       PASSWORD = #{record.password,jdbcType=VARCHAR},
-      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
       AVATAR_ID = #{record.avatarId,jdbcType=BIGINT},
-      AVATAR_PATH = #{record.avatarPath,jdbcType=VARCHAR},
+      GENDER = #{record.gender,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      FIND_PWD_VALIDATION = #{record.findPwdValidation,jdbcType=VARCHAR},
+      MOTTO = #{record.motto,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      CONTACT = #{record.contact,jdbcType=VARCHAR},
+      REGISTER_ORIGIN = #{record.registerOrigin,jdbcType=INTEGER},
       REGISTER_IP = #{record.registerIp,jdbcType=VARCHAR},
-      REGISTER_DATETIME = #{record.registerDatetime,jdbcType=TIMESTAMP},
-      LOGIN_COUNT = #{record.loginCount,jdbcType=INTEGER},
-      LAST_LOGIN_IP = #{record.lastLoginIp,jdbcType=VARCHAR},
-      LAST_LOGIN_DATETIME = #{record.lastLoginDatetime,jdbcType=TIMESTAMP},
-      CITY_ID = #{record.cityId,jdbcType=BIGINT},
-      SEX = #{record.sex,jdbcType=INTEGER},
       DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
       IS_DEL = #{record.isDel,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -304,44 +327,50 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zoufanqi.entity.User" >
     update t_user
     <set >
-      <if test="phone != null" >
-        PHONE = #{phone,jdbcType=VARCHAR},
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        ALIAS = #{alias,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null" >
-        NICKNAME = #{nickname,jdbcType=VARCHAR},
-      </if>
       <if test="avatarId != null" >
         AVATAR_ID = #{avatarId,jdbcType=BIGINT},
       </if>
-      <if test="avatarPath != null" >
-        AVATAR_PATH = #{avatarPath,jdbcType=VARCHAR},
+      <if test="gender != null" >
+        GENDER = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="findPwdValidation != null" >
+        FIND_PWD_VALIDATION = #{findPwdValidation,jdbcType=VARCHAR},
+      </if>
+      <if test="motto != null" >
+        MOTTO = #{motto,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        CONTACT = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="registerOrigin != null" >
+        REGISTER_ORIGIN = #{registerOrigin,jdbcType=INTEGER},
       </if>
       <if test="registerIp != null" >
         REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
       </if>
-      <if test="registerDatetime != null" >
-        REGISTER_DATETIME = #{registerDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="loginCount != null" >
-        LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
-      </if>
-      <if test="lastLoginIp != null" >
-        LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginDatetime != null" >
-        LAST_LOGIN_DATETIME = #{lastLoginDatetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cityId != null" >
-        CITY_ID = #{cityId,jdbcType=BIGINT},
-      </if>
-      <if test="sex != null" >
-        SEX = #{sex,jdbcType=INTEGER},
-      </if>
       <if test="description != null" >
         DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDel != null" >
         IS_DEL = #{isDel,jdbcType=INTEGER},
@@ -351,19 +380,21 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zoufanqi.entity.User" >
     update t_user
-    set PHONE = #{phone,jdbcType=VARCHAR},
+    set NAME = #{name,jdbcType=VARCHAR},
+      ALIAS = #{alias,jdbcType=VARCHAR},
       PASSWORD = #{password,jdbcType=VARCHAR},
-      NICKNAME = #{nickname,jdbcType=VARCHAR},
       AVATAR_ID = #{avatarId,jdbcType=BIGINT},
-      AVATAR_PATH = #{avatarPath,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      FIND_PWD_VALIDATION = #{findPwdValidation,jdbcType=VARCHAR},
+      MOTTO = #{motto,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CONTACT = #{contact,jdbcType=VARCHAR},
+      REGISTER_ORIGIN = #{registerOrigin,jdbcType=INTEGER},
       REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
-      REGISTER_DATETIME = #{registerDatetime,jdbcType=TIMESTAMP},
-      LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
-      LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
-      LAST_LOGIN_DATETIME = #{lastLoginDatetime,jdbcType=TIMESTAMP},
-      CITY_ID = #{cityId,jdbcType=BIGINT},
-      SEX = #{sex,jdbcType=INTEGER},
       DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
       IS_DEL = #{isDel,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}
   </update>

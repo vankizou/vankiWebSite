@@ -1,0 +1,70 @@
+/*================右键菜单==================*/
+div#rMenu {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    background-color: #f3f3f3;
+    text-align: left;
+    /*padding: 2px;*/
+}
+
+div#rMenu ul {
+    padding: 5px 10px 0;
+}
+
+div#rMenu ul li {
+    margin: 2px 0;
+    padding: 0;
+    cursor: pointer;
+    list-style: none outside none;
+    background-color: #f3f3f3;
+    font-size: 12px;
+}
+
+div#rMenu ul li:hover {
+    font-weight: 700;
+}
+
+/*=========================================*/
+
+.note_content_common_view {
+    margin-bottom: 10px;
+    display: none;
+}
+
+.note_content_common_view span {
+    height: 34px;
+    padding: 10px 10px;
+    margin-right: 20px;
+}
+
+.note_content_common_edit {
+    margin-bottom: 10px;
+    display: none;
+}
+
+.note_content_common_edit span {
+    height: 34px;
+    margin-right: 20px;
+}
+
+.note_content_common_edit input {
+    height: 28px;
+}
+
+.note_content_common_edit input .c_title {
+    width: 200px;
+}
+
+.note_content_common_edit select {
+    height: 28px;
+    width: 100px;
+}
+
+.note_content_common_edit code {
+    height: 28px;
+}
+
+label {
+    padding: 0 5px;
+}

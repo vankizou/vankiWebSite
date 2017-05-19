@@ -1,0 +1,79 @@
+package com.zoufanqi.mapper.impl;
+
+import com.zoufanqi.entity.###entity###;
+import com.zoufanqi.entity.###example###;
+import com.zoufanqi.mapper.###mapper###;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class ###mapper###Impl extends BaseMapper implements ###mapper### {
+
+    @Override
+    public int countByExample(###example### example) {
+        ###mapper### mapper = this.getReadSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.countByExample(example);
+    }
+
+    @Override
+    public int deleteByExample(###example### example) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.deleteByExample(example);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insert(###entity### record) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.insert(record);
+    }
+
+    @Override
+    public int insertSelective(###entity### record) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.insertSelective(record);
+    }
+
+    @Override
+    public List<###entity###> selectByExample(###example### example) {
+        ###mapper### mapper = this.getReadSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.selectByExample(example);
+    }
+
+    @Override
+    public ###entity### selectByPrimaryKey(Long id) {
+        ###mapper### mapper = this.getReadSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByExampleSelective(###entity### record, ###example### example) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.updateByExampleSelective(record, example);
+    }
+
+    @Override
+    public int updateByExample(###entity### record, ###example### example) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.updateByExample(record, example);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(###entity### record) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateByPrimaryKey(###entity### record) {
+        ###mapper### mapper = this.getWriteSqlSessionTemplate().getMapper(###mapper###.class);
+        return mapper.updateByPrimaryKey(record);
+    }
+
+}

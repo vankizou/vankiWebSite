@@ -1,0 +1,75 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.zoufanqi.service.redis"/>
+
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+        <property name="testWhileIdle" value="${redis.testWhileIdle}"/>
+    </bean>
+
+    <!-- 写 -->
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" destroy-method="destroy">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg>
+            <list>
+                <bean class="com.zoufanqi.service.redis.init.MyJedisShardInfo">
+                    <constructor-arg value="${redis.host}"/>
+                    <constructor-arg value="${redis.pass}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.port}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.db}"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="jedisPool" class="com.zoufanqi.service.redis.init.MyJedisPoolInfo" destroy-method="destroy">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg value="${redis.host}"/>
+        <constructor-arg type="int" value="${redis.port}"/>
+        <constructor-arg type="int" value="${redis.timeout}"/>
+        <constructor-arg value="${redis.pass}"/>
+        <constructor-arg type="java.lang.Integer" value="${redis.db}"/>
+    </bean>
+
+    <!-- 读1 -->
+    <bean id="shardedJedisReadPool1" class="redis.clients.jedis.ShardedJedisPool" destroy-method="destroy">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg>
+            <list>
+                <bean class="com.zoufanqi.service.redis.init.MyJedisShardInfo">
+                    <constructor-arg value="${redis.host}"/>
+                    <constructor-arg value="${redis.pass}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.port}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.db}"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 读2 -->
+    <bean id="shardedJedisReadPool2" class="redis.clients.jedis.ShardedJedisPool" destroy-method="destroy">
+        <constructor-arg ref="jedisPoolConfig"/>
+        <constructor-arg>
+            <list>
+                <bean class="com.zoufanqi.service.redis.init.MyJedisShardInfo">
+                    <constructor-arg value="${redis.host}"/>
+                    <constructor-arg value="${redis.pass}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.port}"/>
+                    <constructor-arg type="java.lang.Integer" value="${redis.db}"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>
