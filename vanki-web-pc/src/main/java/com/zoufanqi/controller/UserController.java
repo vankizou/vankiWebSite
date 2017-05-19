@@ -1,6 +1,7 @@
 package com.zoufanqi.controller;
 
 import com.zoufanqi.consts.ConstDB;
+import com.zoufanqi.consts.ConstService;
 import com.zoufanqi.entity.User;
 import com.zoufanqi.entity.UserLoginRecord;
 import com.zoufanqi.exception.ZouFanqiException;
@@ -87,6 +88,7 @@ public class UserController extends BaseController {
         ResultJson result = this.userService.register(user);
         if (result.getCode() == EnumStatusCode.SUCCESS.getCode()) {
             this.buildUCAndSetSessionData(user);
+            this.deleteCookie(ConstService.COOKIE_IMAGE_CODE_VALUE);
             this.userLoginRecordService.add(UserLoginRecord.build(user.getId(), ConstDB.UserLoginRecord.ORIGIN_NONE, request));
         }
         return result;

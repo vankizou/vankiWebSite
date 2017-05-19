@@ -77,10 +77,12 @@ public class BaseController {
     protected void clearCookieAndSessionInfo(String userId) throws ZouFanqiException {
         if (StringUtil.isEmpty(userId)) {
             Long uId = this.justGetUserId();
-            if (StringUtil.isNotId(uId)) return;
-            userId = uId.toString();
+            if (StringUtil.isId(uId)) userId = uId.toString();
         }
         this.request.getSession().invalidate();
+        this.deleteCookie(ConstService.COOKIE_LOGIN_TOKEN);
+
+        if (StringUtil.isEmpty(userId)) return;
         String token = this.redisTemplate.hget(EnumRedisKey.MAP_USER_ID_TOKEN.name(), userId);
         if (StringUtil.isNotEmpty(token))
             this.redisTemplate.hdel(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token);
@@ -124,6 +126,7 @@ public class BaseController {
     protected String getCookie(String name) {
         if (StringUtil.isEmpty(name)) return null;
         Cookie[] cookies = this.request.getCookies();
+        if (cookies == null) return null;
         for (Cookie c : cookies) {
             String n = c.getName();
             if (name.equals(n)) return c.getValue();
@@ -139,18 +142,23 @@ public class BaseController {
      * @param time  时间, 秒
      */
     protected void setCookie(String name, String value, Integer time) {
-        if (StringUtil.isEmpty(name) || StringUtil.isEmpty(value)) return;
+        if (StringUtil.isEmpty(name)) return;
         Cookie cookie = new Cookie(name, value);
         // tomcat下多应用共享
         cookie.setPath("/");
         // 如果cookie的值中含有中文时，需要对cookie进行编码，不然会产生乱码
         try {
-            URLEncoder.encode(value, "utf-8");
+            if (StringUtil.isNotEmpty(value)) value = URLEncoder.encode(value, "utf-8");
         } catch (UnsupportedEncodingException e) {
             ExceptionUtil.getExceptionAllMsg(e);
         }
         if (time != null) cookie.setMaxAge(time);
         // 将Cookie添加到Response中,使之生效
         this.response.addCookie(cookie); // addCookie后，如果已经存在相同名字的cookie，则最新的覆盖旧的cookie
+    }
+
+    protected void deleteCookie(String name) {
+        if (StringUtil.isEmpty(name)) return;
+        this.setCookie(name, null, 0);
     }
 }
