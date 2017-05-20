@@ -1,0 +1,22 @@
+.c_note_body {
+    margin: 10px auto;
+}
+
+.c_title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 0;
+    display: none;
+}
+
+.c_body_left {
+
+}
+
+.c_body_right {
+    margin-top: 80px;
+}
+
+.j_note_info {
+    display: none;
+}

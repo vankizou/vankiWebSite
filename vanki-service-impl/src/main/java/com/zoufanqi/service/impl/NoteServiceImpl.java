@@ -92,6 +92,7 @@ public class NoteServiceImpl implements NoteService {
             }
 
             this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_TREE_.name() + note.getUserId());
+            this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_HOME.name());
             return ResultBuilder.build(note);
         }
         throw new ZouFanqiException(EnumStatusCode.DB_ERROR);
@@ -536,7 +537,8 @@ public class NoteServiceImpl implements NoteService {
         this.redisTemplate.sadd(EnumRedisKey.S_OPENED_NOTE_ID_.name() + userId, String.valueOf(noteId));
     }
 
-    private Note getByIdInRedis(Long loginUserId, Long id) throws ZouFanqiException {
+    @Override
+    public Note getByIdInRedis(Long loginUserId, Long id) throws ZouFanqiException {
         if (StringUtil.isNotId(id) || StringUtil.equals(id, ConstDB.DEFAULT_PARENT_ID)) return null;
 
         String redisKey = EnumRedisKey.TIME_NOTE_.name() + id;
@@ -549,7 +551,7 @@ public class NoteServiceImpl implements NoteService {
 
             Note note = JSON.parseObject(redisInfo, Note.class);
 
-            if (StringUtil.notEquals(loginUserId, note.getUserId()))
+            if (StringUtil.isId(loginUserId) && StringUtil.notEquals(loginUserId, note.getUserId()))
                 this.updateNoteViewNumInRedis(id, ++redisViewNum);
 
             note.setViewNum(redisViewNum);

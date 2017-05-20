@@ -35,6 +35,7 @@
                 <thead>
                 <tr>
                     <td class="text-center">标题</td>
+                    <td>所属</td>
                     <td>作者</td>
                     <td>创建时间</td>
                     <td>浏览量</td>

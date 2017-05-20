@@ -8,7 +8,16 @@ import com.zoufanqi.entity.User;
  */
 public class NoteHomeVo {
     private User user;
+    private Note parentNote;
     private Note note;
+
+    public Note getParentNote() {
+        return parentNote;
+    }
+
+    public void setParentNote(Note parentNote) {
+        this.parentNote = parentNote;
+    }
 
     public User getUser() {
         return user;

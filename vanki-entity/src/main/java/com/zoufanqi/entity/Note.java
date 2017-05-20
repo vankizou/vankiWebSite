@@ -21,6 +21,7 @@ public class Note {
 
     private Integer secret;
 
+    @JsonIgnore
     private String password;
 
     private String title;
@@ -31,6 +32,7 @@ public class Note {
 
     private String description;
 
+    @JsonSerialize(using = DateSerializer.class)
     private Date updateDatetime;
 
     @JsonSerialize(using = DateSerializer.class)
@@ -44,8 +46,10 @@ public class Note {
 
     private String originUrl;
 
+    @JsonIgnore
     private Integer status;
 
+    @JsonIgnore
     private String statusDescription;
 
     @JsonIgnore

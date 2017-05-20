@@ -35,4 +35,6 @@ public interface NoteService {
     void closeNoteInRedis(Long userId, Long noteId) throws ZouFanqiException;
 
     void openNoteInRedis(Long userId, Long noteId) throws ZouFanqiException;
+
+    Note getByIdInRedis(Long loginUserId, Long id) throws ZouFanqiException;
 }

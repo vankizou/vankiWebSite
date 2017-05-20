@@ -1,5 +1,6 @@
 package com.zoufanqi.controller;
 
+import com.zoufanqi.consts.ConstDB;
 import com.zoufanqi.entity.Note;
 import com.zoufanqi.entity.User;
 import com.zoufanqi.exception.ZouFanqiException;
@@ -9,6 +10,8 @@ import com.zoufanqi.result.ResultJson;
 import com.zoufanqi.service.NoteService;
 import com.zoufanqi.service.UserService;
 import com.zoufanqi.status.EnumStatusCode;
+import com.zoufanqi.utils.DateUtil;
+import com.zoufanqi.utils.StringUtil;
 import com.zoufanqi.vo.NoteHomeVo;
 import com.zoufanqi.vo.NoteVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +55,13 @@ public class NoteController extends BaseController {
         ModelAndView mv = new ModelAndView("note/view");
         NoteVo noteVo = this.noteService.getNoteVoById(loginUserId, id, password);
         if (noteVo == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
-//        if (noteVo.getNote() == null) throw new ZouFanqiException(EnumStatusCode.NOTE_PASSWORD_ERROR);
+
+        // 父节点数据
+        noteVo.setParentNote(this.noteService.getByIdInRedis(null, noteVo.getNote().getParentId()));
+        // 用户
+        noteVo.setUser(this.userService.getById(noteVo.getNote().getUserId()));
+        noteVo.setUpdateDatetimeStr(DateUtil.formatDate(noteVo.getNote().getUpdateDatetime()));
+
         mv.addObject("noteVo", noteVo);
         return mv;
     }
@@ -127,6 +136,12 @@ public class NoteController extends BaseController {
         if (vo == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
         if (vo.getIsNeedPwd() != null && vo.getIsNeedPwd() == 1)
             return ResultBuilder.buildError(EnumStatusCode.NOTE_PASSWORD_ERROR);
+        vo.setUpdateDatetimeStr(DateUtil.formatDate(vo.getNote().getUpdateDatetime()));
+        // 父节点数据
+        vo.setParentNote(this.noteService.getByIdInRedis(null, vo.getNote().getParentId()));
+        // 用户
+        vo.setUser(this.userService.getById(vo.getNote().getUserId()));
+
         return ResultBuilder.build(vo);
     }
 
@@ -145,23 +160,41 @@ public class NoteController extends BaseController {
         if (noteList == null || noteList.isEmpty()) return ResultBuilder.build(pageReturn);
 
         Map<Long, User> userTempMap = new HashMap<>();
+        Map<Long, Note> parentNoteMap = new HashMap<>();
         NoteHomeVo noteHomeVo;
         User user;
         for (Note note : noteList) {
             noteHomeVo = new NoteHomeVo();
             noteHomeVo.setNote(note);
 
+            /**
+             * 添加用户信息
+             */
             user = userTempMap.get(note.getUserId());
             if (user != null) {
                 noteHomeVo.setUser(user);
                 returnList.add(noteHomeVo);
+            } else {
+                user = this.userService.getById(note.getUserId());
+                if (user == null) continue;
+                noteHomeVo.setUser(user);
+                returnList.add(noteHomeVo);
+                userTempMap.put(note.getUserId(), user);
+            }
+
+            /**
+             * 添加父笔记信息
+             */
+            if (StringUtil.equals(note.getParentId(), ConstDB.DEFAULT_PARENT_ID)) continue;
+            Note pNote = parentNoteMap.get(note.getParentId());
+            if (pNote != null) {
+                noteHomeVo.setParentNote(pNote);
                 continue;
             }
-            user = this.userService.getById(note.getUserId());
-            if (user == null) continue;
-            noteHomeVo.setUser(user);
-            returnList.add(noteHomeVo);
-            userTempMap.put(note.getUserId(), user);
+            pNote = this.noteService.getByIdInRedis(null, note.getParentId());
+            if (pNote == null) continue;
+            noteHomeVo.setParentNote(pNote);
+            parentNoteMap.put(note.getParentId(), pNote);
         }
         return ResultBuilder.build(pageReturn);
     }

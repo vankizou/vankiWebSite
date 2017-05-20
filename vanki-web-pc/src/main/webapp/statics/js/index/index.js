@@ -57,11 +57,18 @@ function getNoteList(pageNo, pageSize, navNum) {
             var userId = d['user']['id'];
             var userAlias = d['user']['alias'];
 
+            var pNoteTitle = '';
+            var pNote;
+            if ((pNote = d['parentNote'])) {
+                pNoteTitle = pNote['title'];
+            }
+
             var viewNoteUrl = ConstAjaxUrl.Note.viewHtml[0].replace(ConstAjaxUrl.Note.viewHtml[1], noteId);
             var viewUserUrl = ConstAjaxUrl.User.userHomeHtml[0].replace(ConstAjaxUrl.User.userHomeHtml[1], userId);
 
             node += '<tr>'
             node += '<td><a href="' + viewNoteUrl + '" target="_blank">' + noteTitle + '</a></td>';
+            node += '<td>' + pNoteTitle + "</td>";
             node += '<td><a href="' + viewUserUrl + '" target="_blank">' + userAlias + '</a></td>';
             node += '<td>' + noteCreateDatetime + "</td>";
             node += '<td>' + noteViewNum + "</td>";

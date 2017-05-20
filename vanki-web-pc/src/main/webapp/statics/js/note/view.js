@@ -3,7 +3,7 @@
  */
 
 var vankiEditor;
-var height = $(window).height() - 88;
+var height = $(window).height() - 138;
 $(function () {
     var startContent = $('#j_content').html();
 
@@ -11,9 +11,11 @@ $(function () {
         fnGetNoteVo(c_noteId);
     } else if (!startContent) {
         $('#j_empty_content').show();
+        $('.j_note_info').hide();
     } else {
         fnInitVankiEditor();
         $('#j_empty_content').hide();
+        $('.j_note_info').show();
     }
 });
 
@@ -32,9 +34,24 @@ function fnGetNoteVo(noteId, msg) {
         }
         if (val) {
             $('#j_empty_content').hide();
+            $('.j_note_info').show();
+
+            /**
+             * 密码的不能一次性获取完数据
+             */
+            if (data['parentNote']) {
+                $('#j_note_info_parent_title').html(data['parentNote']['title']);
+            }
+            if (data['user']) {
+                $('#j_note_info_user_alias').html(data['user']['alias']);
+            }
+            debugger;
+            $('#j_note_info_update_datetime').html(data['updateDatetimeStr']);
+
             if (!vankiEditor) fnInitVankiEditor(val);
         } else {
             $('#j_empty_content').show();
+            $('.j_note_info').hide();
         }
     };
     var fnFail = function (data) {
@@ -45,7 +62,7 @@ function fnGetNoteVo(noteId, msg) {
 
 function fnInitVankiEditor(val) {
     vankiEditor = editormd("vanki-editormd-view-note", {
-        width: "80%",
+        width: "100%",
         height: height,
         syncScrolling: "single",
         path: "/statics/third/markdown/lib/",
