@@ -116,7 +116,5 @@ $(function () {
         };
         vankiAjax(ConstAjaxUrl.ImageCode.getImageCode, params, fnSucc);
     };
-
-    fnGetImageCode();
 });
 

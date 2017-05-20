@@ -51,6 +51,7 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
         String requestUri = request.getRequestURI();
 
         requestUri = StringUtil.isEmpty(requestUri) ? "/" : requestUri;
+        autoLogin(requestUri);
         /**
          * 静态数据依赖于接口. 所以, 可以直接过滤
          */
@@ -64,8 +65,6 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
                 if (requestUri.endsWith(excludeUrl)) return true;
             }
         }
-
-        autoLogin(requestUri);
 
         /*if (userContextObj == null) {
             String head = request.getHeader("X-Requested-With");

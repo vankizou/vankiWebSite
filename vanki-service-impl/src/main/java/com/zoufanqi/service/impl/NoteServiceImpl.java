@@ -76,7 +76,7 @@ public class NoteServiceImpl implements NoteService {
         note.setCountNote(0);
 
         int count = addOrUpdateNoteDetail(note.getId(), note.getUserId(), noteDetailList);
-        note.setCountNoteContent(count);
+        if (count != -1) note.setCountNoteContent(count);
 
         int status = this.noteMapper.insertSelective(note);
         if (status > 0) {
@@ -155,6 +155,7 @@ public class NoteServiceImpl implements NoteService {
                     if (s <= 0) throw new ZouFanqiException(EnumStatusCode.DB_PARENT_NOT_FOUND);
                 }
             }
+            if (!isSystem) this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_HOME.name());
             this.redisTemplate.del(EnumRedisKey.TIME_NOTE_.name() + note.getId());
             this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_TREE_.name() + loginUserId);
             return ResultBuilder.build();

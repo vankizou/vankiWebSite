@@ -264,6 +264,13 @@ function setSecretCommon(secretType) {
     var fnSucc = function () {
         noteSecretTypeJson[node.id] = secretType;
         updateDiyDom(node);
+
+        /**
+         * 修改右侧信息
+         */
+        var secretStr = getViewSecretStr(secretType, params['note.password']);
+        $('#j_note_info_secret').html(secretStr);
+        $('#j_note_info_edit_secret').val(secretType);
     }
     vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
 }

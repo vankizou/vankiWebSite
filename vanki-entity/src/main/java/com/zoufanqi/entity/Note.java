@@ -21,7 +21,6 @@ public class Note {
 
     private Integer secret;
 
-    @JsonIgnore
     private String password;
 
     private String title;

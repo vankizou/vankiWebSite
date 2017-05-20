@@ -45,7 +45,6 @@ function fnGetNoteVo(noteId, msg) {
             if (data['user']) {
                 $('#j_note_info_user_alias').html(data['user']['alias']);
             }
-            debugger;
             $('#j_note_info_update_datetime').html(data['updateDatetimeStr']);
 
             if (!vankiEditor) fnInitVankiEditor(val);
