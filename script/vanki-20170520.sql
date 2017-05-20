@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 47.93.255.190
  Source Server Type    : MySQL
- Source Server Version : 50710
- Source Host           : localhost
+ Source Server Version : 50636
+ Source Host           : 47.93.255.190
  Source Database       : vanki
 
  Target Server Type    : MySQL
- Target Server Version : 50710
+ Target Server Version : 50636
  File Encoding         : utf-8
 
- Date: 05/19/2017 11:44:38 AM
+ Date: 05/20/2017 20:45:00 PM
 */
 
 SET NAMES utf8;
@@ -109,7 +109,7 @@ CREATE TABLE `t_note` (
   `STATUS_DESCRIPTION` varchar(200) DEFAULT NULL COMMENT '审核理由',
   `IS_DEL` int(2) DEFAULT '0' COMMENT '是否被删除。0否，1是，默认0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='笔记';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='笔记';
 
 -- ----------------------------
 --  Table structure for `t_note_detail`
@@ -124,7 +124,7 @@ CREATE TABLE `t_note_detail` (
   `SEQUENCE` int(11) DEFAULT NULL COMMENT '序号',
   `CREATE_DATETIME` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='笔记详情';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='笔记详情';
 
 -- ----------------------------
 --  Table structure for `t_picture`
@@ -185,7 +185,7 @@ CREATE TABLE `t_user` (
   `IS_DEL` int(2) DEFAULT '0' COMMENT '是否删除. 0否, 1是. 默认0',
   PRIMARY KEY (`ID`),
   KEY `PHONE` (`PHONE`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户信息';
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户信息';
 
 -- ----------------------------
 --  Table structure for `t_user_login_record`
@@ -198,17 +198,17 @@ CREATE TABLE `t_user_login_record` (
   `CREATE_DATETIME` datetime DEFAULT NULL,
   `IP` varchar(32) DEFAULT NULL,
   `PROTOCOL` varchar(32) DEFAULT NULL,
-  `SCHEME` varchar(16) DEFAULT NULL,
+  `SCHEME` varchar(32) DEFAULT NULL,
   `SERVER_NAME` varchar(32) DEFAULT NULL,
   `REMOTE_ADDR` varchar(32) DEFAULT NULL,
   `REMOTE_HOST` varchar(32) DEFAULT NULL,
-  `CHARACTER_ENCODING` varchar(16) DEFAULT NULL,
+  `CHARACTER_ENCODING` varchar(32) DEFAULT NULL,
   `ACCEPT` varchar(64) DEFAULT NULL,
-  `ACCEPT_ENCODING` varchar(32) DEFAULT NULL,
-  `ACCEPT_LANGUAGE` varchar(32) DEFAULT NULL,
+  `ACCEPT_ENCODING` varchar(64) DEFAULT NULL,
+  `ACCEPT_LANGUAGE` varchar(200) DEFAULT NULL,
   `USER_AGENT` varchar(200) DEFAULT NULL,
   `CONNECTION` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;

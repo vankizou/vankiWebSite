@@ -46,6 +46,7 @@ function fnGetNoteVo(noteId, msg) {
                 $('#j_note_info_user_alias').html(data['user']['alias']);
             }
             $('#j_note_info_update_datetime').html(data['updateDatetimeStr']);
+            $('#j_note_info_user_url').attr('href', '/user/' + data['user']['id'] + '.html');
 
             if (!vankiEditor) fnInitVankiEditor(val);
         } else {

@@ -68,7 +68,7 @@
             </table>
         </div>
         <div>
-            <a href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info">去看看TA的笔记&nbsp;>></a>
+            <a id="j_note_info_user_url" href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info">去看看TA的笔记&nbsp;>></a>
         </div>
     </div>
 </div>
