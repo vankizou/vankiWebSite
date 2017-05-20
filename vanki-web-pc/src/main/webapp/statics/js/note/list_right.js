@@ -9,12 +9,34 @@ $(function () {
      * 初始化markdown工具
      * @type {string}
      */
-    var initStr = "> 美好的一天从笔记开始！\r\n" +
-        ">> 为未来的自己留下点美好的回忆吧！\r\n\r\n" +
-        "### 记录生活！记录点滴！\r\n" +
-        "## 你的笔记，大家的财富！\r\n\r\n" +
-        "> *http://zoufanqi.com/*\r\n" +
-        "> *http://qiqinote.com/*\r\n";
+    var initStr = "### 欢迎使用奇奇笔记！\r\n" +
+        "\r\n" +
+        "> 功能清单\r\n" +
+        ">> 1.奇奇笔记支持Markdown，有经验的朋友可以无缝介入，无经验的小伙伴也能很快上手\r\n" +
+        "\r\n" +
+        ">> 2.在列表右击可得到相应操作\r\n" +
+        "\r\n" +
+        ">> 3.双击打开笔记\r\n" +
+        "\r\n" +
+        ">> 4.笔记是通过标题来自动排序的\r\n" +
+        "\r\n" +
+        ">> 5.目录也是能成为一个笔记的哦！\r\n" +
+        "\r\n" +
+        ">> 6.通过拖拽可更换笔记目录\r\n" +
+        "\r\n" +
+        "------------\r\n" +
+        "\r\n" +
+        "> 注意点\r\n" +
+        ">> 1.公开的笔记会上主页的哦，所以请将笔记做的棒棒哒，才倍有面子！\r\n" +
+        "\r\n" +
+        ">> 2.目录设置私密不会影响旗下笔记公开或加密，反之设置私密或加密的目录下若有公开笔记是会上主页的\r\n" +
+        "\r\n" +
+        "------------\r\n" +
+        "\r\n" +
+        "> **记录生活，记录点滴！**\r\n" +
+        ">> **你的笔记，大家的财富！**\r\n" +
+        "\r\n" +
+        "> **http://www.qiqinote.com**\r\n";
     vankiEditor = editormd("vanki-editormd-view-note", {
         width: "100%",
         height: height,
@@ -22,12 +44,12 @@ $(function () {
         path: "/statics/third/markdown/lib/",
         toolbarIcons: [
             "undo", "redo", "|",
-            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+            "bold", "del", "quote", "ucwords", "uppercase", "lowercase", "|",
             "h1", "h2", "h3", "h4", "h5", "h6", "|",
             "list-ul", "list-ol", "hr", "|",
             "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",
             "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "help", "info"
+            "info"
         ],
         onload: function () {
             this.previewing();
