@@ -43,14 +43,17 @@
                 <c:choose>
                     <c:when test="${userContext == null}">
                         <li id="j_login_register">
-                            <a href="javascript:;"><i class="fa fa-home"></i>&nbsp;登录注册</a>
+                            <a href="javascript:;">
+                                <span class="btn btn-danger" ><i class="fa fa-home"></i>&nbsp;登录注册</span>
+                            </a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
-                                <i class="fa fa-street-view"></i>&nbsp;Hi. ${userContext.user.alias}
+                                <i class="fa fa-street-view" style="color: #9c3328;"></i>&nbsp;
+                                Hi. ${userContext.user.alias}
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
