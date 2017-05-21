@@ -12,10 +12,10 @@
     <meta http-equiv="Expires" content="0"/>
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <meta http-equiv="Pragma" content="no-cache"/>
-    <link rel="stylesheet" href="/statics/css/index/index.css">
     <title>奇奇笔记-主页</title>
 
     <jsp:include page="../common/common.jsp"></jsp:include>
+    <link rel="stylesheet" href="/statics/css/index/index.css">
 </head>
 <body>
 <script type="text/javascript" src="/statics/third/popwindow/jquery.js"></script>

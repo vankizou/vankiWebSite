@@ -12,22 +12,18 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!doctype html>
-<html>
+<html lang="zh">
 <head>
-    <base href="<%=basePath%>">
+    <%--<base href="<%=basePath%>">--%>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="Expires" content="0"/>
-    <meta http-equiv="Cache-Control" content="no-cache"/>
-    <meta http-equiv="Pragma" content="no-cache"/>
     <title>奇奇笔记-列表</title>
-    <%--<script type="text/javascript" src="/statics/third/jquery/jquery-3.1.1.min.js"></script>--%>
-
-    <link href="/statics/css/note/list.css" rel="stylesheet" type="text/css">
-
     <jsp:include page="../common/common.jsp"></jsp:include>
     <jsp:include page="../common/ztree.jsp"></jsp:include>
     <jsp:include page="../common/markdown.jsp"></jsp:include>
+
+    <link href="/statics/css/note/list.css" rel="stylesheet" type="text/css">
+
     <script type="text/javascript" src="/statics/js/note/list_right.js"></script>
     <script type="text/javascript" src="/statics/js/note/list.js"></script>
 

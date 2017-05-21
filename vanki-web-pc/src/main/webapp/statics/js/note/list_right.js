@@ -44,7 +44,7 @@ $(function () {
         path: "/statics/third/markdown/lib/",
         toolbarIcons: [
             "undo", "redo", "|",
-            "bold", "del", "quote", "ucwords", "uppercase", "lowercase", "|",
+            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
             "h1", "h2", "h3", "h4", "h5", "h6", "|",
             "list-ul", "list-ol", "hr", "|",
             "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",

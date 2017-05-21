@@ -1,3 +1,15 @@
+/*
+ * Editor.md
+ *
+ * @file        editormd.js 
+ * @version     v1.5.0 
+ * @description Open source online markdown editor.
+ * @license     MIT License
+ * @author      Pandao
+ * {@link       https://github.com/pandao/editor.md}
+ * @updateTime  2015-06-09
+ */
+
 ;(function(factory) {
     "use strict";
     
@@ -46,10 +58,9 @@
         return new editormd.fn.init(id, options);
     };
     
-    editormd.title        = editormd.$name = "vanki";
-    // editormd.version      = "1.5.0";
-    editormd.version      = "ankizou@163.com";
-    editormd.homePage     = "http://zoufanqi.com/  http://qiqinote.com/";
+    editormd.title        = editormd.$name = "";
+    editormd.version      = "anki";//"1.5.0";
+    editormd.homePage     = "http://www.qiqinote.com";
     editormd.classPrefix  = "editormd-";
     
     editormd.toolbarModes = {
@@ -93,7 +104,7 @@
         delay                : 300,            // Delay parse markdown to html, Uint : ms
         autoLoadModules      : true,           // Automatic load dependent module files
         watch                : true,
-        placeholder          : "写点什么吧...",
+        placeholder          : "开启你的新笔记吧...",
         gotoLine             : true,
         codeFold             : false,
         autoHeight           : false,
@@ -217,7 +228,7 @@
         
         lang : {
             name        : "zh-cn",
-            description : "你好!",
+            description : "",   //"开源在线Markdown编辑器<br/>Open source online Markdown editor.",
             tocTitle    : "目录",
             toolbar     : {
                 undo             : "撤销（Ctrl+Z）",
@@ -1304,7 +1315,7 @@
                 "<h1><i class=\"editormd-logo editormd-logo-lg editormd-logo-color\"></i> " + editormd.title + "<small>v" + editormd.version + "</small></h1>",
                 "<p>" + this.lang.description + "</p>",
                 "<p style=\"margin: 10px 0 20px 0;\"><a href=\"" + editormd.homePage + "\" target=\"_blank\">" + editormd.homePage + " <i class=\"fa fa-external-link\"></i></a></p>",
-                //"<p style=\"font-size: 0.85em;\">Copyright &copy; 2015 <a href=\"https://github.com/pandao\" target=\"_blank\" class=\"hover-link\">Pandao</a>, The <a href=\"https://github.com/pandao/editor.md/blob/master/LICENSE\" target=\"_blank\" class=\"hover-link\">MIT</a> License.</p>",
+                // "<p style=\"font-size: 0.85em;\">Copyright &copy; 2015 <a href=\"https://github.com/pandao\" target=\"_blank\" class=\"hover-link\">Pandao</a>, The <a href=\"https://github.com/pandao/editor.md/blob/master/LICENSE\" target=\"_blank\" class=\"hover-link\">MIT</a> License.</p>",
                 "</div>",
                 "<a href=\"javascript:;\" class=\"fa fa-close " + classPrefix + "dialog-close\"></a>",
                 "</div>"
@@ -2832,6 +2843,7 @@
         },
 
         italic : function() {
+            debugger;
             var cm        = this.cm;
             var cursor    = cm.getCursor();
             var selection = cm.getSelection();
