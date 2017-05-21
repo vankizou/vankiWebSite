@@ -223,7 +223,13 @@ function beforeRename(treeId, treeNode, newName, isCancel) {
         "note.id": treeNode.id,
         "note.title": newName
     };
-    vankiAjax(ConstAjaxUrl.Note.updateById, params);
+    var fnSucc = function () {
+        /**
+         * 修改右侧信息
+         */
+        updateViewTitle(newName);
+    };
+    vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
     return true;
 }
 
