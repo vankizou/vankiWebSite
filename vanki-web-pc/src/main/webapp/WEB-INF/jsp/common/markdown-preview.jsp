@@ -18,4 +18,4 @@
 <script src="/statics/third/markdown/lib/flowchart.min.js"></script>
 <script src="/statics/third/markdown/lib/jquery.flowchart.min.js"></script>
 
-<script src="/WEB-INF/editormd.js"></script>
+<script src="/statics/third/markdown/editormd.js"></script>
