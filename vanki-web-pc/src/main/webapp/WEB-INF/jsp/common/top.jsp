@@ -26,7 +26,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
+            <a class="navbar-brand text-align" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
                 <i class="fa fa-paint-brush"></i>&nbsp;奇奇笔记
             </a>
         </div>

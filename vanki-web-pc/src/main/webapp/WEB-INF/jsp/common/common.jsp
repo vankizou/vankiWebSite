@@ -9,10 +9,9 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="/statics/images/common/logo/logo.ico"/>
 <script type="text/javascript" src="/statics/third/jquery/jquery-3.1.1.min.js"></script>
-<%--<script type="text/javascript" src="/statics/third/popwindow/jquery.js"></script>--%>
+
 <%-- dialog --%>
 <link rel="stylesheet" href="/statics/third/dialog/css/ui-dialog.css">
-<%--<script src="/statics/third/dialog/lib/jquery-1.10.2.js"></script>--%>
 <script src="/statics/third/dialog/dist/dialog-min.js"></script>
 <%------------%>
 
