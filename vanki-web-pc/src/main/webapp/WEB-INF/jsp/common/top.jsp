@@ -59,7 +59,7 @@
                                 <li>
                                     <a href="javascript:;"
                                        style="font-weight: 700; color: red;"><i
-                                            class="fa fa-bell"></i>&nbsp;您的登录ID：${userContext.user.id}</a>
+                                            class="fa fa-bell"></i>&nbsp;我的登录ID：${userContext.user.id}</a>
                                 </li>
                                 <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp;我的笔记</a>
                                 </li>
