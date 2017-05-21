@@ -58,12 +58,12 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="javascript:;"
-                                       style="font-weight: 700; color: red;"><i
-                                            class="fa fa-bell"></i>&nbsp;我的登录ID：${userContext.user.id}</a>
+                                       style="font-weight: 700; color: #9966FF;"><i
+                                            class="fa fa-bell"></i>&nbsp; 我的登录ID：${userContext.user.id}</a>
                                 </li>
-                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp;我的笔记</a>
+                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a>
                                 </li>
-                                <li><a href="/logout.html"><i class="fa fa-sign-out"></i>&nbsp;退出</a></li>
+                                <li><a href="/logout.html"><i class="fa fa-sign-out"></i>&nbsp; 退出</a></li>
                             </ul>
                         </li>
                     </c:otherwise>

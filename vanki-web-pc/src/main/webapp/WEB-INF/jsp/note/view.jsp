@@ -34,10 +34,10 @@
     <div class="col-xs-2 text-center c_body_left"></div>
     <div class="col-xs-8">
         <div id="j_empty_content" class="text-center" style="display: none; margin: 50px auto; font-size:18px; font-weight:bold;">
-            笔记内容为空!&nbsp;<a href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info">去看看TA的笔记&nbsp;>></a>
+            笔记内容为空!&nbsp; <a href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info">去看看TA的笔记&nbsp;>></a>
         </div>
         <div id="layout">
-            <h1 class="text-center c_title j_note_info">${noteVo.note.title}&nbsp;&nbsp;<small
+            <h1 class="text-center c_title j_note_info">${noteVo.note.title}&nbsp;&nbsp; <small
                     id="j_note_info_parent_title">${noteVo.parentNote.title}</small>
             </h1>
             <div id="vanki-editormd-view-note">
