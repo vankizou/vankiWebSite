@@ -3,7 +3,7 @@ package com.zoufanqi.controller;
 import com.zoufanqi.exception.ZouFanqiException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by vanki on 16/10/26.
@@ -21,6 +21,12 @@ public class RootController extends BaseController {
     public String logout() throws ZouFanqiException {
         this.clearCookieAndSessionInfo();
         return "redirect:/";
+    }
+
+    @RequestMapping("/info/markdown/case.html")
+    public ModelAndView markdownExample() {
+        ModelAndView mv = new ModelAndView("info/markdown");
+        return mv;
     }
 
     @RequestMapping("/404.html")

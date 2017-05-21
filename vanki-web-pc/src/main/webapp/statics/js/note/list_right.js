@@ -36,7 +36,9 @@ $(function () {
         "> **记录生活，记录点滴！**\r\n" +
         ">> **你的笔记，大家的财富！**\r\n" +
         "\r\n" +
-        "> **http://www.qiqinote.com**\r\n";
+        "> **<a href='http://www.qiqinote.com' target='_blank'>http://www.qiqinote.com</a>**\r\n" +
+        "\r\n" +
+        "> 常用Markdown操作：<a href='http://www.qiqinote.com/info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
     vankiEditor = editormd("vanki-editormd-view-note", {
         width: "100%",
         height: height,
@@ -47,8 +49,8 @@ $(function () {
         tex: true,  // 默认不解析
         flowChart: true,  // 默认不解析
         sequenceDiagram: true,  // 默认不解析
-        htmlDecode: "style,script,iframe",  // you can filter tags decode
-        // syncScrolling: "single",
+        htmlDecode: "style,script,iframe,form",  // you can filter tags decode
+        syncScrolling: "single",
         path: "/statics/third/markdown/lib/",
         toolbarIcons: [
             "undo", "redo", "|",

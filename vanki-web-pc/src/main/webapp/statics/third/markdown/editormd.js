@@ -129,7 +129,7 @@
         dialogDraggable      : true,
         dialogMaskBgColor    : "#fff",
         dialogMaskOpacity    : 0.1,
-        fontSize             : "13px",
+        fontSize             : "14px",
         saveHTMLToTextarea   : false,
         disabledKeyMaps      : [],
         

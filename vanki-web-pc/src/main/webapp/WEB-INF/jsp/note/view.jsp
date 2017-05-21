@@ -15,6 +15,7 @@
 <!doctype html>
 <html>
 <head>
+    <meta name="keywords" content="${noteVo.note.keyword}">
     <%--<base href="<%=basePath%>">--%>
     <title>奇奇笔记-${noteVo.note.title}</title>
     <jsp:include page="../common/common.jsp"></jsp:include>

@@ -35,6 +35,7 @@
                         <value>.ico</value>
                         <value>.gif</value>
                         <value>.mp4</value>
+                        <value>.md</value>
 
                         <!-- 字体 -->
                         <value>.ttf</value>

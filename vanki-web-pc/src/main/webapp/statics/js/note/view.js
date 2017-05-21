@@ -62,8 +62,8 @@ function fnGetNoteVo(noteId, msg) {
 function fnInitVankiEditor(val) {
     vankiEditor = editormd.markdownToHTML("vanki-editormd-view-note", {
         markdown: val,//+ "\r\n" + $("#append-test").text(),
-        //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
-        htmlDecode: "style,script,iframe",  // you can filter tags decode
+        htmlDecode      : false,       // 开启 HTML 标签解析，为了安全性，默认不开启
+        htmlDecode: "style,script,iframe,form",  // you can filter tags decode
         toc: true,
         tocm: true,    // Using [TOCM]
         // tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
