@@ -41,6 +41,13 @@ $(function () {
         width: "100%",
         height: height,
         fontSize: "14px",
+        tocm: true,
+        emoji: true,
+        taskList: true,
+        tex: true,  // 默认不解析
+        flowChart: true,  // 默认不解析
+        sequenceDiagram: true,  // 默认不解析
+        htmlDecode: "style,script,iframe",  // you can filter tags decode
         // syncScrolling: "single",
         path: "/statics/third/markdown/lib/",
         toolbarIcons: [

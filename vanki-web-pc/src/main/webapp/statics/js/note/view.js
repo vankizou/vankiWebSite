@@ -60,18 +60,6 @@ function fnGetNoteVo(noteId, msg) {
 }
 
 function fnInitVankiEditor(val) {
-    /*vankiEditor = editormd("vanki-editormd-view-note", {
-     width: "100%",
-     height: height,
-     syncScrolling: "single",
-     path: "/statics/third/markdown/lib/",
-     toolbarIcons: [],
-     onload: function () {
-     this.previewing();
-     if (val) this.setValue(val);
-     $('.fa-close').hide();
-     }
-     });*/
     vankiEditor = editormd.markdownToHTML("vanki-editormd-view-note", {
         markdown: val,//+ "\r\n" + $("#append-test").text(),
         //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
