@@ -3,7 +3,7 @@
  */
 
 var vankiEditor;
-var height = $(window).height() - 116;
+var height = $(window).height() - 132;
 $(function () {
     /**
      * 初始化markdown工具
@@ -213,6 +213,7 @@ function updateViewTitle(originTitle) {
 
 function getViewSecretStr(secretType, pwd) {
     var secretStr = "";
+    currPwd = undefined;
     switch (Number(secretType)) {
         case ConstDB.Note.secretPwd:
             secretStr = '密码访问&nbsp;<i class="fa fa-question-circle-o" style="cursor: pointer;" title="密码：(' + pwd + ')"></i>';

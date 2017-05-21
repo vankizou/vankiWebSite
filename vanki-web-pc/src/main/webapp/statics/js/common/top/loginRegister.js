@@ -16,10 +16,30 @@ $(function () {
         }
     });
 
+    $('#j_login_id, #j_login_pwd').keyup(function (event) {
+        if (event.keyCode == 13) fnLogin();
+    });
+
+    $('#j_register input').keyup(function (event) {
+        if (event.keyCode == 13) fnRegister();
+    });
+
     /**
      * 登录
      */
-    $('#j_login_submit').click(function () {
+    $('#j_login_submit').click(fnLogin);
+
+    /**
+     * 注册
+     */
+    $('#j_register_submit').click(fnRegister);
+
+
+    $('#j_reg_imagecode_img').click(function () {
+        fnGetImageCode();
+    });
+
+    var fnLogin = function () {
         var account = $('#j_login_id').val();
         var pwd = $('#j_login_pwd').val();
 
@@ -39,12 +59,9 @@ $(function () {
             window.location = ConstAjaxUrl.User.userHomeHtml_login;
         };
         vankiAjax(ConstAjaxUrl.User.login, params, fnSucc);
-    });
+    };
 
-    /**
-     * 注册
-     */
-    $('#j_register_submit').click(function () {
+    var fnRegister = function () {
         var alias = $('#j_reg_alias').val();
         var pwd = $('#j_reg_pwd').val();
         var confirmPwd = $('#j_reg_confirm_pwd').val();
@@ -97,12 +114,7 @@ $(function () {
             $('#j_reg_imagecode_img').attr('src', 'data:image/png;base64,' + data['data']);
         };
         vankiAjax(ConstAjaxUrl.User.register, params, fnSucc, fnFail);
-    });
-
-
-    $('#j_reg_imagecode_img').click(function () {
-        fnGetImageCode();
-    });
+    };
 
     /*==========图片验证码===========*/
     var fnGetImageCode = function () {

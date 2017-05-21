@@ -44,7 +44,7 @@
                     <c:when test="${userContext == null}">
                         <li id="j_login_register">
                             <a href="javascript:;">
-                                <span class="btn btn-danger" ><i class="fa fa-home"></i>&nbsp;登录注册</span>
+                                <span class="btn btn-danger" ><i class="fa fa-home"></i>&nbsp; 登录注册</span>
                             </a>
                         </li>
                     </c:when>
@@ -58,8 +58,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="javascript:;"
-                                       style="font-weight: 700; color: #9966FF;"><i
-                                            class="fa fa-bell"></i>&nbsp; 我的登录ID：${userContext.user.id}</a>
+                                       style="font-weight: 700; color: red;"><i
+                                            class="fa fa-bell"></i>&nbsp; 我的ID：${userContext.user.id}</a>
                                 </li>
                                 <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a>
                                 </li>
