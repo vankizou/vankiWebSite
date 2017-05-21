@@ -40,6 +40,7 @@ $(function () {
     vankiEditor = editormd("vanki-editormd-view-note", {
         width: "100%",
         height: height,
+        fontSize: "14px",
         // syncScrolling: "single",
         path: "/statics/third/markdown/lib/",
         toolbarIcons: [
