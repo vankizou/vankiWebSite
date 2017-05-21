@@ -30,6 +30,7 @@
     <script type="text/javascript">
         var c_myUserId = '${userContext.user.id}';
         var c_noteUserId = '${userId}';
+        var basePath = '<%=basePath%>';
     </script>
 </head>
 <body>

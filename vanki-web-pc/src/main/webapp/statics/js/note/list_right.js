@@ -36,9 +36,9 @@ $(function () {
         "> **记录生活，记录点滴！**\r\n" +
         ">> **你的笔记，大家的财富！**\r\n" +
         "\r\n" +
-        "> **<a href='http://www.qiqinote.com' target='_blank'>http://www.qiqinote.com</a>**\r\n" +
+        "> **<a href='" + basePath + "' target='_blank'>" + basePath + "</a>**\r\n" +
         "\r\n" +
-        "> 常用Markdown操作：<a href='http://www.qiqinote.com/info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
+        "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>" + basePath + "info/markdown/case.html</a>";
     vankiEditor = editormd("vanki-editormd-view-note", {
         width: "100%",
         height: height,
