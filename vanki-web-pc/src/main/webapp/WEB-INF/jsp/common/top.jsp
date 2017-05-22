@@ -63,7 +63,7 @@
                                 </li>
                                 <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a>
                                 </li>
-                                <li><a href="/logout.html"><i class="fa fa-sign-out"></i>&nbsp; 退出</a></li>
+                                <li><a href="/user/logout.html"><i class="fa fa-sign-out"></i>&nbsp; 退出</a></li>
                             </ul>
                         </li>
                     </c:otherwise>

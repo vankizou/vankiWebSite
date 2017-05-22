@@ -379,7 +379,9 @@ Andrew->>China: I am good thanks!
 ```
 
 ### End
-> **本网站Markdown解析器来源于国内开源项目Editor.md，谨以此来表示对该项目作者pandao大神的尊敬！**
+
+> **本网站Markdown解析器来源于国内开源项目Editor.md，谨以此来表示对该项目作者pandao大神的敬重与感谢！**
+> 感兴趣的朋友可参观大神的git网站：https://www.github.com/pandao
 </textarea>
 </div>
 </p>

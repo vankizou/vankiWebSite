@@ -17,12 +17,6 @@ public class RootController extends BaseController {
         return "index/index";
     }
 
-    @RequestMapping("/logout.html")
-    public String logout() throws ZouFanqiException {
-        this.clearCookieAndSessionInfo();
-        return "redirect:/";
-    }
-
     @RequestMapping("/info/markdown/case.html")
     public ModelAndView markdownExample() {
         ModelAndView mv = new ModelAndView("info/markdown");

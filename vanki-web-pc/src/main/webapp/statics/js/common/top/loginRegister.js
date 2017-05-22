@@ -39,7 +39,7 @@ $(function () {
         fnGetImageCode();
     });
 
-    var fnLogin = function () {
+    function fnLogin() {
         var account = $('#j_login_id').val();
         var pwd = $('#j_login_pwd').val();
 
@@ -61,7 +61,7 @@ $(function () {
         vankiAjax(ConstAjaxUrl.User.login, params, fnSucc);
     };
 
-    var fnRegister = function () {
+    function fnRegister() {
         var alias = $('#j_reg_alias').val();
         var pwd = $('#j_reg_pwd').val();
         var confirmPwd = $('#j_reg_confirm_pwd').val();

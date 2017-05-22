@@ -18,7 +18,8 @@ import com.zoufanqi.service.NoteService;
 import com.zoufanqi.service.redis.RedisTemplate;
 import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.StringUtil;
-import com.zoufanqi.vo.NoteVo;
+import com.zoufanqi.vo.NoteTreeVo;
+import com.zoufanqi.vo.NoteViewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -250,7 +251,7 @@ public class NoteServiceImpl implements NoteService {
      * @throws ZouFanqiException
      */
     @Override
-    public NoteVo getNoteVoById(Long loginUserId, Long id, String password) throws ZouFanqiException {
+    public NoteViewVo getNoteVoById(Long loginUserId, Long id, String password) throws ZouFanqiException {
         Note note = this.getByIdInRedis(loginUserId, id);
         if (note == null) return null;
         Integer secret = note.getSecret();
@@ -265,13 +266,13 @@ public class NoteServiceImpl implements NoteService {
             pwdNote.setId(id);
             pwdNote.setTitle(note.getTitle());
 
-            NoteVo noteVo = new NoteVo();
+            NoteViewVo noteVo = new NoteViewVo();
             noteVo.setIsNeedPwd(1);
             noteVo.setNote(pwdNote);
             return noteVo;
         }
 
-        NoteVo vo = new NoteVo();
+        NoteViewVo vo = new NoteViewVo();
         vo.setNote(note);
         vo.setNoteDetailList(this.noteDetailService.getListByNoteId(note.getId()));
 
@@ -291,7 +292,7 @@ public class NoteServiceImpl implements NoteService {
      * @throws ZouFanqiException
      */
     @Override
-    public List<NoteVo> getTreeList(Long loginUserId, Long userId, Long parentId, Integer deep) throws ZouFanqiException {
+    public List<NoteTreeVo> getTreeList(Long loginUserId, Long userId, Long parentId, Integer deep) throws ZouFanqiException {
         if (StringUtil.isNotId(loginUserId) && StringUtil.isNotId(userId)) return null;
         if (StringUtil.isNotId(userId)) userId = loginUserId;
         if (deep == null) deep = 0;
@@ -310,7 +311,7 @@ public class NoteServiceImpl implements NoteService {
 
         Integer count = null;
         boolean flag = true;
-        List<NoteVo> list = null;
+        List<NoteTreeVo> list = null;
         List<Note> temp;
 
         do {
@@ -325,12 +326,12 @@ public class NoteServiceImpl implements NoteService {
              * 获取展开的数据
              */
             for (Note note : temp) {
-                NoteVo vo = new NoteVo();
+                NoteTreeVo vo = new NoteTreeVo();
 
                 if (isMine && hCount < h && note.getCountNote() != null &&
                         note.getCountNote() != 0 && this.isNoteOpenedInRedis(userId, note.getId())) {
                     hCount++;
-                    List<NoteVo> subVoList = this.getTreeList(loginUserId, userId, note.getId(), ++deep);
+                    List<NoteTreeVo> subVoList = this.getTreeList(loginUserId, userId, note.getId(), ++deep);
                     vo.setSubNoteVoList(subVoList);
                 }
                 vo.setNote(note);

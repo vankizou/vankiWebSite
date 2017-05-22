@@ -13,7 +13,8 @@ import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.DateUtil;
 import com.zoufanqi.utils.StringUtil;
 import com.zoufanqi.vo.NoteHomeVo;
-import com.zoufanqi.vo.NoteVo;
+import com.zoufanqi.vo.NoteTreeVo;
+import com.zoufanqi.vo.NoteViewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class NoteController extends BaseController {
     public ModelAndView editHtml(@PathVariable("id") Long id) throws ZouFanqiException {
         Long loginUserId = this.getUserId();
         ModelAndView mv = new ModelAndView("note/edit");
-        NoteVo noteVo = this.noteService.getNoteVoById(loginUserId, id, null);
+        NoteViewVo noteVo = this.noteService.getNoteVoById(loginUserId, id, null);
         if (noteVo == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
         mv.addObject("noteVo", noteVo);
         return mv;
@@ -53,7 +54,7 @@ public class NoteController extends BaseController {
     public ModelAndView viewHtml(@PathVariable("id") Long id, String password) throws ZouFanqiException {
         Long loginUserId = this.justGetUserId();
         ModelAndView mv = new ModelAndView("note/view");
-        NoteVo noteVo = this.noteService.getNoteVoById(loginUserId, id, password);
+        NoteViewVo noteVo = this.noteService.getNoteVoById(loginUserId, id, password);
         if (noteVo == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
 
         // 父节点数据
@@ -68,7 +69,7 @@ public class NoteController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/add.data", method = RequestMethod.POST)
-    public ResultJson add(NoteVo noteVo) throws ZouFanqiException {
+    public ResultJson add(NoteViewVo noteVo) throws ZouFanqiException {
         if (noteVo == null || noteVo.getNote() == null) return ResultBuilder.buildParamError();
         noteVo.getNote().setUserId(this.getUserId());
         return this.noteService.add(noteVo.getNote(), noteVo.getNoteDetailList());
@@ -85,7 +86,7 @@ public class NoteController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/updateById.data", method = RequestMethod.POST)
-    public ResultJson updateById(NoteVo noteVo) throws ZouFanqiException {
+    public ResultJson updateById(NoteViewVo noteVo) throws ZouFanqiException {
         Long loginUserId = this.getUserId();
         return this.noteService.updateById(loginUserId, noteVo.getNote(), noteVo.getNoteDetailList(), false);
     }
@@ -132,7 +133,7 @@ public class NoteController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/getNoteVoById.json", method = RequestMethod.GET)
     public ResultJson getNoteVoById(Long id, String password) throws ZouFanqiException {
-        NoteVo vo = this.noteService.getNoteVoById(this.justGetUserId(), id, password);
+        NoteViewVo vo = this.noteService.getNoteVoById(this.justGetUserId(), id, password);
         if (vo == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
         if (vo.getIsNeedPwd() != null && vo.getIsNeedPwd() == 1)
             return ResultBuilder.buildError(EnumStatusCode.NOTE_PASSWORD_ERROR);
@@ -200,10 +201,10 @@ public class NoteController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getList.json")
-    public ResultJson getList(Long userId, Long parentId) throws ZouFanqiException {
+    @RequestMapping(value = "/getTreeList.json")
+    public ResultJson getTreeList(Long userId, Long parentId) throws ZouFanqiException {
         Long loginUserId = this.justGetUserId();
-        List<NoteVo> list = this.noteService.getTreeList(loginUserId, userId, parentId, 0);
+        List<NoteTreeVo> list = this.noteService.getTreeList(loginUserId, userId, parentId, 0);
         return ResultBuilder.build(list);
     }
 }

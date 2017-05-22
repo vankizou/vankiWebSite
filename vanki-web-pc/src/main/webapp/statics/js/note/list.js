@@ -396,7 +396,7 @@ function buildNoteTreeNodes(parentId, parentNode) {
 
         tree.addNodes(parentNode, noteTreeNodes);
     };
-    vankiAjax(ConstAjaxUrl.Note.getList, params, fnSucc);
+    vankiAjax(ConstAjaxUrl.Note.getTreeList, params, fnSucc);
 }
 
 /**

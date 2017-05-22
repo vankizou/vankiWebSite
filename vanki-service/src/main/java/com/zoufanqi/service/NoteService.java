@@ -5,10 +5,10 @@ import com.zoufanqi.entity.NoteDetail;
 import com.zoufanqi.exception.ZouFanqiException;
 import com.zoufanqi.param.common.Page;
 import com.zoufanqi.result.ResultJson;
-import com.zoufanqi.vo.NoteVo;
+import com.zoufanqi.vo.NoteTreeVo;
+import com.zoufanqi.vo.NoteViewVo;
 
 import java.util.List;
-import java.util.Set;
 
 public interface NoteService {
 
@@ -18,9 +18,9 @@ public interface NoteService {
 
     ResultJson deleteById(Long loginUserId, Long id) throws ZouFanqiException;
 
-    NoteVo getNoteVoById(Long loginUserId, Long id, String password) throws ZouFanqiException;
+    NoteViewVo getNoteVoById(Long loginUserId, Long id, String password) throws ZouFanqiException;
 
-    List<NoteVo> getTreeList(Long loginUserId, Long userId, Long parentId, Integer deep) throws ZouFanqiException;
+    List<NoteTreeVo> getTreeList(Long loginUserId, Long userId, Long parentId, Integer deep) throws ZouFanqiException;
 
     Page<Note> getTreePage(Long loginUserId, Long userId, Long parentId, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
 

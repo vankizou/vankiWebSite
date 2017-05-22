@@ -9,10 +9,9 @@ import java.util.List;
 /**
  * Created by vanki on 2017/4/10.
  */
-public class NoteVo {
+public class NoteViewVo {
     private Note note;
     private List<NoteDetail> noteDetailList;
-    private List<NoteVo> subNoteVoList;
     private Integer isNeedPwd;
 
     /**
@@ -52,14 +51,6 @@ public class NoteVo {
 
     public void setNoteDetailList(List<NoteDetail> noteDetailList) {
         this.noteDetailList = noteDetailList;
-    }
-
-    public List<NoteVo> getSubNoteVoList() {
-        return subNoteVoList;
-    }
-
-    public void setSubNoteVoList(List<NoteVo> subNoteVoList) {
-        this.subNoteVoList = subNoteVoList;
     }
 
     public Integer getIsNeedPwd() {

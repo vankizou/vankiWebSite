@@ -19,15 +19,15 @@ var ConstAjaxUrl = {
         deleteById: ['/note/deleteById.data', 'POST', 'JSON'],
         getById: ['/note/getNoteVoById.json', 'GET', 'JSON'],
         getPageForHome: ['/note/getPageForHome.json', 'GET', 'JSON'],
-        getList: ['/note/getList.json', 'GET', 'JSON']
+        getTreeList: ['/note/getTreeList.json', 'GET', 'JSON']
     },
 
     Root: {
-        logout: ['/logout.data'],
         error404: ['/404.html'],
     },
 
     User: {
+        logout: ['/user/logout.html'],
         userHomeHtml_login: ["/user/home.html"],
         userHomeHtml: ["/user/${userId}.html", '${userId}'],
         register: ['/user/register.json', 'POST', 'JSON'],

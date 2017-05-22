@@ -44,6 +44,12 @@ public class UserController extends BaseController {
         return mv;
     }
 
+    @RequestMapping("/logout.html")
+    public String logout() throws ZouFanqiException {
+        this.clearCookieAndSessionInfo();
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/home.html")
     public String homeHtml() throws ZouFanqiException {
         Long userId;
