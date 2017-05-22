@@ -64,7 +64,8 @@ $(function () {
         onload: function () {
             this.previewing();
             hideMarkdownCloseIcon();
-            this.setValue(initStr);
+            vankiEditor.setMarkdown(initStr);
+            // vankiEditor.appendMarkdown(initStr);
         },
         onpreviewed: function () {
             showEdit();
@@ -115,6 +116,8 @@ $(function () {
 
             tree.updateNode(node);
             updateViewTitle(title);
+            $('#j_note_info_keyword').html(keyword);
+
             updateDiyDom(node, 0);
         };
         vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
@@ -153,7 +156,7 @@ function viewNote(noteId, password, isNotAsync) {
         } else {
             $('#j_curr_note_detail_id').val("");
         }
-        vankiEditor.setValue(val);
+        vankiEditor.setMarkdown(val);
 
         buildViewNoteCommonInfo(data['note']);
 
@@ -205,6 +208,7 @@ function buildViewNoteCommonInfo(note) {
 
     // 浏览数
     var viewNum = note['viewNum'];
+    viewNum = numToHumanView(viewNum, null, 1);
     $('#j_note_info_viewNum').html(viewNum);
     $('#j_note_info_edit_viewNum').html(viewNum);
 }

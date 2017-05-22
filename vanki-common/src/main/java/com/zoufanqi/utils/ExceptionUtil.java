@@ -22,14 +22,10 @@ public class ExceptionUtil {
 		ex.printStackTrace(pw);
 		pw.flush();
 		sw.flush();
-		if (pw != null) {
-			pw.close();
-		}
-		if (sw != null) {
-			try {
-				sw.close();
-			} catch (IOException e1) {
-			}
+		if (pw != null) pw.close();
+		try {
+			if (sw != null) sw.close();
+		} catch (IOException e1) {
 		}
 		return sw.toString();
 	}

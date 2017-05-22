@@ -53,6 +53,7 @@ function getNoteList(pageNo, pageSize, navNum) {
             var noteTitle = d['note']['title'];
             var noteCreateDatetime = d['note']['createDatetime'];
             var noteViewNum = d['note']['viewNum'];
+            noteViewNum = numToHumanView(noteViewNum, null, 1);
 
             var userId = d['user']['id'];
             var userAlias = d['user']['alias'];

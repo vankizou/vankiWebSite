@@ -45,6 +45,8 @@ public class ExceptionServlet extends HttpServlet {
                 resp.sendRedirect("/user/login.html");
             } else if (ex.getCode() == EnumStatusCode.NOT_FOUND.getCode()) {
                 resp.sendRedirect("/404.html");
+            } else if (ex.getCode() == EnumStatusCode.ERROR.getCode()) {
+                resp.sendRedirect("/500.html");
             }
         } else {
             String uri = req.getRequestURI();
@@ -61,6 +63,7 @@ public class ExceptionServlet extends HttpServlet {
                 resp.sendRedirect("/404.html");
             } else if (uri.endsWith(EXCEPTION_500)) {
                 result = ResultBuilder.buildError();
+                resp.sendRedirect("/500.html");
             }
         }
 

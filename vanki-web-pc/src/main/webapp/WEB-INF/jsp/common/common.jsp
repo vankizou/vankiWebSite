@@ -24,6 +24,7 @@
 <link href="/statics/third/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <link href="/statics/css/common/common.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/statics/js/common/stringUtil.js"></script>
 <script type="text/javascript" src="/statics/js/common/varUtil.js"></script>
 <script type="text/javascript" src="/statics/js/common/msgUtil.js"></script>
 <script type="text/javascript" src="/statics/js/common/vankiAjax.js"></script>
