@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>奇奇笔记-500</title>
+    <title>奇奇笔记-出错啦</title>
 
     <jsp:include page="common.jsp"></jsp:include>
 
@@ -26,7 +26,8 @@
 
     <div class="row text-center">
         <div class="col-md-8 col-md-offset-2">
-            <h3><i class="fa fa-lightbulb-o fa-5x"></i></h3>
+            <%--<h3><i class="fa fa-lightbulb-o fa-5x"></i></h3>--%>
+            <h3><i class="fa fa-bug fa-5x"></i></h3>
             <a href="/" class="btn btn-danger">去首页看看 >></a>
         </div>
     </div>

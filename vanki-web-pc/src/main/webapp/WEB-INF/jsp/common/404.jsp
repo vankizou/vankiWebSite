@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>奇奇笔记-404</title>
+    <title>奇奇笔记-未找到资源</title>
 
     <jsp:include page="common.jsp"></jsp:include>
 

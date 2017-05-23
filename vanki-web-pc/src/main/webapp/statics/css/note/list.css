@@ -25,6 +25,10 @@ div#rMenu ul li:hover {
     font-weight: 700;
 }
 
+div#rMenu ul li i {
+    width: 13px;
+}
+
 /*=========================================*/
 
 .note_content_common_view {

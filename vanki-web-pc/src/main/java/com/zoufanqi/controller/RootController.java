@@ -28,7 +28,7 @@ public class RootController extends BaseController {
         return "common/404";
     }
 
-    @RequestMapping("/500.html")
+    @RequestMapping("/error.html")
     public String error500() {
         return "common/500";
     }
