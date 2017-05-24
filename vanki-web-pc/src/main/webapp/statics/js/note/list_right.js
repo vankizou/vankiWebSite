@@ -127,7 +127,10 @@ $(function () {
         var val = $(':checked').val();
         if (val == ConstDB.Note.secretPwd) {
             currPwd = prompt("请输入密码", currPwd);
-            if (currPwd == null) return;
+            if (currPwd == null) {  // 取消恢复原来的type
+                if (a_secretType != null || a_secretType != undefined) $('#j_note_info_edit_secret').val(a_secretType);
+                return;
+            }
         }
         var viewSecretStr = getViewSecretStr(val, currPwd);
         $('#j_note_info_secret').html(viewSecretStr);
@@ -224,6 +227,7 @@ function updateViewTitle(originTitle) {
     $('#j_note_info_edit_title').val(originTitle);
 }
 
+var a_secretType;
 function getViewSecretStr(secretType, pwd) {
     var secretStr = "";
     currPwd = undefined;
@@ -238,6 +242,7 @@ function getViewSecretStr(secretType, pwd) {
         default:
             secretStr = "公开";
     }
+    a_secretType = secretType;
     return secretStr;
 }
 

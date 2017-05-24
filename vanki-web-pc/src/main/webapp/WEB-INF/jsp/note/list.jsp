@@ -60,12 +60,12 @@
                 <div class="col-xs-11 form-inline">
                     <div class="form-group has-success pull-left">
                         <span class="label label-info pull-left">标题：
-                            <input type="text" class="form-control c_title" id="j_note_info_edit_title"/>
+                            <input type="text" class="form-control c_title" id="j_note_info_edit_title" size="18"/>
                         </span>
                     </div>
                     <div class="form-group has-success pull-left">
                         <span class="label label-info pull-left">私密：
-                            <select id="j_note_info_edit_secret" class="form-control">
+                            <select id="j_note_info_edit_secret" class="selectpicker btn-success">
                                 <option value="0">公开</option>
                                 <option value="1">密码访问</option>
                                 <option value="2">仅自己可见</option>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group has-success pull-left">
                         <span class="label label-info pull-left">关键词：
-                            <input type="text" class="form-control" id="j_note_info_edit_keyword"/>
+                            <input type="text" class="form-control" id="j_note_info_edit_keyword" size="18"/>
                         </span>
                     </div>
                     <div class="form-group has-success pull-left">
