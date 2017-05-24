@@ -8,11 +8,18 @@ var ConstDB = {
     Note: {
         typeNormal: 1,
         typeMarkdown: 2,
+
         secretOpen: 0,
         secretPwd: 1,
         secretClose: 2,
+
         isNeedPwdYes: 1,
-        isNeedPwdNo: 0
+        isNeedPwdNo: 0,
+
+        statusExaming: -1,
+        statusNoPass: 0,
+        statusPass: 1,
+        statusAllPass: 2,
     },
 
     NoteContent: {

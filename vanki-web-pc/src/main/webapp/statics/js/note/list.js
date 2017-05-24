@@ -274,7 +274,7 @@ function setSecretCommon(secretType) {
         /**
          * 修改右侧信息
          */
-        var secretStr = getViewSecretStr(secretType, params['note.password']);
+        var secretStr = buildViewSecretStr(secretType, params['note.password']);
         $('#j_note_info_secret').html(secretStr);
         $('#j_note_info_edit_secret').val(secretType);
     }

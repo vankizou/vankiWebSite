@@ -50,7 +50,8 @@
                     <span class="label label-info pull-left">标题：<code id="j_note_info_title"></code></span>
                     <span class="label label-info pull-left">私密：<code id="j_note_info_secret"></code></span>
                     <span class="label label-info pull-left">关键词：<code id="j_note_info_keyword"></code></span>
-                    <span class="label label-info pull-left">浏览数：<code id="j_note_info_viewNum"></code></span>
+                    <span class="label label-info pull-left">浏览量：<code id="j_note_info_viewNum"></code></span>
+                    <span class="label label-info pull-left">状态：<code id="j_note_info_status"></code></span>
                 </div>
             </div>
             <div class="note_content_common_edit row">
@@ -77,11 +78,11 @@
                             <input type="text" class="form-control" id="j_note_info_edit_keyword" size="18"/>
                         </span>
                     </div>
-                    <div class="form-group has-success pull-left">
+                    <%--<div class="form-group has-success pull-left">
                         <span class="label label-info pull-left">浏览数：
                             <code class="form-control" id="j_note_info_edit_viewNum"></code>
                         </span>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
         </div>

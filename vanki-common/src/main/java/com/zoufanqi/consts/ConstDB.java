@@ -17,7 +17,7 @@ public class ConstDB {
         public static final int SECRET_OPEN = 0;    // 私密, 公开
 
         public static final int SECRET_PWD = 1;     // 私密, 公开但需要密码
-        public static final int SECRET_CLOSE = 2;   // 私密, 不公开
+        public static final int SECRET_PRIVATE = 2;   // 私密, 不公开
         public static final int IS_OPEN_NO = 0;     // 笔记目录是否展开，否
 
         public static final int IS_OPEN_YES = 1;    // 笔记目录是否展开，是
@@ -25,6 +25,7 @@ public class ConstDB {
 
         public static final int STATUS_NO_PASS = 0;     // 审核状态，未通过
         public static final int STATUS_PASS = 1;        // 审核状态，已通过
+        public static final int STATUS_ALL_PASS = 2;        // 审核状态，对所有地方通过
     }
 
     public static final class NoteDetail {

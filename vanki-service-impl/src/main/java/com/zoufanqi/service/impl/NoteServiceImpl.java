@@ -58,8 +58,8 @@ public class NoteServiceImpl implements NoteService {
                 if (parent.getSecret() == ConstDB.Note.SECRET_PWD) {
                     note.setSecret(ConstDB.Note.SECRET_PWD);
                     note.setPassword(parent.getPassword());
-                } else if (parent.getSecret() == ConstDB.Note.SECRET_CLOSE) {
-                    note.setSecret(ConstDB.Note.SECRET_CLOSE);
+                } else if (parent.getSecret() == ConstDB.Note.SECRET_PRIVATE) {
+                    note.setSecret(ConstDB.Note.SECRET_PRIVATE);
                 }
             }
         }
@@ -75,6 +75,7 @@ public class NoteServiceImpl implements NoteService {
         note.setIsDel(ConstDB.ISDEL_FALSE);
         note.setViewNum(0L);
         note.setCountNote(0);
+        this.setDefaultStatus(note);
 
         int count = addOrUpdateNoteDetail(note.getId(), note.getUserId(), noteDetailList);
         if (count != -1) note.setCountNoteContent(count);
@@ -125,6 +126,7 @@ public class NoteServiceImpl implements NoteService {
             note.setCountNoteContent(null);
             note.setIsDel(null);
             note.setUpdateDatetime(new Date());
+            this.setDefaultStatus(note);
         }
 
         if (note.getSecret() != null &&
@@ -163,6 +165,17 @@ public class NoteServiceImpl implements NoteService {
         } else {
             return ResultBuilder.buildDBError();
         }
+    }
+
+    /**
+     * 设置默认审核状态
+     *
+     * @param note
+     */
+    private void setDefaultStatus(Note note) {
+        if (note == null) return;
+//        note.setStatus(ConstDB.Note.STATUS_PASS);
+        note.setStatus(ConstDB.Note.STATUS_ALL_PASS);
     }
 
     /**
@@ -257,19 +270,20 @@ public class NoteServiceImpl implements NoteService {
         Integer secret = note.getSecret();
         secret = secret == null ? ConstDB.Note.SECRET_OPEN : secret;
 
-        if (note.getStatus() != ConstDB.Note.STATUS_PASS) return null;
-        if (!note.getUserId().equals(loginUserId) && secret == ConstDB.Note.SECRET_CLOSE) return null;
-        if (!note.getUserId().equals(loginUserId) &&
-                secret == ConstDB.Note.SECRET_PWD &&
-                StringUtil.notEquals(note.getPassword(), password)) {
-            Note pwdNote = new Note();
-            pwdNote.setId(id);
-            pwdNote.setTitle(note.getTitle());
+        if (StringUtil.notEquals(note.getUserId(), loginUserId)) {
+            if (!(note.getStatus() == ConstDB.Note.STATUS_PASS || note.getStatus() == ConstDB.Note.STATUS_ALL_PASS))
+                return null;
+            if (secret == ConstDB.Note.SECRET_PRIVATE) return null;
+            if (secret == ConstDB.Note.SECRET_PWD && StringUtil.notEquals(note.getPassword(), password)) {
+                Note pwdNote = new Note();
+                pwdNote.setId(id);
+                pwdNote.setTitle(note.getTitle());
 
-            NoteViewVo noteVo = new NoteViewVo();
-            noteVo.setIsNeedPwd(1);
-            noteVo.setNote(pwdNote);
-            return noteVo;
+                NoteViewVo noteVo = new NoteViewVo();
+                noteVo.setIsNeedPwd(1);
+                noteVo.setNote(pwdNote);
+                return noteVo;
+            }
         }
 
         NoteViewVo vo = new NoteViewVo();
@@ -360,7 +374,7 @@ public class NoteServiceImpl implements NoteService {
         }
 
         String key = EnumRedisKey.TIME_NOTE_PAGE_TREE_.name() + userId;
-        String mapKey = new StringBuffer().append(flag).append(parentId).append("_").
+        String mapKey = new StringBuffer().append(flag).append("_").append(parentId).append("_").
                 append(page.getNum()).append("_").
                 append(page.getPageSize()).append("_").
                 append(page.getNavNum()).toString();
@@ -387,13 +401,22 @@ public class NoteServiceImpl implements NoteService {
         c.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
         c.andParentIdEqualTo(parentId);
         c.andUserIdEqualTo(userId);
-        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
 
         if (!userId.equals(loginUserId)) {  // 不是本人私有的不能获取
             List<Integer> secretTypeList = new ArrayList<>();
             secretTypeList.add(ConstDB.Note.SECRET_OPEN);
             secretTypeList.add(ConstDB.Note.SECRET_PWD);
+
+            c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
             c.andSecretIn(secretTypeList);
+
+            NoteExample.Criteria c2 = example.or();
+            c2.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
+            c2.andParentIdEqualTo(parentId);
+            c2.andUserIdEqualTo(userId);
+
+            c2.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
+            c2.andSecretIn(secretTypeList);
         }
 
         int count = this.noteMapper.countByExample(example);
@@ -451,7 +474,8 @@ public class NoteServiceImpl implements NoteService {
         NoteExample.Criteria c = example.createCriteria();
         c.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
         c.andSecretEqualTo(ConstDB.Note.SECRET_OPEN);
-        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
+        c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
+//        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
         c.andCountNoteContentGreaterThan(0);
 
         int count = this.noteMapper.countByExample(example);

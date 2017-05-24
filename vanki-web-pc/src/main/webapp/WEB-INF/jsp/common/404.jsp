@@ -26,7 +26,7 @@
 
     <div class="row text-center">
         <div class="col-md-8 col-md-offset-2">
-            <h3><i class="fa fa-lightbulb-o fa-5x"></i></h3>
+            <h3><i class="fa fa-frown-o fa-5x"></i></h3>
             <a href="/" class="btn btn-primary">去首页看看 >></a>
         </div>
     </div>

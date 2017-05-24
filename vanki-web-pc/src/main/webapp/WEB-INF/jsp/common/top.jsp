@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link href="/statics/css/common/top/top.css" rel="stylesheet" type="text/css">
+<link href="/statics/css/common/top/top2.css" rel="stylesheet" type="text/css">
 <link href="/statics/css/common/body.css" rel="stylesheet" type="text/css">
 <link href="/statics/css/index/login_pop.css" rel="stylesheet" type="text/css" media="all"/>
 
@@ -19,22 +20,22 @@
 
 <div class="navbar navbar-default">
     <div class="container">
-        <div class="navbar-header">
+        <div class="navbar-header" style="vertical-align: middle;display: inline-block;">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
                 <span class="sr-only">菜单</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand text-align" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
+            <a class="navbar-brand" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
                 <i class="fa fa-paint-brush"></i>&nbsp;奇奇笔记
             </a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <%--<a href="/"><i class="fa fa-home"></i>&nbsp;主页</a>--%>
+                <li class="text-align">
+                    <a href="/"><i class="fa fa-home"></i>&nbsp; 主页</a>
                 </li>
 
                 <%--<li class="active">
@@ -44,15 +45,16 @@
                     <c:when test="${userContext == null}">
                         <li id="j_login_register">
                             <a href="javascript:;">
-                                <span class="btn btn-danger" ><i class="fa fa-home"></i>&nbsp; 登录注册</span>
+                                <i class="fa fa-user-circle"></i>&nbsp; 登录注册
                             </a>
                         </li>
                     </c:when>
                     <c:otherwise>
+                        <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
-                                <i class="fa fa-street-view" style="color: #9c3328;"></i>&nbsp;
+                                <i class="fa fa-street-view"></i>&nbsp;
                                 Hi. ${userContext.user.alias}
                             </a>
                             <ul class="dropdown-menu" role="menu">
@@ -61,8 +63,7 @@
                                        style="font-weight: 700; color: #9966FF;"><i
                                             class="fa fa-bell"></i>&nbsp; 我的ID：${userContext.user.id}</a>
                                 </li>
-                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a>
-                                </li>
+                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a></li>
                                 <li><a href="/user/logout.html"><i class="fa fa-sign-out"></i>&nbsp; 退出</a></li>
                             </ul>
                         </li>

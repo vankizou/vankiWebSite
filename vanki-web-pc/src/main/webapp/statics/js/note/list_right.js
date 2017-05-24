@@ -132,7 +132,7 @@ $(function () {
                 return;
             }
         }
-        var viewSecretStr = getViewSecretStr(val, currPwd);
+        var viewSecretStr = buildViewSecretStr(val, currPwd);
         $('#j_note_info_secret').html(viewSecretStr);
     })
 });
@@ -198,7 +198,7 @@ function buildViewNoteCommonInfo(note) {
     // 私密
     var pwd = note['password'];
     var secret = note['secret'];
-    var secretStr = getViewSecretStr(secret, pwd);
+    var secretStr = buildViewSecretStr(secret, pwd);
 
     $('#j_note_info_secret').html(secretStr);
     $('#j_note_info_edit_secret').val(secret);
@@ -213,7 +213,9 @@ function buildViewNoteCommonInfo(note) {
     var viewNum = note['viewNum'];
     viewNum = numToHumanView(viewNum, null, 1);
     $('#j_note_info_viewNum').html(viewNum);
-    $('#j_note_info_edit_viewNum').html(viewNum);
+    // $('#j_note_info_edit_viewNum').html(viewNum);
+
+    $('#j_note_info_status').html(buildStatusStr(note['status'], note['statusDescription']));
 }
 
 /**
@@ -228,12 +230,12 @@ function updateViewTitle(originTitle) {
 }
 
 var a_secretType;
-function getViewSecretStr(secretType, pwd) {
+function buildViewSecretStr(secretType, pwd) {
     var secretStr = "";
     currPwd = undefined;
     switch (Number(secretType)) {
         case ConstDB.Note.secretPwd:
-            secretStr = '密码访问&nbsp;<i class="fa fa-question-circle-o" style="cursor: pointer;" title="密码：(' + pwd + ')"></i>';
+            secretStr = '密码访问 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="密码：(' + pwd + ')"></i>';
             currPwd = pwd;
             break;
         case ConstDB.Note.secretClose:
@@ -244,6 +246,38 @@ function getViewSecretStr(secretType, pwd) {
     }
     a_secretType = secretType;
     return secretStr;
+}
+
+function buildStatusStr(status, statusDescription) {
+    var statusStr = "";
+    var tip = "";
+    if (statusDescription) {
+        statusDescription = "（" + statusDescription + "）";
+    } else {
+        statusDescription = "";
+    }
+
+    switch (Number(status)) {
+        case ConstDB.Note.statusExaming:
+            statusStr = '待审核 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="笔记待审核' + statusDescription + '"></i>';
+            break;
+        case ConstDB.Note.statusNoPass:
+            statusStr = '不通过 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="审核不通过' + statusDescription + '"></i>';
+            break;
+        case ConstDB.Note.statusPass:
+            statusStr = '链接访问 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="知道链接即可访问' + statusDescription + '"></i>';
+            break;
+        case ConstDB.Note.statusAllPass:
+            statusStr = '全站访问 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="全站访问，不受限制' + statusDescription + '"></i>';
+            break;
+        default:
+            statusStr = '不通过 <i class="fa fa-question-circle-o" style="cursor: pointer;" title="审核不通过' + statusDescription + '"></i>';
+    }
+    return statusStr;
+}
+
+function buildStatusDescriptionTip(statusDescription) {
+
 }
 
 function showView() {

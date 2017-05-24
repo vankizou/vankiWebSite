@@ -45,10 +45,8 @@ public class Note {
 
     private String originUrl;
 
-    @JsonIgnore
     private Integer status;
 
-    @JsonIgnore
     private String statusDescription;
 
     @JsonIgnore
