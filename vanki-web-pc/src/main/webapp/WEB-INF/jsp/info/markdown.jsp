@@ -135,7 +135,7 @@ GFM a-tail link @pandao
 
 即缩进四个空格，也做为实现类似`<pre>`预格式化文本(Preformatted Text)的功能。
 
-            <?php
+    <?php
         echo "Hello world!";
     ?>
 

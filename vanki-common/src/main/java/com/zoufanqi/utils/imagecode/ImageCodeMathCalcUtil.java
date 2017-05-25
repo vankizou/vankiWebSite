@@ -6,7 +6,7 @@ import java.io.IOException;
  * Created by vanki on 2017/4/5.
  */
 public class ImageCodeMathCalcUtil extends ImageCodeUtil {
-    private static final String MATH_CALC_SIGN = "+-*/加减乘除";
+    private static final String MATH_CALC_SIGN = "+-*/";    // 加减乘除
     //    private static final String MATH_CALC_SIGN = "/";
     private String value;
 
