@@ -407,7 +407,7 @@ public class NoteServiceImpl implements NoteService {
             secretTypeList.add(ConstDB.Note.SECRET_OPEN);
             secretTypeList.add(ConstDB.Note.SECRET_PWD);
 
-            c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
+            c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
             c.andSecretIn(secretTypeList);
 
             NoteExample.Criteria c2 = example.or();
@@ -474,8 +474,8 @@ public class NoteServiceImpl implements NoteService {
         NoteExample.Criteria c = example.createCriteria();
         c.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
         c.andSecretEqualTo(ConstDB.Note.SECRET_OPEN);
-//        c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
-        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
+        c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
+//        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
         c.andCountNoteContentGreaterThan(0);
 
         int count = this.noteMapper.countByExample(example);
