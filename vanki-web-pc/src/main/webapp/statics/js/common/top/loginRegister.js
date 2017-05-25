@@ -118,10 +118,10 @@ $(function () {
 
     /*==========图片验证码===========*/
     var fnGetImageCode = function () {
-        var flag = $('#j_win_loginRegister').attr('is_pop_win');
+        // var flag = $('#j_win_loginRegister').attr('is_pop_win');
         var params = {
-            width: flag ? 170 : 220,
-            height: flag ? 45 : 45
+            width: 170,
+            height: 45
         };
         var fnSucc = function (imageCode) {
             $('#j_reg_imagecode_img').attr('src', 'data:image/png;base64,' + imageCode);

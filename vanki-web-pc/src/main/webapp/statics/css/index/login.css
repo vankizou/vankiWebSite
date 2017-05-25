@@ -298,7 +298,7 @@ body {
     -moz-border-radius: 25px;
     -o-border-radius: 25px;
     margin: 0px 0px 12px 0px;
-    width: 40%;
+    width: 46%;
     -webkit-appearance: none;
 }
 
@@ -307,7 +307,7 @@ body {
     /*margin-left: 2%;*/
     cursor: pointer;
     vertical-align: middle;
-    width: 54%;
+    /*width: 54%;*/
 }
 
 /*--meadia quiries end here--*/
