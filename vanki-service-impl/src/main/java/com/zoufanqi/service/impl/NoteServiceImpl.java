@@ -407,7 +407,7 @@ public class NoteServiceImpl implements NoteService {
             secretTypeList.add(ConstDB.Note.SECRET_OPEN);
             secretTypeList.add(ConstDB.Note.SECRET_PWD);
 
-            c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
+            c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
             c.andSecretIn(secretTypeList);
 
             NoteExample.Criteria c2 = example.or();
