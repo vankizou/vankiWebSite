@@ -1,7 +1,7 @@
 /**
  * Created by vanki on 2017/4/15.
  */
-
+var a_note_content_json = {};   // 笔记内容数量，一般只存大于0的
 var vankiEditor;
 var height = $(window).height() - 132;
 $(function () {
@@ -102,7 +102,7 @@ $(function () {
             "noteDetailList[0].id": contentId,
             "noteDetailList[0].content": content
         };
-        var fnSucc = function () {
+        var fnSucc = function (countNoteCount) {
             vankiEditor.previewing();
             hideMarkdownCloseIcon();
             vankiMsgAlertAutoClose("保存成功");
@@ -118,6 +118,7 @@ $(function () {
             updateViewTitle(title);
             $('#j_note_info_keyword').html(keyword);
 
+            a_note_content_json[noteId] = countNoteCount;
             updateDiyDom(node, 0);
         };
         vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
@@ -250,7 +251,6 @@ function buildViewSecretStr(secretType, pwd) {
 
 function buildStatusStr(status, statusDescription) {
     var statusStr = "";
-    var tip = "";
     if (statusDescription) {
         statusDescription = "（" + statusDescription + "）";
     } else {
@@ -276,10 +276,6 @@ function buildStatusStr(status, statusDescription) {
     return statusStr;
 }
 
-function buildStatusDescriptionTip(statusDescription) {
-
-}
-
 function showView() {
     $('.note_content_common_edit').hide();
     $('.note_content_common_view').show();
@@ -292,4 +288,12 @@ function showEdit() {
 
 function hideMarkdownCloseIcon() {
     $('.fa-close').hide();
+}
+
+function fnDownloadNote(noteId, password) {
+    var params = {
+        id: noteId,
+        password: password
+    };
+    vankiAjax(ConstAjaxUrl.Note.downloadNote, params);
 }

@@ -12,6 +12,8 @@ public interface NoteDetailService {
 
     ResultJson updateById(NoteDetail noteDetail) throws ZouFanqiException;
 
+    ResultJson deleteById(Long id) throws ZouFanqiException;
+
     ResultJson deleteByNoteId(Long userId, Long noteId) throws ZouFanqiException;
 
     ResultJson deleteByNoteId(Long userId, Long noteId, List<Long> excludeIdList) throws ZouFanqiException;

@@ -2,6 +2,7 @@ package com.zoufanqi.controller;
 
 import com.zoufanqi.consts.ConstDB;
 import com.zoufanqi.entity.Note;
+import com.zoufanqi.entity.NoteDetail;
 import com.zoufanqi.entity.User;
 import com.zoufanqi.exception.ZouFanqiException;
 import com.zoufanqi.param.common.Page;
@@ -11,10 +12,14 @@ import com.zoufanqi.service.NoteService;
 import com.zoufanqi.service.UserService;
 import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.DateUtil;
+import com.zoufanqi.utils.ExceptionUtil;
 import com.zoufanqi.utils.StringUtil;
+import com.zoufanqi.utils.TemplateUtil;
 import com.zoufanqi.vo.NoteHomeVo;
 import com.zoufanqi.vo.NoteTreeVo;
 import com.zoufanqi.vo.NoteViewVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +28,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +44,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/note")
 public class NoteController extends BaseController {
+    private static final Logger LOG = LoggerFactory.getLogger(NoteController.class);
     @Autowired
     private NoteService noteService;
     @Autowired
@@ -65,6 +75,57 @@ public class NoteController extends BaseController {
 
         mv.addObject("noteVo", noteVo);
         return mv;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/downloadNote.json")
+    public ResultJson downloadNote(Long id, String password) throws ZouFanqiException, UnsupportedEncodingException {
+        if (StringUtil.isNotId(id)) return ResultBuilder.buildParamError();
+
+        List<String> noteTempList = TemplateUtil.getExportNoteTempList();
+        if (noteTempList == null) return ResultBuilder.buildError();
+
+        NoteViewVo noteViewVo = this.noteService.getNoteVoById(this.getUserId(), id, password);
+        List<NoteDetail> detailList = noteViewVo.getNoteDetailList();
+        if (noteViewVo != null && noteViewVo.getIsNeedPwd() != null && noteViewVo.getIsNeedPwd() == 1)
+            return ResultBuilder.buildError(EnumStatusCode.NOTE_PASSWORD_ERROR);
+        if (detailList == null || detailList.isEmpty())
+            return ResultBuilder.buildError(EnumStatusCode.NOTE_EXPORT_CONTENT_IS_EMPTY);
+
+
+        String title = noteViewVo.getNote().getTitle();
+//        title = title;
+
+        StringBuffer htmlContent = new StringBuffer();
+
+        for (String noteTemp : noteTempList) {
+            if (TemplateUtil.key_exportNoteTemp_title.startsWith(noteTemp)) {
+                htmlContent.append(title);
+            } else if (TemplateUtil.key_exportNoteTemp_content.startsWith(noteTemp)) {
+                htmlContent.append(detailList.get(0).getContent());
+            } else {
+                htmlContent.append(noteTemp);
+            }
+        }
+
+        try {
+            byte[] byteArr = htmlContent.toString().getBytes();
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + title + ".html\"");
+            response.addHeader("Content-Length", "" + byteArr.length);
+            response.setContentType("application/octet-stream;charset=UTF-8");
+            OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+
+            outputStream.write(byteArr);
+
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            LOG.error(ExceptionUtil.getExceptionAllMsg(e));
+            return ResultBuilder.buildError();
+        }
+        return ResultBuilder.build();
     }
 
     @ResponseBody

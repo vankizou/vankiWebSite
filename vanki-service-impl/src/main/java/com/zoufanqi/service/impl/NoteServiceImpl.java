@@ -161,7 +161,7 @@ public class NoteServiceImpl implements NoteService {
             if (!isSystem) this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_HOME.name());
             this.redisTemplate.del(EnumRedisKey.TIME_NOTE_.name() + note.getId());
             this.redisTemplate.del(EnumRedisKey.TIME_NOTE_PAGE_TREE_.name() + loginUserId);
-            return ResultBuilder.build();
+            return ResultBuilder.build(countNoteDetail > -1 ? countNoteDetail : null);
         } else {
             return ResultBuilder.buildDBError();
         }
@@ -193,7 +193,7 @@ public class NoteServiceImpl implements NoteService {
         if (StringUtil.isNotId(loginUserId) || StringUtil.isNotId(parentId)) return -1;
         if (parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
-        Note pNote = this.getById(parentId);
+        Note pNote = this.getByIdInRedis(loginUserId, parentId);
         if (pNote == null || StringUtil.notEquals(loginUserId, pNote.getUserId())) return 0;
 
         Integer pcn = this.countNote(parentId);
@@ -221,8 +221,16 @@ public class NoteServiceImpl implements NoteService {
         ResultJson result;
 
         for (NoteDetail detail : noteDetailList) {
+            if (detail == null) continue;
+
+            if (detail.getContent() != null && "".equals(detail.getContent())) {
+                this.noteDetailService.deleteById(detail.getId());
+                continue;
+            }
+
             detail.setNoteId(noteId);
             detail.setUserId(userId);
+
             if (StringUtil.isId(detail.getId())) {
                 result = this.noteDetailService.updateById(detail);
             } else {
@@ -628,8 +636,7 @@ public class NoteServiceImpl implements NoteService {
         NoteExample example = new NoteExample();
         example.createCriteria().
                 andIsDelEqualTo(ConstDB.ISDEL_FALSE).
-                andParentIdEqualTo(parentId).
-                andStatusEqualTo(ConstDB.Note.STATUS_PASS);
+                andParentIdEqualTo(parentId);
 
         return this.noteMapper.countByExample(example);
     }

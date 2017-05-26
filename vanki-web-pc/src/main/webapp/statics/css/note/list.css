@@ -29,6 +29,10 @@ div#rMenu ul li i {
     width: 13px;
 }
 
+div#rMenu hr {
+    margin: 10px 0 !important;;=
+}
+
 /*=========================================*/
 
 .note_content_common_view {

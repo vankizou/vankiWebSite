@@ -56,13 +56,22 @@ public class NoteDetailServiceImpl implements NoteDetailService {
         if (StringUtil.isNotId(userId)) {
             NoteDetail old = this.getById(noteDetail.getId());
             if (old == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
-            if (StringUtil.notEquals(userId, old.getUserId())) ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
+            if (StringUtil.notEquals(userId, old.getUserId()))
+                ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
         }
         int status = this.noteDetailMapper.updateByPrimaryKeyWithBLOBs(noteDetail);
         if (status > 0)
             return ResultBuilder.build();
         else
             return ResultBuilder.buildError(EnumStatusCode.DB_ERROR);
+    }
+
+    @Override
+    public ResultJson deleteById(Long id) throws ZouFanqiException {
+        if (StringUtil.isNotId(id)) return ResultBuilder.build();
+        int status = this.noteDetailMapper.deleteByPrimaryKey(id);
+        if (status > 0) return ResultBuilder.build();
+        return ResultBuilder.buildDBError();
     }
 
     @Override

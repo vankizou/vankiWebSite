@@ -46,7 +46,8 @@ public enum EnumStatusCode {
     /**
      * 笔记相关，1100 - 1199
      */
-    NOTE_PASSWORD_ERROR(1100, "密码错误");
+    NOTE_PASSWORD_ERROR(1100, "密码错误"),
+    NOTE_EXPORT_CONTENT_IS_EMPTY(1101, "导出失败，笔记内容为空");
 
 
 

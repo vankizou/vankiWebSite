@@ -410,25 +410,33 @@ function buildNodeJson(data, noteTreeNodes, existsNodeIdArr) {
         for (var i in data) {
             var note = data[i]['note'];
 
-            noteSecretTypeJson[note['id']] = note['secret'];
+            var noteId = note['id'];
+            var noteSecret = note['secret'];
 
-            if (existsNodeIdArr.indexOf(note['id']) != -1) continue;    // 节点已存在
+            noteSecretTypeJson[noteId] = noteSecret;
 
-            var countNote = note["countNote"];
+            if (existsNodeIdArr.indexOf(noteId) != -1) continue;    // 节点已存在
 
-            if (countNote > 0) childNoteNumJson[note['id']] = countNote;
+            var noteCountNote = note["countNote"];
+
+            if (noteCountNote > 0) childNoteNumJson[note['id']] = noteCountNote;
             var subNoteVoList = data[i]['subNoteVoList'];
 
             var title = note['title'];
             if (title.length > 32) title = title.substring(0, 32) + "...";
             noteTreeNodes.push({
-                id: note['id'],
+                id: noteId,
                 pId: note['parentId'],
                 name: title,
-                open: countNote > 0 && subNoteVoList ? true : false,
-                isParent: countNote > 0 ? true : false
+                open: noteCountNote > 0 && subNoteVoList ? true : false,
+                isParent: noteCountNote > 0 ? true : false
             });
-
+            var countNoteContent = note['countNoteContent'];
+            if (countNoteContent > 0) {
+                a_note_content_json[noteId] = countNoteContent;
+            } else {
+                delete a_note_content_json[noteId];
+            }
             if (subNoteVoList) buildNodeJson(subNoteVoList, noteTreeNodes, existsNodeIdArr);
         }
     }
@@ -448,17 +456,17 @@ function dblClickExpand(treeId, treeNode) {
 function onRightClick(event, treeId, treeNode) {
     if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
         tree.cancelSelectedNode();
-        showRMenu("root", event.pageX, event.pageY);
+        showRMenu(treeNode.id, "root", event.pageX, event.pageY);
     } else if (treeNode.id == ConstDB.defaultParentId) {
         tree.selectNode(treeNode);
-        showRMenu('myRoot', event.pageX, event.pageY);
+        showRMenu(treeNode.id, 'myRoot', event.pageX, event.pageY);
     } else if (treeNode && !treeNode.noR) {
         tree.selectNode(treeNode);
-        showRMenu("node", event.pageX, event.pageY);
+        showRMenu(treeNode.id, "node", event.pageX, event.pageY);
     }
 }
 
-function showRMenu(type, x, y) {
+function showRMenu(noteId, type, x, y) {
     // $("#rMenu ul").show();
 
     if (type == 'myRoot') {
@@ -467,20 +475,36 @@ function showRMenu(type, x, y) {
         $('#m_updateTitle').hide();
         $('#m_editInCurrPage').hide();
         $('#m_del').hide();
+
         $('#m_hr1').hide();
         $('#m_secret_open').hide();
         $('#m_secret_pwd').hide();
         $('#m_secret_private').hide();
+
+        $('#m_hr2').hide();
+        $('#m_download').hide();
     } else if (type == 'node') {
         $('#m_open').show();
         $('#m_add').show();
         $('#m_updateTitle').show();
         $('#editNote').show();
         $('#m_del').show();
+
         $('#m_hr1').show();
         $('#m_secret_open').show();
         $('#m_secret_pwd').show();
         $('#m_secret_private').show();
+
+        // 有笔记内容的才能导出下载
+        if (a_note_content_json[noteId] && a_note_content_json[noteId] > 0) {
+            // $('#m_hr2').show();
+            // $('#m_download').show();
+            $('#m_hr2').hide();
+            $('#m_download').hide();
+        } else {
+            $('#m_hr2').hide();
+            $('#m_download').hide();
+        }
     } else {
         hideRMenu();
         return;
@@ -496,5 +520,12 @@ function onBodyMouseDown(event) {
     if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
         rMenu.css({"visibility": "hidden"});
     }
+}
+
+function downloadNote() {
+    var node = tree.getSelectedNodes()[0];
+    if (!node) return;
+    var noteId = node.id;
+    fnDownloadNote(noteId);
 }
 /*================右键菜单==================*/

@@ -12,7 +12,7 @@ import java.util.List;
 public class NoteViewVo {
     private Note note;
     private List<NoteDetail> noteDetailList;
-    private Integer isNeedPwd;
+    private Integer isNeedPwd = 0;
 
     /**
      * 详情页
