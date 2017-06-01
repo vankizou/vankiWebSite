@@ -39,7 +39,8 @@ var setting_noLogin = {
     callback: {
         beforeCollapse: beforeCollapse,
         beforeExpand: beforeExpand,
-        onDblClick: onDblClick
+        onDblClick: onDblClick,
+        onRightClick: onRightClick,
     }
 }
 
@@ -213,10 +214,11 @@ function updateNoteTitle() {
  * @returns {boolean}
  */
 function beforeRename(treeId, treeNode, newName, isCancel) {
-    if (newName.length == 0) {
+    if (newName.length == 0 || newName.length > 200) {
         setTimeout(function () {
             tree.cancelEditName();
         }, 0);
+        vankiMsgAlertAutoClose(ConstStatusCode.CODE_1102[1]);
         return false;
     }
     var params = {
@@ -323,8 +325,10 @@ function openNote(noteId) {
 
     var password;
     if (c_myUserId != c_noteUserId && secretType == ConstDB.Note.secretPwd) {
-        password = prompt("请输入密码");
-        if (password == null) return;
+        if ((password = openedPwdJson[noteId]) == undefined) {
+            password = prompt("请输入密码");
+            if (password == null) return;
+        }
     }
     viewNote(noteId, password);
 }
@@ -470,8 +474,13 @@ function showRMenu(noteId, type, x, y) {
     // $("#rMenu ul").show();
 
     if (type == 'myRoot') {
-        $('#m_open').hide();
+        if (!c_myUserId || c_noteUserId != c_myUserId) {
+            hideRMenu();
+            return;
+        }
         $('#m_add').show();
+
+        $('#m_open').hide();
         $('#m_updateTitle').hide();
         $('#m_editInCurrPage').hide();
         $('#m_del').hide();
@@ -484,26 +493,48 @@ function showRMenu(noteId, type, x, y) {
         $('#m_hr2').hide();
         $('#m_download').hide();
     } else if (type == 'node') {
-        $('#m_open').show();
-        $('#m_add').show();
-        $('#m_updateTitle').show();
-        $('#editNote').show();
-        $('#m_del').show();
+        if (c_noteUserId == c_myUserId) {
+            $('#m_open').show();
+            $('#m_add').show();
+            $('#m_updateTitle').show();
+            $('#editNote').show();
+            $('#m_del').show();
 
-        $('#m_hr1').show();
-        $('#m_secret_open').show();
-        $('#m_secret_pwd').show();
-        $('#m_secret_private').show();
+            $('#m_hr1').show();
+            $('#m_secret_open').show();
+            $('#m_secret_pwd').show();
+            $('#m_secret_private').show();
 
-        // 有笔记内容的才能导出下载
-        if (a_note_content_json[noteId] && a_note_content_json[noteId] > 0) {
-            // $('#m_hr2').show();
-            // $('#m_download').show();
-            $('#m_hr2').hide();
-            $('#m_download').hide();
+            // 有笔记内容的才能导出下载
+            if (a_note_content_json[noteId] && a_note_content_json[noteId] > 0) {
+                $('#m_hr2').show();
+                $('#m_download').show();
+            } else {
+                $('#m_hr2').hide();
+                $('#m_download').hide();
+            }
         } else {
+            $('#m_open').show();
+            $('#m_add').hide();
+            $('#m_updateTitle').hide();
+            $('#m_editInCurrPage').hide();
+            $('#m_del').hide();
+
+            $('#m_hr1').hide();
+            $('#m_secret_open').hide();
+            $('#m_secret_pwd').hide();
+            $('#m_secret_private').hide();
+
             $('#m_hr2').hide();
             $('#m_download').hide();
+
+            if (a_note_content_json[noteId] && a_note_content_json[noteId] > 0) {
+                $('#m_hr2').show();
+                $('#m_download').show();
+            } else {
+                $('#m_hr2').hide();
+                $('#m_download').hide();
+            }
         }
     } else {
         hideRMenu();
@@ -522,10 +553,29 @@ function onBodyMouseDown(event) {
     }
 }
 
-function downloadNote() {
+function downloadNote(password) {
     var node = tree.getSelectedNodes()[0];
     if (!node) return;
     var noteId = node.id;
-    fnDownloadNote(noteId);
+
+    password = password ? password : openedPwdJson[noteId];
+    var params = {
+        is_pop_error_window: false,
+        id: noteId,
+        password: password
+    };
+    var fnSucc = function (data) {
+        console.info("noteId = " + noteId + ", currPwd = " + password)
+        openedPwdJson[noteId] = password;
+        window.location = "/note/doDownload.json?id=" + noteId + "&password=" + password;
+    };
+    var fnFail = function (data) {
+        if (data['code'] != ConstStatusCode.CODE_1100[0]) return;
+        var tempPwd = prompt("请输入密码");
+        if (tempPwd == null) return false;
+        downloadNote(tempPwd);
+    };
+    vankiAjax(ConstAjaxUrl.Note.download, params, fnSucc, fnFail, false);
 }
+
 /*================右键菜单==================*/

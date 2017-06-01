@@ -20,4 +20,6 @@ public class ConstService {
     public static final String USERNAME_REG = "^[\\u4E00-\\u9FA5A-Za-z0-9_]+$"; // 用户名规则
 
     public static final String REDIS_DEFAULT_INFO = "_DEFAULT_INFO_";   // redis默认数据，当获取的是该值直接返回null，防攻击
+
+    public static final int NOTE_TITLE_LEN_MAX = 200;
 }

@@ -11,7 +11,8 @@ var ConstAjaxUrl = {
     Note: {
         editHtm: ['/note/edit/${id}.htm', '${id}'],
         viewHtml: ['/note/view/${id}.html', '${id}'],
-        downloadNote: ['/note/downloadNote.json'],
+        download: ['/note/download.json'],
+        doDownload: ['/note/doDownload.json'],
 
         add: ['/note/add.data', 'POST', 'JSON'],
         updateById: ['/note/updateById.data', 'POST', 'JSON'],

@@ -44,6 +44,9 @@ public class NoteServiceImpl implements NoteService {
                 StringUtil.isEmpty(note.getTitle().trim()))
             return ResultBuilder.buildParamError();
 
+        if (note.getTitle().length() > ConstService.NOTE_TITLE_LEN_MAX)
+            return ResultBuilder.buildError(EnumStatusCode.NOTE_TITLE_OVER_FLOW_MAX_LEN);
+
         if (note.getType() == null) {
             note.setType(ConstDB.Note.TYPE_MARKDOWN);
         }
@@ -115,6 +118,8 @@ public class NoteServiceImpl implements NoteService {
                 StringUtil.isEmpty(note.getTitle().trim())) {
             note.setTitle(null);
         }
+        if (note.getTitle() != null && note.getTitle().length() > ConstService.NOTE_TITLE_LEN_MAX)
+            return ResultBuilder.buildError(EnumStatusCode.NOTE_TITLE_OVER_FLOW_MAX_LEN);
 
         note.setUserId(null);
         note.setCreateDatetime(null);

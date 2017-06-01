@@ -1442,7 +1442,8 @@
                         }
                     };
                 }
-                dom.scrollIntoViewIfNeeded();
+                // dom.scrollIntoViewIfNeeded();
+                setTimeout(function(){dom.scrollIntoViewIfNeeded();},1);
             },
             setFirstNode: function (setting, parentNode) {
                 var childKey = setting.data.key.children, childLength = parentNode[childKey].length;

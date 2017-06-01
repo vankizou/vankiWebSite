@@ -79,23 +79,36 @@ public class NoteController extends BaseController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/downloadNote.json")
-    public ResultJson downloadNote(Long id, String password) throws ZouFanqiException, UnsupportedEncodingException {
+    @RequestMapping(value = "/download.json")
+    public ResultJson downloadNote(Long id, String password) throws ZouFanqiException, IOException {
         if (StringUtil.isNotId(id)) return ResultBuilder.buildParamError();
 
         List<String> noteTempList = TemplateUtil.getExportNoteTempList();
         if (noteTempList == null) return ResultBuilder.buildError();
 
-        NoteViewVo noteViewVo = this.noteService.getNoteVoById(this.getUserId(), id, password);
+        NoteViewVo noteViewVo = this.noteService.getNoteVoById(this.justGetUserId(), id, password);
         List<NoteDetail> detailList = noteViewVo.getNoteDetailList();
         if (noteViewVo != null && noteViewVo.getIsNeedPwd() != null && noteViewVo.getIsNeedPwd() == 1)
             return ResultBuilder.buildError(EnumStatusCode.NOTE_PASSWORD_ERROR);
         if (detailList == null || detailList.isEmpty())
             return ResultBuilder.buildError(EnumStatusCode.NOTE_EXPORT_CONTENT_IS_EMPTY);
 
+        return ResultBuilder.build();
+    }
+
+    @RequestMapping(value = "/doDownload.json")
+    public ResultJson doDownloadNote(Long id, String password) throws ZouFanqiException, UnsupportedEncodingException {
+        if (StringUtil.isNotId(id)) return null;
+
+        List<String> noteTempList = TemplateUtil.getExportNoteTempList();
+        if (noteTempList == null) return null;
+
+        NoteViewVo noteViewVo = this.noteService.getNoteVoById(this.justGetUserId(), id, password);
+        List<NoteDetail> detailList = noteViewVo.getNoteDetailList();
+        if (noteViewVo != null && noteViewVo.getIsNeedPwd() != null && noteViewVo.getIsNeedPwd() == 1) return null;
+        if (detailList == null || detailList.isEmpty()) return null;
 
         String title = noteViewVo.getNote().getTitle();
-//        title = title;
 
         StringBuffer htmlContent = new StringBuffer();
 
@@ -108,11 +121,11 @@ public class NoteController extends BaseController {
                 htmlContent.append(noteTemp);
             }
         }
-
         try {
             byte[] byteArr = htmlContent.toString().getBytes();
             response.reset();
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + title + ".html\"");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" +
+                    new String(title.getBytes("UTF-8"), "ISO-8859-1") + ".html\"");
             response.addHeader("Content-Length", "" + byteArr.length);
             response.setContentType("application/octet-stream;charset=UTF-8");
             OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
@@ -126,6 +139,14 @@ public class NoteController extends BaseController {
             return ResultBuilder.buildError();
         }
         return ResultBuilder.build();
+
+        /*String htmlContentStr = new String(htmlContent.toString().getBytes("UTF-8"), "ISO-8859-1");
+        byte[] body = htmlContentStr.getBytes();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", new String(title.getBytes(), "ISO-8859-1") + ".html");
+
+        return new ResponseEntity<>(body, headers, HttpStatus.CREATED);*/
     }
 
     @ResponseBody

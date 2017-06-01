@@ -178,6 +178,9 @@ function viewNote(noteId, password, isNotAsync) {
  */
 function buildViewNoteCommonInfo(note) {
     if (!note) return;
+    if (note['secret'] == ConstDB.Note.secretPwd) {
+        openedPwdJson[note['id']] = note['password'];
+    }
 
     if (!vankiEditor.state.preview) vankiEditor.previewing();
     showView();
@@ -185,7 +188,6 @@ function buildViewNoteCommonInfo(note) {
 
     if (c_myUserId && c_myUserId == c_noteUserId) {
         $('#j_note_edit').parent().show();
-
     } else {
         $('#j_note_edit').parent().hide();
     }
@@ -288,12 +290,4 @@ function showEdit() {
 
 function hideMarkdownCloseIcon() {
     $('.fa-close').hide();
-}
-
-function fnDownloadNote(noteId, password) {
-    var params = {
-        id: noteId,
-        password: password
-    };
-    vankiAjax(ConstAjaxUrl.Note.downloadNote, params);
 }

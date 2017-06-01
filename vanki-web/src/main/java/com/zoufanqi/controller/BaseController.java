@@ -116,6 +116,7 @@ public class BaseController {
         if (StringUtil.isNotEmpty(oldToken)) {// 清除旧token
             this.redisTemplate.hdel(EnumRedisKey.MAP_TOKEN_USER_ID.name(), oldToken);
         }
+        this.redisTemplate.hdel(EnumRedisKey.MAP_USER_ID_TOKEN.name(), userId);
         String token = UUIDUtil.getUUID();
         this.redisTemplate.hset(EnumRedisKey.MAP_USER_ID_TOKEN.name(), userId, token);
         this.redisTemplate.hset(EnumRedisKey.MAP_TOKEN_USER_ID.name(), token, userId);

@@ -11,12 +11,12 @@ var vankiAjax = function (ajaxInfo, ajaxParams, successFun, failFun, ajaxContext
         async: !isNotAsync,
 
         success: function (data) {
-            operateMyAjaxData(data, ajaxContext, successFun, failFun);
+            operateMyAjaxData(data, ajaxContext, successFun, failFun, ajaxParams.is_pop_error_window);
         }
     })
 }
 
-var operateMyAjaxData = function (data, ajaxContext, successFun, failFun) {
+var operateMyAjaxData = function (data, ajaxContext, successFun, failFun, is_pop_error_window) {
     if (typeof data == 'string') data = eval('(' + data + ')');
     var code = data['code'];
     if (code == ConstStatusCode.CODE_200[0]) {
@@ -26,8 +26,10 @@ var operateMyAjaxData = function (data, ajaxContext, successFun, failFun) {
             window.location = ConstAjaxUrl.Root.error404[0];
             return;
         }
+        // 是否弹出错误码信息
+        if (is_pop_error_window != false && !is_pop_error_window) is_pop_error_window = true;
         var errInfo = ConstStatusCode["CODE_" + code];
-        if (errInfo) vankiMsgAlertAutoClose(errInfo[1], 3000);
+        if (errInfo && is_pop_error_window) vankiMsgAlertAutoClose(errInfo[1], 3000);
 
         if (failFun) failFun(data, ajaxContext);
     }
