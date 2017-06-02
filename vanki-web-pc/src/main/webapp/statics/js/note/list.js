@@ -125,7 +125,7 @@ function addDiyDom(treeId, treeNode) {
             s += '<b style="color:green; font-size: 10px;" title="密码访问"> &nbsp;<i style="color: #9966FF; font-weight: 700;" class="fa fa-key"></i></b>';
             flag = true;
         } else if (secret == ConstDB.Note.secretClose) {
-            s += '<b style="color:green; font-size: 10px;" title="不公开"> &nbsp;<i style="color: #9966FF; font-weight: 700;" class="fa fa-lock"></i></b>';
+            s += '<b style="color:green; font-size: 10px;" title="不公开"> &nbsp;<i style="color: #9966FF; font-weight: 700;" class="fa fa-user-o"></i></b>';
             flag = true;
         }
     }

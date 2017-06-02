@@ -44,7 +44,7 @@
         <div tips="笔记内容">
             <div class="note_content_common_view row">
                 <div class="col-xs-1">
-                    <button id="j_note_edit" type="button" class="btn btn-success">编辑</button>
+                    <button id="j_note_edit" type="button" class="btn btn-info">编辑</button>
                 </div>
                 <div class="col-xs-11 text-center">
                     <span class="label label-info pull-left">标题：<code id="j_note_info_title"></code></span>
@@ -106,7 +106,7 @@
         <hr id="m_hr1" style="height:1px;border:none;border-top:1px solid #555555;"/>
         <li id="m_secret_open" onclick="setSecretOpen();" title="所有人可见（不关联下级）"><i class="fa fa-share"></i> 设置公开</li>
         <li id="m_secret_pwd" onclick="setSecretPwd();" title="密码访问内容（不关联下级）"><i class="fa fa-key"></i> 设置密码</li>
-        <li id="m_secret_private" onclick="setSecretPrivate();" title="只能自己访问（不关联下级）"><i class="fa fa-lock"></i> 设置私密</li>
+        <li id="m_secret_private" onclick="setSecretPrivate();" title="只能自己访问（不关联下级）"><i class="fa fa-user-o"></i> 设置私密</li>
         <hr id="m_hr2" style="height:1px;border:none;border-top:1px solid #555555;"/>
         <li id="m_download" onclick="downloadNote();"><i class="fa fa-download"></i> 下载笔记</li>
     </ul>

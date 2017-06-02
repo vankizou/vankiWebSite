@@ -39,6 +39,7 @@ $(function () {
         "> **<a href='http://www.qiqinote.com' target='_blank'>http://www.qiqinote.com</a>**\r\n" +
         "\r\n" +
         "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
+
     vankiEditor = editormd("vanki-editormd-view-note", {
         width: "100%",
         height: height,
@@ -62,10 +63,9 @@ $(function () {
             "info"
         ],
         onload: function () {
+            vankiEditor.setMarkdown(initStr);
             this.previewing();
             hideMarkdownCloseIcon();
-            vankiEditor.setMarkdown(initStr);
-            // vankiEditor.appendMarkdown(initStr);
         },
         onpreviewed: function () {
             showEdit();
