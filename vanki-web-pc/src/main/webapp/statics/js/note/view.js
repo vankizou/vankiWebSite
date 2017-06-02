@@ -62,7 +62,7 @@ function fnGetNoteVo(noteId, msg) {
 function fnInitVankiEditor(val) {
     vankiEditor = editormd.markdownToHTML("vanki-editormd-view-note", {
         markdown: val,//+ "\r\n" + $("#append-test").text(),
-        htmlDecode      : false,       // 开启 HTML 标签解析，为了安全性，默认不开启
+        htmlDecode: false,       // 开启 HTML 标签解析，为了安全性，默认不开启
         htmlDecode: "style,script,iframe,form",  // you can filter tags decode
         toc: true,
         tocm: true,    // Using [TOCM]
@@ -70,7 +70,7 @@ function fnInitVankiEditor(val) {
         //gfm             : false,
         //tocDropdown     : true,
         // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-        emoji: false,
+        emoji: true,
         taskList: true,
         tex: true,  // 默认不解析
         flowChart: true,  // 默认不解析

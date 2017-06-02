@@ -230,6 +230,7 @@ function beforeRename(treeId, treeNode, newName, isCancel) {
          * 修改右侧信息
          */
         updateViewTitle(newName);
+        addDiyDom(null, treeNode);
     };
     vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
     return true;

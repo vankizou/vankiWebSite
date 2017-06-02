@@ -31,18 +31,25 @@ public class TemplateUtil {
          * 从上到下，顺序分割要填充的数据
          */
         // 标题
-        String[] titleArr = data.split(key_exportNoteTemp_title, 2);
-        if (titleArr.length == 2) {
-            exportNoteTempList.add(titleArr[0]);
+        String[] arr = data.split(key_exportNoteTemp_title, 2);
+        if (arr.length == 2) {
+            exportNoteTempList.add(arr[0]);
             exportNoteTempList.add(key_exportNoteTemp_title);
-            data = titleArr[1];
+            data = arr[1];
+        }
+        // 标题
+        arr = data.split(key_exportNoteTemp_title, 2);
+        if (arr.length == 2) {
+            exportNoteTempList.add(arr[0]);
+            exportNoteTempList.add(key_exportNoteTemp_title);
+            data = arr[1];
         }
         // 内容
-        String[] contentArr = data.split(key_exportNoteTemp_content, 2);
-        if (titleArr.length == 2) {
-            exportNoteTempList.add(contentArr[0]);
+        arr = data.split(key_exportNoteTemp_content, 2);
+        if (arr.length == 2) {
+            exportNoteTempList.add(arr[0]);
             exportNoteTempList.add(key_exportNoteTemp_content);
-            data = contentArr[1];
+            data = arr[1];
         }
         exportNoteTempList.add(data);
     }
