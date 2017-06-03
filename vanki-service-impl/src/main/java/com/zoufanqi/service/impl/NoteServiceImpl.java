@@ -195,8 +195,8 @@ public class NoteServiceImpl implements NoteService {
      * @throws ZouFanqiException
      */
     private int updateCountNote(Long loginUserId, Long parentId, Integer changeNum) throws ZouFanqiException {
-        if (StringUtil.isNotId(loginUserId) || StringUtil.isNotId(parentId)) return -1;
-        if (parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
+        if (StringUtil.isNotId(loginUserId)) return -1;
+        if (parentId == null || parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
         Note pNote = this.getByIdInRedis(loginUserId, parentId);
         if (pNote == null || StringUtil.notEquals(loginUserId, pNote.getUserId())) return 0;
