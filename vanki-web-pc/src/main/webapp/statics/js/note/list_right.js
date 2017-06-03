@@ -45,7 +45,7 @@ $(function () {
         height: height,
         fontSize: "14px",
         tocm: true,
-        emoji: true,
+        emoji: false,
         taskList: true,
         tex: true,  // 默认不解析
         flowChart: true,  // 默认不解析
