@@ -37,7 +37,7 @@
 <body>
 <jsp:include page="../common/top.jsp"></jsp:include>
 
-<div class="container c_body row">
+<div class="container c_body row" style="width: 100%; min-width: 1200px;">
     <div class="col-xs-3" tips="笔记树">
         <ul id="noteTree" class="ztree" style="overflow-x: scroll"></ul>
     </div>
