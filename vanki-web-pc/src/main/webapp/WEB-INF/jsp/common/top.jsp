@@ -18,7 +18,7 @@
 <script type="text/javascript" src="/statics/js/common/top/loginRegister.js"></script>
 
 
-<div class="navbar navbar-default">
+<div class="navbar navbar-default" style="min-width: 640px;">
     <div class="container">
         <div class="navbar-header" style="vertical-align: middle;display: inline-block;">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">

@@ -17,10 +17,11 @@
     <%--<base href="<%=basePath%>">--%>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>奇奇笔记-列表</title>
+    <title>笔记列表-奇奇笔记</title>
     <jsp:include page="../common/common.jsp"></jsp:include>
     <jsp:include page="../common/ztree.jsp"></jsp:include>
     <jsp:include page="../common/markdown.jsp"></jsp:include>
+    <jsp:include page="../common/markdown-preview.jsp"></jsp:include>
 
     <link href="/statics/css/note/list.css" rel="stylesheet" type="text/css">
 
@@ -86,9 +87,10 @@
                 </div>
             </div>
         </div>
-        <div id="vanki-editormd-view-note">
-            <textarea id="j_note_content" style="display: none;"></textarea>
-        </div>
+        <div id="j_vanki-editormd-dynamic"></div>
+        <%--<div id="vanki-editormd-edit-note">
+            <textarea id="j_note_content_edit" style="display: none;"></textarea>
+        </div>--%>
         <input id="j_curr_note_detail_id" value="" style="display: none">
         <input id="j_curr_note_id" value="" style="display: none">
     </div>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>奇奇笔记-修改密码</title>
+    <title>修改密码-奇奇笔记</title>
     <jsp:include page="../common/common.jsp"></jsp:include>
 
 

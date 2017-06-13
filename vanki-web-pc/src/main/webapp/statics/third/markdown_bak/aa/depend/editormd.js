@@ -2572,7 +2572,7 @@
             previewCloseBtn.hide().unbind(editormd.mouseOrTouch("click", "touchend"));
                 
             previewContainer.removeClass(this.classPrefix + "preview-active");
-                
+
             if (settings.watch)
             {
                 previewContainer.css("padding", "20px");

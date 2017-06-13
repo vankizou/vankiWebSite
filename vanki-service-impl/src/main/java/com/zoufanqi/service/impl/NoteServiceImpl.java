@@ -227,6 +227,10 @@ public class NoteServiceImpl implements NoteService {
 
         for (NoteDetail detail : noteDetailList) {
             if (detail == null) continue;
+            if (detail.getContent() == null) {
+                count++;
+                continue;
+            }
 
             if (detail.getContent() != null && "".equals(detail.getContent())) {
                 this.noteDetailService.deleteById(detail.getId());

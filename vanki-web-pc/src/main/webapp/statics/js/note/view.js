@@ -1,7 +1,6 @@
 /**
  * Created by vanki on 16/10/27.
  */
-
 var vankiEditor;
 $(function () {
     var startContent = $('#j_content').html();

@@ -1,12 +1,12 @@
 package com.zoufanqi.utils;
 
+import java.util.Hashtable;
 import java.util.regex.Pattern;
 
 /**
  * 字符串操作工具
  */
 public final class StringUtil {
-
     private final static String[] AGENT_ARR = {"Android", "iPhone", "iPod", "iPad", "Windows Phone", "MQQBrowser"};
 
     public static boolean isPhoneRequest(String userAgent) {

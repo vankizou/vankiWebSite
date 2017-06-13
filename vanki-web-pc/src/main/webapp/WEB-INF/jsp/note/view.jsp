@@ -17,7 +17,7 @@
 <head>
     <meta name="keywords" content="${noteVo.note.keyword}">
     <%--<base href="<%=basePath%>">--%>
-    <title>奇奇笔记-${noteVo.note.title}</title>
+    <title>${noteVo.note.title}-奇奇笔记</title>
     <jsp:include page="../common/common.jsp"></jsp:include>
     <jsp:include page="../common/markdown-preview.jsp"></jsp:include>
     <script type="text/javascript" src="/statics/js/note/view.js"></script>
@@ -31,7 +31,7 @@
 </head>
 <body>
 <jsp:include page="../common/top.jsp"></jsp:include>
-<div class="container c_body row">
+<div class="container c_body row c_all">
     <div class="col-xs-2 text-center c_body_left"></div>
     <div class="col-xs-8">
         <div id="j_empty_content" class="text-center" style="display: none; margin: 50px auto; font-size:18px; font-weight:bold;">

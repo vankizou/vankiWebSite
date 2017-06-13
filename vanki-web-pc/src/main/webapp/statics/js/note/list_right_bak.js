@@ -40,7 +40,60 @@ $(function () {
         "\r\n" +
         "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
 
-    buildMarkdownEdit(initStr);
+    vankiEditor = editormd("vanki-editormd-edit-note", {
+        width: "100%",
+        height: height,
+        fontSize: "14px",
+        tocm: true,
+        emoji: false,
+        taskList: true,
+        tex: true,  // 默认不解析
+        flowChart: true,  // 默认不解析
+        sequenceDiagram: true,  // 默认不解析
+        htmlDecode: "style,script,iframe,form",  // you can filter tags decode
+        syncScrolling: "single",
+        path: "/statics/third/markdown/lib/",
+        toolbarIcons: [
+            "undo", "redo", "|",
+            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+            "h1", "h2", "h3", "h4", "h5", "h6", "|",
+            "list-ul", "list-ol", "hr", "|",
+            "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",
+            "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
+            "info", "|", "saveNoteContent"
+        ],
+        toolbarIconTexts: {
+            saveNoteContent: '<span style="font-size: 14px; font-weight: 700">保存内容</span>'
+        },
+        toolbarHandlers: {
+            saveNoteContent: function () {
+                var noteId = $('#j_curr_note_id').val();
+                var content = $('#j_note_content').val();
+                var contentId = $('#j_curr_note_detail_id').val();
+
+                var params = {
+                    "note.id": noteId,
+                    "noteDetailList[0].id": contentId,
+                    "noteDetailList[0].content": content
+                };
+                var fnSucc = function (countNoteCount) {
+                    vankiMsgAlertAutoClose("保存成功");
+                };
+                vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
+            }
+        },
+        onload: function () {
+            vankiEditor.setMarkdown(initStr);
+            this.previewing();
+            hideMarkdownCloseIcon();
+        },
+        onpreviewed: function () {
+            showEdit();
+        },
+        onpreviewing: function () {
+            showView();
+        }
+    });
 
     /**
      * 点击编辑
@@ -48,6 +101,7 @@ $(function () {
     $('#j_note_edit').bind('click', function () {
         vankiEditor.previewed();
     });
+
 
     /**
      * 点击保存
@@ -57,8 +111,8 @@ $(function () {
         var title = $('#j_note_info_edit_title').val();
         var secretType = $('#j_note_info_edit_secret').val();
         var keyword = $('#j_note_info_edit_keyword').val();
+        var content = $('#j_note_content').val();
         var contentId = $('#j_curr_note_detail_id').val();
-        var content = vankiEditor.getMarkdown();
 
         var params = {
             "note.id": noteId,
@@ -106,67 +160,6 @@ $(function () {
 });
 
 
-function buildMarkdownEdit(val) {
-    if (vankiEditor) vankiEditor.editor.remove();
-
-    $('#j_vanki-editormd-dynamic').append('<div id="vanki-editormd-edit-note"></div>');
-
-    vankiEditor = editormd("vanki-editormd-edit-note", {
-        width: "100%",
-        height: height,
-        fontSize: "14px",
-        tocm: true,
-        emoji: false,
-        taskList: true,
-        tex: true,  // 默认不解析
-        flowChart: true,  // 默认不解析
-        sequenceDiagram: true,  // 默认不解析
-        htmlDecode: "style,script,iframe,form",  // you can filter tags decode
-        syncScrolling: "single",
-        path: "/statics/third/markdown/lib/",
-        toolbarIcons: [
-            "undo", "redo", "|",
-            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-            "h1", "h2", "h3", "h4", "h5", "h6", "|",
-            "list-ul", "list-ol", "hr", "|",
-            "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",
-            "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "info", "|", "saveNoteContent"
-        ],
-        toolbarIconTexts: {
-            saveNoteContent: '<span style="font-size: 14px; font-weight: 700">保存内容</span>'
-        },
-        toolbarHandlers: {
-            saveNoteContent: function () {
-                var noteId = $('#j_curr_note_id').val();
-                var contentId = $('#j_curr_note_detail_id').val();
-                var content = vankiEditor.getMarkdown();
-
-                var params = {
-                    "note.id": noteId,
-                    "noteDetailList[0].id": contentId,
-                    "noteDetailList[0].content": content
-                };
-                var fnSucc = function () {
-                    vankiMsgAlertAutoClose("保存成功");
-                };
-                vankiAjax(ConstAjaxUrl.Note.updateById, params, fnSucc);
-            }
-        },
-        onload: function () {
-            this.setMarkdown(val);
-            this.previewing();
-            hideMarkdownCloseIcon();
-        },
-        onpreviewed: function () {
-            showEdit();
-        },
-        onpreviewing: function () {
-            showView();
-        }
-    });
-}
-
 var currPwd;    // 密码
 function viewNote(noteId, password, isNotAsync) {
     var params = {
@@ -188,8 +181,7 @@ function viewNote(noteId, password, isNotAsync) {
         } else {
             $('#j_curr_note_detail_id').val("");
         }
-        // vankiEditor.setMarkdown(val);
-        buildMarkdownEdit(val);
+        vankiEditor.setMarkdown(null);
 
         buildViewNoteCommonInfo(data['note']);
 
@@ -211,7 +203,7 @@ function buildViewNoteCommonInfo(note) {
         openedPwdJson[note['id']] = note['password'];
     }
 
-    //if (!vankiEditor.state.preview) vankiEditor.previewing();
+    if (!vankiEditor.state.preview) vankiEditor.previewing();
     showView();
     hideMarkdownCloseIcon();
 

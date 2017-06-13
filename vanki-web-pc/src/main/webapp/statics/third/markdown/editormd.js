@@ -355,7 +355,6 @@
          */
         
         init : function (id, options) {
-            
             options              = options || {};
             
             if (typeof id === "object")
@@ -369,7 +368,7 @@
             
             id                   = (typeof id === "object") ? settings.id : id;
             
-            var editor           = this.editor       = $("#" + id);
+            var editor           = this.editor       = $("#" + id); var editor           = this.editor       = $("#" + id);
             
             this.id              = id;
             this.lang            = settings.lang;
@@ -1964,7 +1963,7 @@
          */
         
         save : function() {
-            
+
             var _this            = this;
             var state            = this.state;
             var settings         = this.settings;
@@ -2246,7 +2245,7 @@
         
         setMarkdown : function(md) {
             this.cm.setValue(md || this.settings.markdown);
-            
+
             return this;
         },
         

@@ -20,3 +20,7 @@
 .j_note_info {
     display: none;
 }
+
+.c_all {
+    min-width: 640px;
+}

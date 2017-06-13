@@ -13,7 +13,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>奇奇笔记-登录注册</title>
+    <title>登录注册-奇奇笔记</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

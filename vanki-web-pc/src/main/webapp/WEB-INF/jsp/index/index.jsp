@@ -12,7 +12,7 @@
     <meta http-equiv="Expires" content="0"/>
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <meta http-equiv="Pragma" content="no-cache"/>
-    <title>奇奇笔记-主页</title>
+    <title>主页-奇奇笔记</title>
 
     <jsp:include page="../common/common.jsp"></jsp:include>
     <link rel="stylesheet" href="/statics/css/index/index.css">

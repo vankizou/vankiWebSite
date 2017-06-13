@@ -2315,7 +2315,7 @@
         
         setMarkdown : function(md) {
             this.cm.setValue(md || this.settings.markdown);
-            
+
             return this;
         },
         

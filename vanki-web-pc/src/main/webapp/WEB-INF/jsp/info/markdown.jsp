@@ -14,7 +14,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>奇奇笔记-markdown操作</title>
+    <title>markdown操作-奇奇笔记</title>
     <jsp:include page="../common/common.jsp"></jsp:include>
     <jsp:include page="../common/markdown.jsp"></jsp:include>
     <script type="text/javascript">
