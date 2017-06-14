@@ -17,9 +17,18 @@ public class NoteViewVo {
     /**
      * 详情页
      */
+    private String createDatetimeStr;
     private String updateDatetimeStr;
     private Note parentNote;
     private User user;
+
+    public String getCreateDatetimeStr() {
+        return createDatetimeStr;
+    }
+
+    public void setCreateDatetimeStr(String createDatetimeStr) {
+        this.createDatetimeStr = createDatetimeStr;
+    }
 
     public String getUpdateDatetimeStr() {
         return updateDatetimeStr;
@@ -42,6 +51,7 @@ public class NoteViewVo {
     }
 
     public void setParentNote(Note parentNote) {
+        if (parentNote != null) parentNote.setPassword(null);
         this.parentNote = parentNote;
     }
 

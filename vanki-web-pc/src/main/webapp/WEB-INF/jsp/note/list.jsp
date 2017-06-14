@@ -47,7 +47,7 @@
                 <div class="col-xs-1">
                     <button id="j_note_edit" type="button" class="btn btn-info btn-sm">编辑</button>
                 </div>
-                <div class="col-xs-11">
+                <div id="j_note_info_div" class="col-xs-11">
                     <span class="label label-info pull-left span-sm">标题：<code id="j_note_info_title"></code></span>
                     <span class="label label-info pull-left">私密：<code id="j_note_info_secret"></code></span>
                     <span class="label label-info pull-left">状态：<code id="j_note_info_status"></code></span>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group has-success pull-left">
                         <span class="label label-info pull-left">私密：
-                            <select id="j_note_info_edit_secret" class="selectpicker btn-success">
+                            <select id="j_note_info_edit_secret" class="selectpicker btn-info">
                                 <option value="0">公开</option>
                                 <option value="1">密码访问</option>
                                 <option value="2">仅自己可见</option>

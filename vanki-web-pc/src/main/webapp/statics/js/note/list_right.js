@@ -107,10 +107,14 @@ $(function () {
 
 function buildMarkdownEdit(val, heightDiff) {
     if (vankiEditor) vankiEditor.editor.remove();
+    if ((!c_noteUserId || !c_myUserId || c_myUserId != c_noteUserId) && !val) return;
 
     $('#j_vanki-editormd-dynamic').append('<div id="vanki-editormd-edit-note"></div>');
 
-    heightDiff = heightDiff ? heightDiff : 132;
+    var infoHeight = $('#j_note_info_div').height();
+    if (!infoHeight) infoHeight = 0;
+    // 132
+    heightDiff = heightDiff ? heightDiff : 98 + infoHeight;
     var height = $(window).height() - heightDiff;
     vankiEditor = editormd("vanki-editormd-edit-note", {
         width: "100%",
@@ -189,10 +193,7 @@ function viewNote(noteId, password, isNotAsync) {
         } else {
             $('#j_curr_note_detail_id').val("");
         }
-        // vankiEditor.setMarkdown(val);
-        buildMarkdownEdit(val);
-
-        buildViewNoteCommonInfo(data['note']);
+        buildViewNoteCommonInfo(val, data['note']);
 
         history.pushState(null, null, "/note/view/" + noteId + ".html");
 
@@ -206,7 +207,7 @@ function viewNote(noteId, password, isNotAsync) {
  * 查看笔记时该笔记公共信息
  * @param note
  */
-function buildViewNoteCommonInfo(note) {
+function buildViewNoteCommonInfo(noteContentVal, note) {
     if (!note) return;
     if (note['secret'] == ConstDB.Note.secretPwd) {
         openedPwdJson[note['id']] = note['password'];
@@ -249,6 +250,7 @@ function buildViewNoteCommonInfo(note) {
     // $('#j_note_info_edit_viewNum').html(viewNum);
 
     $('#j_note_info_status').html(buildStatusStr(note['status'], note['statusDescription']));
+    buildMarkdownEdit(noteContentVal);
 }
 
 /**

@@ -13,7 +13,6 @@
 <!doctype html>
 <html>
 <head>
-    <base href="<%=basePath%>">
     <title>markdown操作-奇奇笔记</title>
     <jsp:include page="../common/common.jsp"></jsp:include>
     <jsp:include page="../common/markdown.jsp"></jsp:include>
@@ -68,12 +67,12 @@
 #### Heading 4
 ##### Heading 5
 ###### Heading 6
-# Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-## Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-### Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-#### Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
-##### Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
-###### Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+# Heading 1 link [Heading link](http://www.qiqinote.com "Heading link")
+## Heading 2 link [Heading link](http://www.qiqinote.com "Heading link")
+### Heading 3 link [Heading link](http://www.qiqinote.com "Heading link")
+#### Heading 4 link [Heading link](http://www.qiqinote.com "Heading link") Heading link [Heading link](http://www.qiqinote.com "Heading link")
+##### Heading 5 link [Heading link](http://www.qiqinote.com "Heading link")
+###### Heading 6 link [Heading link](http://www.qiqinote.com "Heading link")
 
 #### 标题（用底线的形式）Heading (underline)
 
@@ -107,23 +106,19 @@ The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is mainta
 
 引用的行内混合 Blockquotes
 
-> 引用：如果想要插入空白换行`即<br/>标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](http://localhost/)。
+> 引用：如果想要插入空白换行`即<br/>标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](http://www.qiqinote.com)。
 
 ### 锚点与链接 Links
 
-[普通链接](http://localhost/)
+[普通链接](http://www.qiqinote.com)
 
-[普通链接带标题](http://localhost/ "普通链接带标题")
+[普通链接带标题](http://www.qiqinote.com "普通链接带标题")
 
-直接链接：<https://github.com>
+直接链接：<http://www.qiqinote.com>
 
 [锚点链接][anchor-id]
 
 [anchor-id]: http://www.this-anchor-link.com/
-
-GFM a-tail link @pandao
-
-> @pandao
 
 ### 多语言代码高亮 Codes
 
@@ -381,7 +376,7 @@ Andrew->>China: I am good thanks!
 ### End
 
 > **本网站Markdown解析器来源于国内开源项目Editor.md，谨以此来表示对该项目作者pandao大神的敬重与感谢！**
-> 感兴趣的朋友可参观大神的git网站：https://www.github.com/pandao
+> 感兴趣的朋友可以访问大神的git地址：https://www.github.com/pandao
 </textarea>
 </div>
 </p>

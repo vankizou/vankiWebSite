@@ -71,6 +71,7 @@ public class NoteController extends BaseController {
         noteVo.setParentNote(this.noteService.getByIdInRedis(null, noteVo.getNote().getParentId()));
         // 用户
         noteVo.setUser(this.userService.getById(noteVo.getNote().getUserId()));
+        noteVo.setCreateDatetimeStr(DateUtil.formatDate(noteVo.getNote().getCreateDatetime()));
         noteVo.setUpdateDatetimeStr(DateUtil.formatDate(noteVo.getNote().getUpdateDatetime()));
 
         mv.addObject("noteVo", noteVo);
@@ -219,6 +220,7 @@ public class NoteController extends BaseController {
         if (vo == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
         if (vo.getIsNeedPwd() != null && vo.getIsNeedPwd() == 1)
             return ResultBuilder.buildError(EnumStatusCode.NOTE_PASSWORD_ERROR);
+        vo.setCreateDatetimeStr(DateUtil.formatDate(vo.getNote().getCreateDatetime()));
         vo.setUpdateDatetimeStr(DateUtil.formatDate(vo.getNote().getUpdateDatetime()));
         // 父节点数据
         vo.setParentNote(this.noteService.getByIdInRedis(null, vo.getNote().getParentId()));

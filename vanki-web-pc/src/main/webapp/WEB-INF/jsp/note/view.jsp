@@ -54,19 +54,27 @@
                 <tbody>
                 <tr>
                     <td class="col-md-4 text-center">
-                        <span class="label label-info pull-left">作者：</span>
+                        <span class="label label-info">作者：</span>
                     </td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_user_alias"
-                              class="label label-warning pull-left">${noteVo.user.alias}</span>
+                              class="label label-warning">${noteVo.user.alias}</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4 text-center">
-                        <span class="label label-info pull-left">时间：</span></td>
+                        <span class="label label-info">创建：</span></td>
+                    <td class="col-md-8 text-left">
+                        <span id="j_note_info_create_datetime"
+                              class="label label-warning">${noteVo.createDatetimeStr}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4 text-center">
+                        <span class="label label-info">更新：</span></td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_update_datetime"
-                              class="label label-warning pull-left">${noteVo.updateDatetimeStr}</span>
+                              class="label label-warning">${noteVo.updateDatetimeStr}</span>
                     </td>
                 </tr>
                 </tbody>
