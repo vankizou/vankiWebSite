@@ -30,7 +30,7 @@ div#rMenu ul li i {
 }
 
 div#rMenu hr {
-    margin: 10px 0 !important;;=
+    margin: 10px 0 !important;
 }
 
 /*=========================================*/
@@ -41,9 +41,11 @@ div#rMenu hr {
 }
 
 .note_content_common_view span {
-    height: 34px;
-    padding: 10px 10px;
-    margin-right: 20px;
+    margin-left: 0px !important;
+    height: 30px;
+    padding: 9px 5px;
+    margin-right: 10px;
+    margin-bottom: 2px;
 }
 
 .note_content_common_edit {
@@ -52,12 +54,12 @@ div#rMenu hr {
 }
 
 .note_content_common_edit span {
-    height: 34px;
-    margin-right: 20px;
+    height: 30px;
+    margin-right: 15px;
 }
 
 .note_content_common_edit input {
-    height: 28px;
+    height: 26px;
 }
 
 .note_content_common_edit input .c_title {

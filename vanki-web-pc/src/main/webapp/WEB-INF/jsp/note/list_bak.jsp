@@ -45,19 +45,23 @@
         <div tips="笔记内容">
             <div class="note_content_common_view row">
                 <div class="col-xs-1">
-                    <button id="j_note_edit" type="button" class="btn btn-info btn-sm">编辑</button>
+                    <button id="j_note_edit" type="button" class="btn btn-info">编辑</button>
                 </div>
                 <div class="col-xs-11">
-                    <span class="label label-info pull-left span-sm">标题：<code id="j_note_info_title"></code></span>
-                    <span class="label label-info pull-left">私密：<code id="j_note_info_secret"></code></span>
-                    <span class="label label-info pull-left">状态：<code id="j_note_info_status"></code></span>
-                    <span class="label label-info pull-left">关键词：<code id="j_note_info_keyword"></code></span>
-                    <span class="label label-info pull-left">浏览量：<code id="j_note_info_viewNum"></code></span>
+                    <div>
+                        <span class="label label-info pull-left span-sm">标题：<code id="j_note_info_title"></code></span>
+                        <span class="label label-info pull-left">私密：<code id="j_note_info_secret"></code></span>
+                        <span class="label label-info pull-left">状态：<code id="j_note_info_status"></code></span>
+                    </div>
+                    <div>
+                        <span class="label label-info pull-left">关键词：<code id="j_note_info_keyword"></code></span>
+                        <span class="label label-info pull-left">浏览量：<code id="j_note_info_viewNum"></code></span>
+                    </div>
                 </div>
             </div>
             <div class="note_content_common_edit row">
                 <div class="col-xs-1">
-                    <button id="j_note_save" type="button" class="btn btn-info btn-sm">保存</button>
+                    <button id="j_note_save" type="button" class="btn btn-info">保存</button>
                 </div>
                 <div class="col-xs-11 form-inline">
                     <div class="form-group has-success pull-left">

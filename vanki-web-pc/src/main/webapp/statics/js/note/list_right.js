@@ -3,7 +3,6 @@
  */
 var a_note_content_json = {};   // 笔记内容数量，一般只存大于0的
 var vankiEditor;
-var height = $(window).height() - 132;
 $(function () {
     /**
      * 初始化markdown工具
@@ -40,7 +39,7 @@ $(function () {
         "\r\n" +
         "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
 
-    buildMarkdownEdit(initStr);
+    buildMarkdownEdit(initStr, 88);
 
     /**
      * 点击编辑
@@ -106,11 +105,13 @@ $(function () {
 });
 
 
-function buildMarkdownEdit(val) {
+function buildMarkdownEdit(val, heightDiff) {
     if (vankiEditor) vankiEditor.editor.remove();
 
     $('#j_vanki-editormd-dynamic').append('<div id="vanki-editormd-edit-note"></div>');
 
+    heightDiff = heightDiff ? heightDiff : 132;
+    var height = $(window).height() - heightDiff;
     vankiEditor = editormd("vanki-editormd-edit-note", {
         width: "100%",
         height: height,
