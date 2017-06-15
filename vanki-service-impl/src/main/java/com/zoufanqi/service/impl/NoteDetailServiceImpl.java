@@ -57,9 +57,13 @@ public class NoteDetailServiceImpl implements NoteDetailService {
             NoteDetail old = this.getById(noteDetail.getId());
             if (old == null) return ResultBuilder.buildError(EnumStatusCode.DB_NOT_FOUND);
             if (StringUtil.notEquals(userId, old.getUserId()))
-                ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
+                return ResultBuilder.buildError(EnumStatusCode.DB_DATA_NOT_YOURS);
+
+            if (old.getType() == null) noteDetail.setType(ConstDB.NoteDetail.TYPE_MARKDOWN);
+            if (old.getCreateDatetime() == null) noteDetail.setCreateDatetime(new Date());
+            if (old.getSequence() == null) noteDetail.setSequence(ConstDB.FIRST_SEQUENCE);
         }
-        int status = this.noteDetailMapper.updateByPrimaryKeyWithBLOBs(noteDetail);
+        int status = this.noteDetailMapper.updateByPrimaryKeySelective(noteDetail);
         if (status > 0)
             return ResultBuilder.build();
         else
