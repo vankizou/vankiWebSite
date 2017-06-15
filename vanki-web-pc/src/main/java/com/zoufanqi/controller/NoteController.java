@@ -68,7 +68,7 @@ public class NoteController extends BaseController {
         if (noteVo == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
 
         // 父节点数据
-        noteVo.setParentNote(this.noteService.getByIdInRedis(null, noteVo.getNote().getParentId()));
+        noteVo.setParentNote(this.noteService.getByIdInRedis(null, noteVo.getNote().getParentId(), false));
         // 用户
         noteVo.setUser(this.userService.getById(noteVo.getNote().getUserId()));
         noteVo.setCreateDatetimeStr(DateUtil.formatDate(noteVo.getNote().getCreateDatetime()));
@@ -140,14 +140,6 @@ public class NoteController extends BaseController {
             return ResultBuilder.buildError();
         }
         return ResultBuilder.build();
-
-        /*String htmlContentStr = new String(htmlContent.toString().getBytes("UTF-8"), "ISO-8859-1");
-        byte[] body = htmlContentStr.getBytes();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", new String(title.getBytes(), "ISO-8859-1") + ".html");
-
-        return new ResponseEntity<>(body, headers, HttpStatus.CREATED);*/
     }
 
     @ResponseBody
@@ -223,7 +215,7 @@ public class NoteController extends BaseController {
         vo.setCreateDatetimeStr(DateUtil.formatDate(vo.getNote().getCreateDatetime()));
         vo.setUpdateDatetimeStr(DateUtil.formatDate(vo.getNote().getUpdateDatetime()));
         // 父节点数据
-        vo.setParentNote(this.noteService.getByIdInRedis(null, vo.getNote().getParentId()));
+        vo.setParentNote(this.noteService.getByIdInRedis(null, vo.getNote().getParentId(), false));
         // 用户
         vo.setUser(this.userService.getById(vo.getNote().getUserId()));
 
@@ -276,7 +268,7 @@ public class NoteController extends BaseController {
                 noteHomeVo.setParentNote(pNote);
                 continue;
             }
-            pNote = this.noteService.getByIdInRedis(null, note.getParentId());
+            pNote = this.noteService.getByIdInRedis(null, note.getParentId(), false);
             if (pNote == null) continue;
             noteHomeVo.setParentNote(pNote);
             parentNoteMap.put(note.getParentId(), pNote);

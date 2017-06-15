@@ -198,7 +198,7 @@ public class NoteServiceImpl implements NoteService {
         if (StringUtil.isNotId(loginUserId)) return -1;
         if (parentId == null || parentId == ConstDB.DEFAULT_PARENT_ID) return 1;
 
-        Note pNote = this.getByIdInRedis(loginUserId, parentId);
+        Note pNote = this.getByIdInRedis(loginUserId, parentId, false);
         if (pNote == null || StringUtil.notEquals(loginUserId, pNote.getUserId())) return 0;
 
         Integer pcn = this.countNote(parentId);
@@ -282,7 +282,7 @@ public class NoteServiceImpl implements NoteService {
      */
     @Override
     public NoteViewVo getNoteVoById(Long loginUserId, Long id, String password) throws ZouFanqiException {
-        Note note = this.getByIdInRedis(loginUserId, id);
+        Note note = this.getByIdInRedis(loginUserId, id, false);
         if (note == null) return null;
         Integer secret = note.getSecret();
         secret = secret == null ? ConstDB.Note.SECRET_OPEN : secret;
@@ -306,6 +306,9 @@ public class NoteServiceImpl implements NoteService {
         NoteViewVo vo = new NoteViewVo();
         vo.setNote(note);
         vo.setNoteDetailList(this.noteDetailService.getListByNoteId(note.getId()));
+
+        if (StringUtil.isNotId(loginUserId) || StringUtil.notEquals(loginUserId, note.getUserId()))
+            this.updateNoteViewNumInRedis(id, note.getViewNum() + 1);
 
         return vo;
     }
@@ -581,7 +584,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note getByIdInRedis(Long loginUserId, Long id) throws ZouFanqiException {
+    public Note getByIdInRedis(Long loginUserId, Long id, boolean addViewNumInRedis) throws ZouFanqiException {
         if (StringUtil.isNotId(id) || StringUtil.equals(id, ConstDB.DEFAULT_PARENT_ID)) return null;
 
         String redisKey = EnumRedisKey.TIME_NOTE_.name() + id;
@@ -594,7 +597,8 @@ public class NoteServiceImpl implements NoteService {
 
             Note note = JSON.parseObject(redisInfo, Note.class);
 
-            if (StringUtil.isNotId(loginUserId) || StringUtil.notEquals(loginUserId, note.getUserId()))
+            if (addViewNumInRedis &&
+                    (StringUtil.isNotId(loginUserId) || StringUtil.notEquals(loginUserId, note.getUserId())))
                 this.updateNoteViewNumInRedis(id, ++redisViewNum);
 
             note.setViewNum(redisViewNum);
@@ -628,6 +632,10 @@ public class NoteServiceImpl implements NoteService {
         this.redisTemplate.setex(redisKey, EnumRedisKey.TIME_NOTE_.getTime(), JSON.toJSONString(note));
 
         return note;
+    }
+
+    private void addViewNumInRedis() {
+
     }
 
     private Note getById(Long id) throws ZouFanqiException {

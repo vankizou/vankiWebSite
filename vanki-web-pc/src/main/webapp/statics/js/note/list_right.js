@@ -13,11 +13,11 @@ $(function () {
         "> 功能清单\r\n" +
         ">> 1. 奇奇笔记支持Markdown，有经验的朋友可以无缝介入，无经验的小伙伴也能很快上手\r\n" +
         "\r\n" +
-        ">> 2. 在列表右击可得到相应操作\r\n" +
+        ">> 2. 在菜单列表右击会有相应操作\r\n" +
         "\r\n" +
-        ">> 3. 双击打开笔记\r\n" +
+        ">> 3. 在菜单列表双击打开笔记\r\n" +
         "\r\n" +
-        ">> 4. 目录排序是根据笔记量倒序\r\n" +
+        ">> 4. 菜单列表排序是根据笔记数量倒序\r\n" +
         "\r\n" +
         ">> 5. 目录也是能成为一个笔记的哦！\r\n" +
         "\r\n" +
@@ -113,7 +113,7 @@ function buildMarkdownEdit(val, heightDiff) {
 
     var infoHeight = $('#j_note_info_div').height();
     if (!infoHeight) infoHeight = 0;
-    // 132
+
     heightDiff = heightDiff ? heightDiff : 98 + infoHeight;
     var height = $(window).height() - heightDiff;
     vankiEditor = editormd("vanki-editormd-edit-note", {
