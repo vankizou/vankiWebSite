@@ -24,3 +24,13 @@
 .c_all {
     min-width: 1000px;
 }
+
+.btn_info1 {
+    color: #fff;
+    background: #0593d3;
+}
+
+.btn_info1:hover {
+    color: #fff !important;
+    background: #337cbb;
+}

@@ -56,34 +56,34 @@
                 <tbody>
                 <tr>
                     <td class="col-md-4 text-center">
-                        <span class="label label-info">作者：</span>
+                        <span class="label btn_info1">作者：</span>
                     </td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_user_alias"
-                              class="label label-warning">${noteVo.user.alias}</span>
+                              class="label label-info">${noteVo.user.alias}</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4 text-center">
-                        <span class="label label-info">创建：</span></td>
+                        <span class="label btn_info1">创建：</span></td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_create_datetime"
-                              class="label label-warning">${noteVo.createDatetimeStr}</span>
+                              class="label label-info">${noteVo.createDatetimeStr}</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4 text-center">
-                        <span class="label label-info">更新：</span></td>
+                        <span class="label btn_info1">更新：</span></td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_update_datetime"
-                              class="label label-warning">${noteVo.updateDatetimeStr}</span>
+                              class="label label-info">${noteVo.updateDatetimeStr}</span>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div>
-            <a id="j_note_info_user_url" href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info"
+            <a id="j_note_info_user_url" href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn_info1"
                style="margin-left: 8px;">去看看TA的其他笔记&nbsp;>></a>
         </div>
     </div>

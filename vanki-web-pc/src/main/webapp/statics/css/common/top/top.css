@@ -4271,15 +4271,15 @@ tbody.collapse.in {
     clear: both;
     font-weight: normal;
     line-height: 1.42857143;
-    color: #333333;
+    color: #fff;
     white-space: nowrap;
 }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
     text-decoration: none;
-    color: #262626;
-    background-color: #f5f5f5;
+    color: #fff;
+    background: #0593d3;
 }
 
 .dropdown-menu > .active > a,
@@ -5123,8 +5123,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
     padding: 15px 15px;
     font-size: 18px;
-    line-height: 20px;
-    height: 50px;
+    line-height: 32px;
+    height: 65px;
 }
 
 .navbar-brand:hover,
@@ -5184,7 +5184,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-nav > li > a {
     padding-top: 10px;
     padding-bottom: 10px;
-    line-height: 20px;
+    line-height: 32px;
 }
 
 @media (max-width: 767px) {
@@ -5329,6 +5329,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+    background:#047bb1;
 }
 
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
@@ -5383,7 +5384,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default {
-    background-color: #f8f8f8;
+    background: #0593d3;
     border-color: #e7e7e7;
 }
 
@@ -5402,13 +5403,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #000000;
+    color: #fff;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #000000;
-    background-color: transparent;
+    color: #fff;
+    background:#047bb1;
 }
 
 .navbar-default .navbar-nav > .active > a,
@@ -5446,8 +5447,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-    background-color: #e7e7e7;
-    color: #000000;
+    background: #047bb1;
+    color: #fff;
 }
 
 @media (max-width: 767px) {
@@ -6810,13 +6811,13 @@ a.list-group-item-danger.active:focus {
 }
 
 .panel-info {
-    border-color: #92e4e9;
+    border-color: #0593d3;
 }
 
 .panel-info > .panel-heading {
-    color: #5bc0de;
-    background-color: #b0e1ef;
-    border-color: #92e4e9;
+    color: #fff;
+    background: #0593d3;
+    border-color: #0593d3;
 }
 
 .panel-info > .panel-heading + .panel-collapse > .panel-body {

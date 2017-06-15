@@ -47,7 +47,9 @@ var setting_noLogin = {
 // 树，右键菜单，笔记目录下的笔记数量，笔记私密类型
 var tree, rMenu, childNoteNumJson = {}, noteSecretTypeJson = {};
 $(document).ready(function () {
-    $('#noteTree').css('height', $(window).height() - 80);
+    $(".myNoteUrl").addClass("topActive");
+
+    $('#noteTree').css('height', $(window).height() - 98);
     var rootName = "TA的笔记";
     if (c_myUserId && c_noteUserId == c_myUserId) {
         rootName = "我的笔记";

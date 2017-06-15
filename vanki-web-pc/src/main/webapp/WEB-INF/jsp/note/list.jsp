@@ -45,28 +45,28 @@
         <div tips="笔记内容">
             <div class="note_content_common_view row">
                 <div class="col-xs-1">
-                    <button id="j_note_edit" type="button" class="btn btn-info btn-sm">编辑</button>
+                    <button id="j_note_edit" type="button" class="btn btn_info1 btn-sm">编辑</button>
                 </div>
                 <div id="j_note_info_div" class="col-xs-11">
-                    <span class="label label-info pull-left span-sm">标题：<code id="j_note_info_title"></code></span>
-                    <span class="label label-info pull-left">私密：<code id="j_note_info_secret"></code></span>
-                    <span class="label label-info pull-left">状态：<code id="j_note_info_status"></code></span>
-                    <span class="label label-info pull-left">关键词：<code id="j_note_info_keyword"></code></span>
-                    <span class="label label-info pull-left">浏览量：<code id="j_note_info_viewNum"></code></span>
+                    <span class="label btn_info1 pull-left span-sm">标题：<code id="j_note_info_title"></code></span>
+                    <span class="label btn_info1 pull-left">私密：<code id="j_note_info_secret"></code></span>
+                    <span class="label btn_info1 pull-left">状态：<code id="j_note_info_status"></code></span>
+                    <span class="label btn_info1 pull-left">关键词：<code id="j_note_info_keyword"></code></span>
+                    <span class="label btn_info1 pull-left">浏览量：<code id="j_note_info_viewNum"></code></span>
                 </div>
             </div>
             <div class="note_content_common_edit row">
                 <div class="col-xs-1">
-                    <button id="j_note_save" type="button" class="btn btn-info btn-sm">保存</button>
+                    <button id="j_note_save" type="button" class="btn btn_info1 btn-sm">保存</button>
                 </div>
                 <div class="col-xs-11 form-inline">
                     <div class="form-group has-success pull-left">
-                        <span class="label label-info pull-left">标题：
+                        <span class="label btn_info1 pull-left">标题：
                             <input type="text" class="form-control c_title" id="j_note_info_edit_title" size="18"/>
                         </span>
                     </div>
                     <div class="form-group has-success pull-left">
-                        <span class="label label-info pull-left">私密：
+                        <span class="label btn_info1 pull-left">私密：
                             <select id="j_note_info_edit_secret" class="selectpicker btn-info">
                                 <option value="0">公开</option>
                                 <option value="1">密码访问</option>
@@ -75,7 +75,7 @@
                         </span>
                     </div>
                     <div class="form-group has-success pull-left">
-                        <span class="label label-info pull-left">关键词：
+                        <span class="label btn_info1 pull-left">关键词：
                             <input type="text" class="form-control" id="j_note_info_edit_keyword" size="18"/>
                         </span>
                     </div>

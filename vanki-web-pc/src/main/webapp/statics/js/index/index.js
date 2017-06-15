@@ -3,6 +3,8 @@
  */
 
 $(function () {
+    $(".homeUrl").addClass("topActive");
+
     var pageSize = 20;
     getNoteList(1, pageSize);
 

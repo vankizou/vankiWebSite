@@ -39,7 +39,7 @@ $(function () {
         "\r\n" +
         "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
 
-    buildMarkdownEdit(initStr, 88);
+    buildMarkdownEdit(initStr, 100);
 
     /**
      * 点击编辑
@@ -114,7 +114,7 @@ function buildMarkdownEdit(val, heightDiff) {
     var infoHeight = $('#j_note_info_div').height();
     if (!infoHeight) infoHeight = 0;
 
-    heightDiff = heightDiff ? heightDiff : 98 + infoHeight;
+    heightDiff = heightDiff ? heightDiff : 110 + infoHeight;
     var height = $(window).height() - heightDiff;
     vankiEditor = editormd("vanki-editormd-edit-note", {
         width: "100%",

@@ -89,3 +89,14 @@ label {
 .editormd-preview {
     top: 0px !important;
 }*/
+
+
+.btn_info1 {
+    color: #fff;
+    background: #0593d3;
+}
+
+.btn_info1:hover {
+    color: #fff !important;
+    background: #337cbb;
+}

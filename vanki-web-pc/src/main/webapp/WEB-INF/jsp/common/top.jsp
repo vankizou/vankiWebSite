@@ -18,7 +18,7 @@
 <script type="text/javascript" src="/statics/js/common/top/loginRegister.js"></script>
 
 
-<div class="navbar navbar-default" style="min-width: 1000px;">
+<div class="navbar navbar-default" style="min-width: 1000px;height:65px;">
     <div class="container">
         <div class="navbar-header" style="vertical-align: middle;display: inline-block;">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="color: #9c3328;font-style: italic; font-weight:700;">
+            <a class="navbar-brand" href="/" style="color: #fff;font-style: italic; font-weight:700;">
                 <i class="fa fa-paint-brush"></i>&nbsp;奇奇笔记
             </a>
         </div>
@@ -35,10 +35,12 @@
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="text-align">
-                    <a href="/"><i class="fa fa-home"></i>&nbsp; 主页</a>
+                    <a href="/" class="homeUrl"><i class="fa fa-home"></i>&nbsp; 主页</a>
                 </li>
-
-                <%--<li class="active">
+                <%--<li>
+                    <a href="#">Contacts</a>
+                </li>
+                <li>
                     <a href="#">Contacts</a>
                 </li>--%>
                 <c:choose>
@@ -50,7 +52,8 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a></li>
+                        <li><a href="/user/${userContext.user.id}.html" class="myNoteUrl"><i
+                                class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
@@ -60,10 +63,11 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="javascript:;"
-                                       style="font-weight: 700; color: #9966FF;"><i
+                                       style="font-weight: 700;"><i
                                             class="fa fa-bell"></i>&nbsp; 我的ID：${userContext.user.id}</a>
                                 </li>
-                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp; 我的笔记</a></li>
+                                <li><a href="/user/${userContext.user.id}.html"><i class="fa fa-paint-brush"></i>&nbsp;
+                                    我的笔记</a></li>
                                 <li><a href="/user/logout.html"><i class="fa fa-sign-out"></i>&nbsp; 退出</a></li>
                             </ul>
                         </li>
