@@ -36,7 +36,7 @@
     <div class="col-xs-10">
         <div id="j_empty_content" class="text-center"
              style="display: none; margin: 50px auto; font-size:18px; font-weight:bold;">
-            笔记内容为空!&nbsp; <a href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn-info"> 去看看TA的笔记&nbsp;>></a>
+            笔记内容为空!&nbsp; <a href="/user/${noteVo.note.userId}.html" target="_blank" class="btn btn_info1"> 去看看TA的笔记&nbsp;>></a>
         </div>
         <div id="layout">
             <h1 class="text-center c_title j_note_info">${noteVo.note.title}&nbsp;&nbsp;
@@ -60,7 +60,7 @@
                     </td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_user_alias"
-                              class="label label-info">${noteVo.user.alias}</span>
+                              class="label label_info1">${noteVo.user.alias}</span>
                     </td>
                 </tr>
                 <tr>
@@ -68,7 +68,7 @@
                         <span class="label btn_info1">创建：</span></td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_create_datetime"
-                              class="label label-info">${noteVo.createDatetimeStr}</span>
+                              class="label label_info1">${noteVo.createDatetimeStr}</span>
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                         <span class="label btn_info1">更新：</span></td>
                     <td class="col-md-8 text-left">
                         <span id="j_note_info_update_datetime"
-                              class="label label-info">${noteVo.updateDatetimeStr}</span>
+                              class="label label_info1">${noteVo.updateDatetimeStr}</span>
                     </td>
                 </tr>
                 </tbody>
