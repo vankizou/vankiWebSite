@@ -35,9 +35,8 @@ $(function () {
         "> **记录生活，记录点滴！**\r\n" +
         ">> **你的笔记，大家的财富！**\r\n" +
         "\r\n" +
-        "> **<a href='http://www.qiqinote.com' target='_blank'>http://www.qiqinote.com</a>**\r\n" +
         "\r\n" +
-        "> 常用Markdown操作：<a href='" + basePath + "info/markdown/case.html' target='_blank'>http://www.qiqinote.com/info/markdown/case.html</a>";
+        "#### <a href='" + basePath + "info/markdown/case.html' target='_blank'>常用Markdown操作</a>";
 
     buildMarkdownEdit(initStr, 100);
 

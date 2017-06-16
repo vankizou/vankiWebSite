@@ -60,7 +60,7 @@
                     </li>
                     <li class="form-inline">
                         &nbsp;<input type="text" class="form-control" size="2" id="j_page_jump_val"/>
-                        <button class="btn btn-info" id="j_page_jump">跳转</button>
+                        <button class="btn btn_info1" id="j_page_jump">跳转</button>
                     </li>
                 </ul>
             </nav>
