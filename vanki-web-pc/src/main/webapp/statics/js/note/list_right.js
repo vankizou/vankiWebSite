@@ -38,7 +38,7 @@ $(function () {
         "\r\n" +
         "#### <a href='" + basePath + "info/markdown/case.html' target='_blank'>常用Markdown操作</a>";
 
-    buildMarkdownEdit(initStr, 100);
+    buildMarkdownEdit(initStr, 95);
 
     /**
      * 点击编辑
@@ -113,7 +113,7 @@ function buildMarkdownEdit(val, heightDiff) {
     var infoHeight = $('#j_note_info_div').height();
     if (!infoHeight) infoHeight = 0;
 
-    heightDiff = heightDiff ? heightDiff : 110 + infoHeight;
+    heightDiff = heightDiff ? heightDiff : 105 + infoHeight;
     var height = $(window).height() - heightDiff;
     vankiEditor = editormd("vanki-editormd-edit-note", {
         width: "100%",

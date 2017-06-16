@@ -98,16 +98,25 @@ $(function () {
             findPwdValidation: findPwdValidation,
             imageCode: imageCodeVal
         };
-        var fnMsgClose = function () {
-            window.location = ConstAjaxUrl.User.userHomeHtml_login;
-        };
+
         var fnSucc = function (data) {
             if ($('#j_win_loginRegister').attr('is_pop_win')) $.unblockUI();
             $('#j_login').hide();
             $('#j_register').hide();
 
-            var msg = "恭喜！帐号注册成功！您的登录ID为：<span style='color:red; font-size:20px; font-weight: 700;'>" + data.id + "</span>";
+            var msg = "<div>" +
+                "<div>恭喜！帐号注册成功！您的登录ID为：<span style='color:red; font-size:20px; font-weight: 700;'>" + data.id + "</span></div>" +
+                "<div class='text-center' style='margin-top: 20px;'><button id='btn_close_msg' class='btn' style='background: #0593d3; color: #fff;''>好的，我已牢记我的ID号</button></div>" +
+                "</div>";
+
+            var fnMsgClose = function () {
+                window.location = ConstAjaxUrl.User.userHomeHtml_login;
+            };
             vankiMsgAlert(msg, "帐号注册成功提示", fnMsgClose);
+            $('#btn_close_msg').click(function () {
+                fnMsgClose();
+            });
+
         };
         var fnFail = function (data) {
             if (data['code'] != ConstStatusCode.CODE_620[0]) return;
@@ -116,9 +125,9 @@ $(function () {
         vankiAjax(ConstAjaxUrl.User.register, params, fnSucc, fnFail);
     };
 
+
     /*==========图片验证码===========*/
     var fnGetImageCode = function () {
-        // var flag = $('#j_win_loginRegister').attr('is_pop_win');
         var params = {
             width: 170,
             height: 45

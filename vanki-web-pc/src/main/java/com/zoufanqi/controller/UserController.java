@@ -70,6 +70,7 @@ public class UserController extends BaseController {
         if (user == null) throw new ZouFanqiException(EnumStatusCode.NOT_FOUND);
         ModelAndView mv = new ModelAndView("note/list");
         mv.addObject("userId", user.getId());
+        mv.addObject("userAlias", user.getAlias());
         return mv;
     }
 

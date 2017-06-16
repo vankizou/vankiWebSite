@@ -5123,7 +5123,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
     padding: 15px 15px;
     font-size: 18px;
-    line-height: 32px;
+    line-height: 24px;
     height: 65px;
 }
 
@@ -5224,8 +5224,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     }
 
     .navbar-nav > li > a {
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 13px;
+        padding-bottom: 12px;
     }
 }
 

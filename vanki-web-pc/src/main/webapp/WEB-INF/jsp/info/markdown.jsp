@@ -18,7 +18,7 @@
     <jsp:include page="../common/markdown.jsp"></jsp:include>
     <script type="text/javascript">
         var vankiEditor;
-        var height = $(window).height() - 68;
+        var height = $(window).height() - 85;
         $(function () {
             vankiEditor = editormd("vanki-editormd-view-note", {
                 width: "100%",
@@ -31,7 +31,7 @@
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
                 htmlDecode: "style,script,iframe",  // you can filter tags decode
-                readOnly: true,
+                //readOnly: true,
                 syncScrolling: "single",
                 path: "/statics/third/markdown/lib/"
             });

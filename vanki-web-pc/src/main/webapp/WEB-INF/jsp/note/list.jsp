@@ -31,7 +31,14 @@
     <script type="text/javascript">
         var c_myUserId = '${userContext.user.id}';
         var c_noteUserId = '${userId}';
+        var c_noteUserAlias = '${userAlias}';
         var basePath = '<%=basePath%>';
+
+        $(function () {
+            if (c_myUserId && c_myUserId == c_noteUserId) {
+                $(".myNoteUrl").addClass("topActive");
+            }
+        });
     </script>
 </head>
 <body>
@@ -67,7 +74,7 @@
                     </div>
                     <div class="form-group has-success pull-left">
                         <span class="label btn_info1 pull-left">私密：
-                            <select id="j_note_info_edit_secret" class="selectpicker btn-info">
+                            <select id="j_note_info_edit_secret" class="selectpicker btn_info1">
                                 <option value="0">公开</option>
                                 <option value="1">密码访问</option>
                                 <option value="2">仅自己可见</option>
