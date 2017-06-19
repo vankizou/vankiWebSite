@@ -52,6 +52,7 @@ function fnGetNoteVo(noteId, msg) {
             $('#j_empty_content').show();
             $('.j_note_info').hide();
         }
+        changeFooterMarginTop();
     };
     var fnFail = function (data) {
         fnGetNoteVo(noteId, "密码输入错误，请重新输入");

@@ -27,6 +27,10 @@
     <script type="text/javascript">
         var c_noteId = '${noteVo.note.id}';
         var c_isNeedPwd = '${noteVo.isNeedPwd}';
+
+        $(function() {
+            changeFooterMarginTop(10);
+        });
     </script>
 </head>
 <body>
@@ -88,5 +92,6 @@
         </div>
     </div>
 </div>
+<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>
