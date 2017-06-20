@@ -22,6 +22,12 @@
 <jsp:include page="../common/top.jsp"></jsp:include>
 <script type="text/javascript" src="/statics/js/index/index.js"></script>
 
+<script type="text/javascript">
+    $(function () {
+       $("#copyright").show().css("margin-top", "80px");
+    });
+</script>
+
 <div class="c_body">
     <div class="c_index_body">
         <div class="panel panel-info" id="j_note_list">

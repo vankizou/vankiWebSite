@@ -25,5 +25,6 @@ function changeFooterMarginTop(correctHeight) {
     if (!oldMarginTop) oldMarginTop = 0;
     oldMarginTop = oldMarginTop.replace('px', '');
 
-    $('#copyright').css("margin-top", viewHeight - distTopHeight - height - oldMarginTop + correctHeight);
+    var currHeight = viewHeight - distTopHeight - height + Number(oldMarginTop) + correctHeight
+    $('#copyright').css("margin-top", currHeight);
 }

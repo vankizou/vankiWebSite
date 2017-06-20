@@ -79,8 +79,6 @@ function getNoteList(pageNo, pageSize, navNum) {
         }
         $('#j_note_list_table').children().remove();
         $('#j_note_list_table').append(node);
-
-        changeFooterMarginTop(20);
     };
     vankiAjax(ConstAjaxUrl.Note.getPageForHome, params, fnSucc);
 }
