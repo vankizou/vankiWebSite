@@ -1,16 +1,16 @@
 
 #copyright {
-    background: #0593d3;
+    background: #fff;
     font-size: 13px;
     text-align: center;
-    color: #fff;
-    padding-top: 28px;
-    padding-bottom: 20px;
+    color: #898e87;
+    padding-top: 20px;
+    padding-bottom: 5px;
     /*border-top: 1px solid #303030*/
 }
 
 #copyright a {
-    color: #fff
+    color: #898e87
 }
 
 .content-tools {
