@@ -57,6 +57,7 @@ function vankiUploadImageMulti(useType, formId, fileInputId, succFn, failFn, max
         if (succFn) succFn(data);
     }
     if (!failFn) {
+        if (layerIndex) layer.close(layerIndex);
         failFn = function () {
             vankiLayerMsgFailTou("网络异常，请稍后重试...");
         }
@@ -71,6 +72,5 @@ function vankiUploadImageMulti(useType, formId, fileInputId, succFn, failFn, max
         success: newSuccFn,
         error: failFn
     };
-
     $("#" + formId).ajaxForm(options);
 }

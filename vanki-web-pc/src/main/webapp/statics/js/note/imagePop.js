@@ -72,10 +72,10 @@ function getHistoryImageData(pageNo, pageSize, navNum) {
     vankiAjax(ConstAjaxUrl.Picture.getPage, params, fnSucc);
 }
 
+var uploadImageLayerIndex;
 function createAddImagePop() {
-    var layerIndex;
     $(function () {
-        layerIndex = layer.open({
+        uploadImageLayerIndex = layer.open({
             type: 1,
             area: ["600px", "500px"],
             title: "添加图片",
@@ -89,6 +89,12 @@ function createAddImagePop() {
     });
     getHistoryImageData();
 
+    if (!isUploadImageFunInited) initUploadImageFun();
+}
+
+var isUploadImageFunInited = false;
+function initUploadImageFun() {
+    isUploadImageFunInited = true;
     var fnImageUploadSucc = function (data) {
         var succFn = function (data) {
             for (i in data) {
@@ -97,10 +103,10 @@ function createAddImagePop() {
             }
             vankiLayerMsgSuccGou("已添加" + data.length + "张图片");
         };
-        if (layerIndex) layer.close(layerIndex);
+        if (uploadImageLayerIndex) layer.close(uploadImageLayerIndex);
         vankiParseResponseData(data, succFn);
     };
-    vankiUploadImageMulti("j_imageUploadForm", "j_images", fnImageUploadSucc, null, 20, 5);
+    vankiUploadImageMulti(ConstDB.Picture.useTypeNote, "j_imageUploadForm", "j_images", fnImageUploadSucc, null, 20, 5);
 
     $("#j_imageUploadForm").change(function () {
         $("#j_imageUploadForm").submit();

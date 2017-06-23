@@ -11,7 +11,7 @@
  Target Server Version : 50636
  File Encoding         : utf-8
 
- Date: 06/23/2017 11:12:21 AM
+ Date: 06/23/2017 13:59:30 PM
 */
 
 SET NAMES utf8;
@@ -143,6 +143,7 @@ CREATE TABLE `t_picture` (
   `HEIGHT` int(6) DEFAULT NULL,
   `SIZE` bigint(20) DEFAULT NULL,
   `TYPE` varchar(10) DEFAULT NULL COMMENT '图片类型, 如: jpg, gif',
+  `USE_TYPE` int(2) DEFAULT '1' COMMENT '图片用处。1笔记，2头像',
   `CRATE_DATETIME` datetime DEFAULT NULL,
   `IS_DEL` int(2) DEFAULT '0' COMMENT '是否删除. 0否, 1是. 默认0',
   PRIMARY KEY (`ID`),
