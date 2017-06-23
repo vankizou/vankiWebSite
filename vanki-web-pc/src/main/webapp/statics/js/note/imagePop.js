@@ -18,6 +18,7 @@ function getHistoryImageData(pageNo, pageSize, navNum) {
     if (!pageSize) pageSize = 10;
 
     var params = {
+        useType: ConstDB.Picture.useTypeNote,
         pageNo: pageNo,
         pageSize: pageSize,
         navNum: navNum

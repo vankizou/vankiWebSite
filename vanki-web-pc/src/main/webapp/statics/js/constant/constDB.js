@@ -5,6 +5,11 @@
 var ConstDB = {
     defaultParentId: -1,
 
+    Picture: {
+        useTypeNote: 1,
+        useTypeAvatar: 2,
+    },
+
     Note: {
         typeNormal: 1,
         typeMarkdown: 2,

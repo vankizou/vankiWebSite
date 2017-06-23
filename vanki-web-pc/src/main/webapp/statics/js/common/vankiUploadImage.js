@@ -4,6 +4,7 @@
 
 /**
  *
+ * @param useType       图片用处，1笔记，2头像。默认1
  * @param formId        form表单ID
  * @param fileInputId   要上传的input[type=file]的ID
  * @param succFn        成功回调函数
@@ -11,7 +12,8 @@
  * @param maxNum        最大上传图片数量，默认10
  * @param maxSize       单张图片最大尺寸，单位(M)，默认5M
  */
-function vankiUploadImageMulti(formId, fileInputId, succFn, failFn, maxNum, maxSize) {
+function vankiUploadImageMulti(useType, formId, fileInputId, succFn, failFn, maxNum, maxSize) {
+    if (!useType) useType = ConstDB.Picture.useTypeNote;
     if (!formId || !fileInputId) return;
     if (!maxNum) maxNum = 10;
     if (!maxSize) maxSize = 5;  // 5M
