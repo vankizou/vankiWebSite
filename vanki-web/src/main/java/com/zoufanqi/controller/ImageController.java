@@ -1,5 +1,6 @@
 package com.zoufanqi.controller;
 
+import com.zoufanqi.consts.ConstDB;
 import com.zoufanqi.consts.ConstService;
 import com.zoufanqi.entity.Picture;
 import com.zoufanqi.result.ResultBuilder;
@@ -64,8 +65,20 @@ public class ImageController extends BaseController {
         return subDir.toString();
     }
 
-    private static void resizeImg(int width, File imageFile) {
-        final int maxWidth = 800;
+    private static void resizeImg(int useType, int width, File imageFile) {
+        int maxWidth = 0;
+
+        switch (useType) {
+            case ConstDB.Picture.USE_TYPE_NOTE:
+                maxWidth = 800;
+                break;
+            case ConstDB.Picture.USE_TYPE_AVATAR:
+                maxWidth = 300;
+                break;
+            default:
+                maxWidth = 500;
+        }
+
         if (width <= maxWidth) return;
 
         /**
@@ -82,11 +95,12 @@ public class ImageController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/uploadMulti.json", method = RequestMethod.POST)
-    public ResultJson uploadMulti(@RequestParam MultipartFile[] images) throws Exception {
+    public ResultJson uploadMulti(@RequestParam MultipartFile[] images, Integer useType) throws Exception {
         int uploadNum;
         if (images == null || (uploadNum = images.length) == 0)
             return ResultBuilder.buildError(EnumStatusCode.IMAGE_EMPTY);
         if (uploadNum > UPLOAD_MAX_NUM) return ResultBuilder.buildError(EnumStatusCode.IMAGE_OVER_MAX_NUM);
+        if (useType == null) useType = ConstDB.Picture.USE_TYPE_NOTE;
 
         Long userId = this.getUserId();
 
@@ -123,7 +137,7 @@ public class ImageController extends BaseController {
                 image.getInputStream().close();
                 FileUtil.setFilePermission(imageFile, 644);
 
-                resizeImg(width, imageFile);    // 图片缩放
+                resizeImg(useType, width, imageFile);    // 图片缩放
                 imageRelationPath = imageRelationPath.replace("\\", "/");
 
                 Picture pic = new Picture();
@@ -133,6 +147,7 @@ public class ImageController extends BaseController {
                 pic.setPath(imageRelationPath);
                 pic.setSize(imageFile.length());
                 pic.setType(imageType);
+                pic.setUseType(useType);
                 pic.setName(image.getOriginalFilename().substring(0, image.getOriginalFilename().lastIndexOf(".")));
                 pic.setUserId(userId);
 

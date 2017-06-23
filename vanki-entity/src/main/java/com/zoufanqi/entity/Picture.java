@@ -23,6 +23,8 @@ public class Picture {
 
     private String type;
 
+    private Integer useType;
+
     private Date crateDatetime;
 
     @JsonIgnore
@@ -32,6 +34,7 @@ public class Picture {
         if (this.uuid == null || userId == null || path == null) return false;
         return true;
     }
+
 
     public Long getId() {
         return id;
@@ -103,6 +106,14 @@ public class Picture {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getUseType() {
+        return useType;
+    }
+
+    public void setUseType(Integer useType) {
+        this.useType = useType;
     }
 
     public Date getCrateDatetime() {

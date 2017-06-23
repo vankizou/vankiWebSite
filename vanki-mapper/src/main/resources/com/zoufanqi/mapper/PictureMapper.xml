@@ -11,6 +11,7 @@
     <result column="HEIGHT" property="height" jdbcType="INTEGER" />
     <result column="SIZE" property="size" jdbcType="BIGINT" />
     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="USE_TYPE" property="useType" jdbcType="INTEGER" />
     <result column="CRATE_DATETIME" property="crateDatetime" jdbcType="TIMESTAMP" />
     <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
   </resultMap>
@@ -73,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, UUID, USER_ID, NAME, PATH, WIDTH, HEIGHT, SIZE, TYPE, CRATE_DATETIME, IS_DEL
+    ID, UUID, USER_ID, NAME, PATH, WIDTH, HEIGHT, SIZE, TYPE, USE_TYPE, CRATE_DATETIME, 
+    IS_DEL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zoufanqi.entity.PictureExample" >
     select
@@ -112,11 +114,13 @@
     insert into t_picture (ID, UUID, USER_ID, 
       NAME, PATH, WIDTH, 
       HEIGHT, SIZE, TYPE, 
-      CRATE_DATETIME, IS_DEL)
+      USE_TYPE, CRATE_DATETIME, IS_DEL
+      )
     values (#{id,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, 
       #{height,jdbcType=INTEGER}, #{size,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
-      #{crateDatetime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER})
+      #{useType,jdbcType=INTEGER}, #{crateDatetime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zoufanqi.entity.Picture" >
     insert into t_picture
@@ -147,6 +151,9 @@
       </if>
       <if test="type != null" >
         TYPE,
+      </if>
+      <if test="useType != null" >
+        USE_TYPE,
       </if>
       <if test="crateDatetime != null" >
         CRATE_DATETIME,
@@ -182,6 +189,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        #{useType,jdbcType=INTEGER},
       </if>
       <if test="crateDatetime != null" >
         #{crateDatetime,jdbcType=TIMESTAMP},
@@ -224,6 +234,9 @@
       <if test="record.type != null" >
         TYPE = #{record.type,jdbcType=VARCHAR},
       </if>
+      <if test="record.useType != null" >
+        USE_TYPE = #{record.useType,jdbcType=INTEGER},
+      </if>
       <if test="record.crateDatetime != null" >
         CRATE_DATETIME = #{record.crateDatetime,jdbcType=TIMESTAMP},
       </if>
@@ -246,6 +259,7 @@
       HEIGHT = #{record.height,jdbcType=INTEGER},
       SIZE = #{record.size,jdbcType=BIGINT},
       TYPE = #{record.type,jdbcType=VARCHAR},
+      USE_TYPE = #{record.useType,jdbcType=INTEGER},
       CRATE_DATETIME = #{record.crateDatetime,jdbcType=TIMESTAMP},
       IS_DEL = #{record.isDel,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -279,6 +293,9 @@
       <if test="type != null" >
         TYPE = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="useType != null" >
+        USE_TYPE = #{useType,jdbcType=INTEGER},
+      </if>
       <if test="crateDatetime != null" >
         CRATE_DATETIME = #{crateDatetime,jdbcType=TIMESTAMP},
       </if>
@@ -298,6 +315,7 @@
       HEIGHT = #{height,jdbcType=INTEGER},
       SIZE = #{size,jdbcType=BIGINT},
       TYPE = #{type,jdbcType=VARCHAR},
+      USE_TYPE = #{useType,jdbcType=INTEGER},
       CRATE_DATETIME = #{crateDatetime,jdbcType=TIMESTAMP},
       IS_DEL = #{isDel,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}

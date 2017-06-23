@@ -26,9 +26,9 @@ public class PictureController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/getPage.json")
-    public ResultJson getPage(Integer pageNo, Integer pageSize, Integer navNum)
+    public ResultJson getPage(Integer useType, Integer pageNo, Integer pageSize, Integer navNum)
             throws ZouFanqiException {
-        Page<Picture> page = this.pictureService.getPage(this.getUserId(), pageNo, pageSize, navNum);
+        Page<Picture> page = this.pictureService.getPage(this.getUserId(), useType, pageNo, pageSize, navNum);
         List<Picture> list;
         if (page == null || (list = page.getData()) == null || list.isEmpty()) return ResultBuilder.build(page);
 

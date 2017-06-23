@@ -12,7 +12,6 @@ import com.zoufanqi.mapper.PictureMapper;
 import com.zoufanqi.param.common.Page;
 import com.zoufanqi.service.PictureService;
 import com.zoufanqi.service.redis.RedisTemplate;
-import com.zoufanqi.status.EnumStatusCode;
 import com.zoufanqi.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,8 +66,10 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public Page<Picture> getPage(Long loginUserId, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
+    public Page<Picture> getPage(Long loginUserId, Integer useType, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException {
         if (StringUtil.isNotId(loginUserId)) return null;
+        if (useType == null) useType = ConstDB.Picture.USE_TYPE_NOTE;
+
         Page page = new Page(pageNo, pageSize, 0, navNum);
 
         String key = EnumRedisKey.TIME_IMAGE_USER_PAGE_.name() + loginUserId;
@@ -97,7 +98,8 @@ public class PictureServiceImpl implements PictureService {
         PictureExample example = new PictureExample();
         example.createCriteria()
                 .andUserIdEqualTo(loginUserId)
-                .andIsDelEqualTo(ConstDB.ISDEL_FALSE);
+                .andIsDelEqualTo(ConstDB.ISDEL_FALSE)
+                .andUseTypeEqualTo(useType);
 
         int count = this.pictureMapper.countByExample(example);
         page = new Page(pageNo, pageSize, count, navNum);

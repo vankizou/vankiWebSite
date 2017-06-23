@@ -705,6 +705,66 @@ public class PictureExample {
             return (Criteria) this;
         }
 
+        public Criteria andUseTypeIsNull() {
+            addCriterion("USE_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeIsNotNull() {
+            addCriterion("USE_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeEqualTo(Integer value) {
+            addCriterion("USE_TYPE =", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeNotEqualTo(Integer value) {
+            addCriterion("USE_TYPE <>", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeGreaterThan(Integer value) {
+            addCriterion("USE_TYPE >", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("USE_TYPE >=", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeLessThan(Integer value) {
+            addCriterion("USE_TYPE <", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("USE_TYPE <=", value, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeIn(List<Integer> values) {
+            addCriterion("USE_TYPE in", values, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeNotIn(List<Integer> values) {
+            addCriterion("USE_TYPE not in", values, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeBetween(Integer value1, Integer value2) {
+            addCriterion("USE_TYPE between", value1, value2, "useType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("USE_TYPE not between", value1, value2, "useType");
+            return (Criteria) this;
+        }
+
         public Criteria andCrateDatetimeIsNull() {
             addCriterion("CRATE_DATETIME is null");
             return (Criteria) this;

@@ -10,6 +10,11 @@ public class ConstDB {
     public static long DEFAULT_PARENT_ID = -1;   // 默认父节点ID
     public static int FIRST_SEQUENCE = 0;       // 序号起始
 
+    public static final class Picture {
+        public static final int USE_TYPE_NOTE = 1;  // 图片用处, 笔记
+        public static final int USE_TYPE_AVATAR = 2;  // 图片用处, 头像
+    }
+
     public static final class Note {
 
         public static final int TYPE_NORMAL = 1;    // 笔记内容类型, 普通

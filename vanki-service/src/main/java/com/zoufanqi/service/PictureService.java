@@ -11,5 +11,5 @@ public interface PictureService {
 
     Picture getByUUID(String uuid) throws ZouFanqiException;
 
-    Page<Picture> getPage(Long loginUserId, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
+    Page<Picture> getPage(Long loginUserId, Integer useType, Integer pageNo, Integer pageSize, Integer navNum) throws ZouFanqiException;
 }
