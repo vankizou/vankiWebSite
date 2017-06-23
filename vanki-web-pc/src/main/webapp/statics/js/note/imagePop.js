@@ -49,8 +49,16 @@ function getHistoryImageData(pageNo, pageSize, navNum) {
 
             var title = d["name"];
             var path = d["path"];
+            var width = d["width"];
+            var height = d["height"];
 
-            node += '<img width="100px" height="100px" src="' + path + '" title="' + title + '"/>'
+            var style = "";
+            if (width > height) {
+                style = "width: auto; height: 100px;";
+            } else {
+                style = "width: 100px; height: auto;";
+            }
+            node += '<div class="c_image"><img style="' + style + '" src="' + path + '" title="' + title + '"/></div>'
         }
         $("#j_historyImageData").children().remove();
         $("#j_historyImageData").append(node);
