@@ -65,8 +65,8 @@ public class ImageController extends BaseController {
         return subDir.toString();
     }
 
-    private static void resizeImg(int useType, int width, File imageFile) {
-        int maxWidth = 0;
+    private static boolean resizeImg(int useType, int width, File imageFile) {
+        int maxWidth;
 
         switch (useType) {
             case ConstDB.Picture.USE_TYPE_NOTE:
@@ -79,7 +79,7 @@ public class ImageController extends BaseController {
                 maxWidth = 500;
         }
 
-        if (width <= maxWidth) return;
+        if (width <= maxWidth) return false;
 
         /**
          * TODO: 缩放图片，有时间把这个操作加到消息队列里去
@@ -88,8 +88,10 @@ public class ImageController extends BaseController {
         try {
             ImageMagickUtil.resizeWidth(maxWidth, (absPath = imageFile.getAbsolutePath()), absPath);
             LOG.info("缩放图片：{}", imageFile.getAbsolutePath());
+            return true;
         } catch (Exception e) {
             LOG.error("缩放图片失败：{}, {}", absPath, ExceptionUtil.getExceptionAllMsg(e));
+            return false;
         }
     }
 
@@ -137,7 +139,12 @@ public class ImageController extends BaseController {
                 image.getInputStream().close();
                 FileUtil.setFilePermission(imageFile, 644);
 
-                resizeImg(useType, width, imageFile);    // 图片缩放
+                boolean isResize = resizeImg(useType, width, imageFile);    // 图片缩放
+                if (isResize) {
+                    bi = ImageIO.read(imageFile);
+                    width = bi.getWidth();
+                    height = bi.getHeight();
+                }
                 imageRelationPath = imageRelationPath.replace("\\", "/");
 
                 Picture pic = new Picture();

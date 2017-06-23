@@ -49,7 +49,7 @@ function getHistoryImageData(pageNo, pageSize, navNum) {
             var title = d["name"];
             var path = d["path"];
 
-            path = "http://img.bimg.126.net/photo/DCi7Q__VN3NJ_63cq7sosA==/3439905690381537164.jpg";
+            node += '<img width="100px" height="100px" src="' + path + '" title="' + title + '"/>'
         }
         $("#j_historyImageData").children().remove();
         $("#j_historyImageData").append(node);

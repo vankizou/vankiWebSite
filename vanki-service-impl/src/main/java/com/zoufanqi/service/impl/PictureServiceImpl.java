@@ -74,6 +74,7 @@ public class PictureServiceImpl implements PictureService {
 
         String key = EnumRedisKey.TIME_IMAGE_USER_PAGE_.name() + loginUserId;
         String mapKey = new StringBuffer()
+                .append(useType).append("_")
                 .append(page.getNum()).append("_")
                 .append(page.getPageSize()).append("_")
                 .append(page.getNavNum()).toString();
