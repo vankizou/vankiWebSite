@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -163,7 +162,8 @@ public class NoteController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/updateById.data", method = RequestMethod.POST)
     public ResultJson updateById(NoteViewVo noteVo) throws ZouFanqiException {
-        Long loginUserId = this.getUserId();
+        Long loginUserId = this.justGetUserId();
+        if (StringUtil.isNotId(loginUserId)) return ResultBuilder.buildError(EnumStatusCode.NOT_LOGIN);
         return this.noteService.updateById(loginUserId, noteVo.getNote(), noteVo.getNoteDetailList(), false);
     }
 
@@ -179,7 +179,7 @@ public class NoteController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/closeNote.data", method = RequestMethod.POST)
     public ResultJson closeNote(Long id) throws ZouFanqiException {
-        this.noteService.closeNoteInRedis(this.getUserId(), id);
+        this.noteService.closeNoteInRedis(this.justGetUserId(), id);
         return ResultBuilder.build();
     }
 
@@ -195,7 +195,7 @@ public class NoteController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/openNote.data", method = RequestMethod.POST)
     public ResultJson openNote(Long id) throws ZouFanqiException {
-        this.noteService.openNoteInRedis(this.getUserId(), id);
+        this.noteService.openNoteInRedis(this.justGetUserId(), id);
         return ResultBuilder.build();
     }
 

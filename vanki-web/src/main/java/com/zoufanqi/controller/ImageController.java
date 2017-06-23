@@ -104,7 +104,10 @@ public class ImageController extends BaseController {
         if (uploadNum > UPLOAD_MAX_NUM) return ResultBuilder.buildError(EnumStatusCode.IMAGE_OVER_MAX_NUM);
         if (useType == null) useType = ConstDB.Picture.USE_TYPE_NOTE;
 
-        Long userId = this.getUserId();
+        Long userId = this.justGetUserId();
+        if (StringUtil.isNotId(userId)) {
+            return ResultBuilder.buildError(EnumStatusCode.NOT_LOGIN);
+        }
 
         File baseDir = new File(imageBasePath);
         if (!baseDir.exists()) {

@@ -75,6 +75,7 @@ function getHistoryImageData(pageNo, pageSize, navNum) {
             }
             src = "\r\n![](" + src + ")";
             vankiEditor.appendMarkdown(src);
+            vankiLayerMsgSuccGou("图片已添加到末尾", 1000);
         });
     };
     vankiAjax(ConstAjaxUrl.Picture.getPage, params, fnSucc);

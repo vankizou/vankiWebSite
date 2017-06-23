@@ -29,7 +29,9 @@ var operateMyAjaxData = function (data, ajaxContext, successFun, failFun, is_pop
         // 是否弹出错误码信息
         if (is_pop_error_window != false && !is_pop_error_window) is_pop_error_window = true;
         var errInfo = ConstStatusCode["CODE_" + code];
-        if (errInfo && is_pop_error_window) {
+        if (code == 201) {// 未登录
+            popLoginRegister();
+        } else if (errInfo && is_pop_error_window) {
             vankiLayerMsgFailTou(errInfo[1]);
             // vankiMsgAlertAutoClose(errInfo[1], 3000);
         }
@@ -51,7 +53,9 @@ var vankiParseResponseData = function (data, succFn, failFn, is_pop_error_window
         // 是否弹出错误码信息
         if (is_pop_error_window != false && !is_pop_error_window) is_pop_error_window = true;
         var errInfo = ConstStatusCode["CODE_" + code];
-        if (errInfo && is_pop_error_window) {
+        if (code == 201) {// 未登录
+            popLoginRegister();
+        } else if (errInfo && is_pop_error_window) {
             vankiLayerMsgFailTou(errInfo[1]);
             // vankiMsgAlertAutoClose(errInfo[1], 3000);
         }
