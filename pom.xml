@@ -13,6 +13,7 @@
         <ehcache.version>3.3.1</ehcache.version>
         <fastjson.version>1.2.7</fastjson.version>
         <file.upload>1.3.1</file.upload>
+        <im4java.version>1.4.0</im4java.version>
         <jackson.version>2.6.1</jackson.version>
         <jedis.version>2.8.0</jedis.version>
         <jstl.version>1.2</jstl.version>
@@ -177,6 +178,13 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>${ehcache.version}</version>
+        </dependency>
+
+        <!-- 操作ImageMagick -->
+        <dependency>
+            <groupId>org.im4java</groupId>
+            <artifactId>im4java</artifactId>
+            <version>${im4java.version}</version>
         </dependency>
     </dependencies>
 

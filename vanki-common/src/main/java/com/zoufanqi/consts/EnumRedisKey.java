@@ -17,6 +17,7 @@ public enum EnumRedisKey {
     S_OPENED_NOTE_ID_,  // 用户打开了的笔记树目录，#_userId -> [noteId]
     MAP_NOTE_VIEW_NUM,  // 笔记浏览量，noteId -> viewNum
 
+    TIME_IMAGE_USER_PAGE_(60 * 60 * 2),   // 用户图片, #userId_{pageNo_pageSize_navNum -> Page<Note>}
     ;
     private int time;
 

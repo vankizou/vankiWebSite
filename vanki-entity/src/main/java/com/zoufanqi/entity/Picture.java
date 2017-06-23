@@ -7,6 +7,8 @@ import java.util.Date;
 public class Picture {
     private Long id;
 
+    private String uuid;
+
     private Long userId;
 
     private String name;
@@ -26,12 +28,25 @@ public class Picture {
     @JsonIgnore
     private Integer isDel;
 
+    public boolean validate() {
+        if (this.uuid == null || userId == null || path == null) return false;
+        return true;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public Long getUserId() {

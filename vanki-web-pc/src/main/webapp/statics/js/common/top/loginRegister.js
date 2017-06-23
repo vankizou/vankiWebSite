@@ -104,17 +104,23 @@ $(function () {
             $('#j_login').hide();
             $('#j_register').hide();
 
-            var msg = "<div>" +
+            var msg = "<div style='padding: 20px;'>" +
                 "<div>恭喜！帐号注册成功！您的登录ID为：<span style='color:red; font-size:20px; font-weight: 700;'>" + data.id + "</span></div>" +
                 "<div class='text-center' style='margin-top: 20px;'><button id='btn_close_msg' class='btn' style='background: #0593d3; color: #fff;''>好的，我已牢记我的ID号</button></div>" +
                 "</div>";
 
-            var fnMsgClose = function () {
-                window.location = ConstAjaxUrl.User.userHomeHtml_login;
-            };
-            vankiMsgAlert(msg, "帐号注册成功提示", fnMsgClose);
+            //页面层
+            var regSuccLayerIndex = layer.open({
+                type: 1,
+                title: false,
+                skin: 'layui-layer-rim', //加上边框
+                skin: 'layui-layer-lan',
+                closeBtn: false,
+                content: msg,
+            });
             $('#btn_close_msg').click(function () {
-                fnMsgClose();
+                layer.close(regSuccLayerIndex);
+                window.location = ConstAjaxUrl.User.userHomeHtml_login;
             });
 
         };

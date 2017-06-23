@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +105,69 @@ public class FileUtil {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 复制文件
+     *
+     * @param srcFile
+     * @param destFile
+     *
+     * @return
+     */
+    public static boolean copyFile(File srcFile, File destFile) {
+        if (srcFile == null || destFile == null || !srcFile.exists()) return false;
+        File parentFile = destFile.getParentFile();
+        if (!parentFile.exists()) parentFile.mkdirs();
+
+        FileInputStream fi = null;
+        FileOutputStream fo = null;
+        FileChannel cIn = null;
+        FileChannel cOut = null;
+        try {
+            fi = new FileInputStream(srcFile);
+            fo = new FileOutputStream(destFile);
+            cIn = fi.getChannel();
+            cOut = fo.getChannel();
+            cIn.transferTo(0, cIn.size(), cOut);
+            return true;
+        } catch (Exception e) {
+            LOG.error("文件复制失败! 异常信息: {}", ExceptionUtil.getExceptionAllMsg(e));
+        } finally {
+            try {
+                if (cOut != null) cOut.close();
+                if (cIn != null) cIn.close();
+                if (fo != null) fo.close();
+                if (fi != null) fi.close();
+            } catch (Exception e) {
+                LOG.error("文件复制失败! 异常信息: {}", ExceptionUtil.getExceptionAllMsg(e));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 设置文件权限
+     *
+     * @param file
+     * @param permissionNum
+     *
+     * @throws IOException
+     */
+    public static void setFilePermission(File file, int permissionNum) throws IOException {
+        if (file != null && file.exists()) {
+            StringBuffer sb = new StringBuffer().append("chmod ").append(permissionNum).append(" ").append(file.getAbsolutePath());
+            Runtime.getRuntime().exec(sb.toString());
+        }
+    }
+
+    public static void setFilePermission(String path, int permissionNum) throws IOException {
+        StringBuffer sb = new StringBuffer().append("chmod ").append(permissionNum).append(" ").append(path);
+        Runtime.getRuntime().exec(sb.toString());
+    }
+
+    public static void setFolderAndAllSubPermission(String path, int permissionNum) throws IOException {
+        StringBuffer sb = new StringBuffer().append("chmod -R ").append(permissionNum).append(" ").append(path);
+        Runtime.getRuntime().exec(sb.toString());
     }
 }

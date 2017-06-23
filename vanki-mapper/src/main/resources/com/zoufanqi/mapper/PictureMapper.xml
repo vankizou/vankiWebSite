@@ -3,6 +3,7 @@
 <mapper namespace="com.zoufanqi.mapper.PictureMapper" >
   <resultMap id="BaseResultMap" type="com.zoufanqi.entity.Picture" >
     <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="UUID" property="uuid" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="BIGINT" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="PATH" property="path" jdbcType="VARCHAR" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, USER_ID, NAME, PATH, WIDTH, HEIGHT, SIZE, TYPE, CRATE_DATETIME, IS_DEL
+    ID, UUID, USER_ID, NAME, PATH, WIDTH, HEIGHT, SIZE, TYPE, CRATE_DATETIME, IS_DEL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zoufanqi.entity.PictureExample" >
     select
@@ -108,20 +109,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zoufanqi.entity.Picture" >
-    insert into t_picture (ID, USER_ID, NAME, 
-      PATH, WIDTH, HEIGHT, 
-      SIZE, TYPE, CRATE_DATETIME, 
-      IS_DEL)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{path,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
-      #{size,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{crateDatetime,jdbcType=TIMESTAMP}, 
-      #{isDel,jdbcType=INTEGER})
+    insert into t_picture (ID, UUID, USER_ID, 
+      NAME, PATH, WIDTH, 
+      HEIGHT, SIZE, TYPE, 
+      CRATE_DATETIME, IS_DEL)
+    values (#{id,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{size,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, 
+      #{crateDatetime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zoufanqi.entity.Picture" >
     insert into t_picture
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
+      </if>
+      <if test="uuid != null" >
+        UUID,
       </if>
       <if test="userId != null" >
         USER_ID,
@@ -154,6 +158,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
@@ -193,6 +200,9 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_picture
     <set >
+      <if test="record.uuid != null" >
+        UUID = #{record.uuid,jdbcType=VARCHAR},
+      </if>
       <if test="record.userId != null" >
         USER_ID = #{record.userId,jdbcType=BIGINT},
       </if>
@@ -228,6 +238,7 @@
   <update id="updateByExample" parameterType="map" >
     update t_picture
     set ID = #{record.id,jdbcType=BIGINT},
+      UUID = #{record.uuid,jdbcType=VARCHAR},
       USER_ID = #{record.userId,jdbcType=BIGINT},
       NAME = #{record.name,jdbcType=VARCHAR},
       PATH = #{record.path,jdbcType=VARCHAR},
@@ -244,6 +255,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zoufanqi.entity.Picture" >
     update t_picture
     <set >
+      <if test="uuid != null" >
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         USER_ID = #{userId,jdbcType=BIGINT},
       </if>
@@ -276,7 +290,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zoufanqi.entity.Picture" >
     update t_picture
-    set USER_ID = #{userId,jdbcType=BIGINT},
+    set UUID = #{uuid,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=BIGINT},
       NAME = #{name,jdbcType=VARCHAR},
       PATH = #{path,jdbcType=VARCHAR},
       WIDTH = #{width,jdbcType=INTEGER},

@@ -29,6 +29,9 @@ public enum EnumStatusCode {
 
     IMAGE_CODE_VALIDATE_FAIL(620, "验证码错误"),
 
+    IMAGE_EMPTY(630, "未找到图片资源"),
+    IMAGE_OVER_MAX_NUM(631, "图片上传数量过多"),
+
     /**
      * 用户相关，1000 - 1099
      */

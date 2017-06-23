@@ -454,14 +454,13 @@ public class NoteServiceImpl implements NoteService {
 
         if (list == null || list.isEmpty()) {
             map.put(mapKey, ConstService.REDIS_DEFAULT_INFO);
-            this.redisTemplate.setex(key, EnumRedisKey.TIME_NOTE_PAGE_TREE_.getTime(), JSON.toJSONString(map));
-            return null;
+            page = null;
         } else {
             page.setData(list);
             map.put(mapKey, page);
-            this.redisTemplate.setex(key, EnumRedisKey.TIME_NOTE_PAGE_TREE_.getTime(), JSON.toJSONString(map));
-            return page;
         }
+        this.redisTemplate.setex(key, EnumRedisKey.TIME_NOTE_PAGE_TREE_.getTime(), JSON.toJSONString(map));
+        return page;
     }
 
     @Override
@@ -495,7 +494,6 @@ public class NoteServiceImpl implements NoteService {
         c.andIsDelEqualTo(ConstDB.ISDEL_FALSE);
         c.andSecretEqualTo(ConstDB.Note.SECRET_OPEN);
         c.andStatusEqualTo(ConstDB.Note.STATUS_ALL_PASS);
-//        c.andStatusEqualTo(ConstDB.Note.STATUS_PASS);
         c.andCountNoteContentGreaterThan(0);
 
         int count = this.noteMapper.countByExample(example);
@@ -512,16 +510,14 @@ public class NoteServiceImpl implements NoteService {
 
         if (list == null || list.isEmpty()) {
             map.put(mapKey, ConstService.REDIS_DEFAULT_INFO);
-            this.redisTemplate.setex(EnumRedisKey.TIME_NOTE_PAGE_HOME.name(),
-                    EnumRedisKey.TIME_NOTE_PAGE_HOME.getTime(), JSON.toJSONString(map));
-            return null;
+            page = null;
         } else {
             page.setData(list);
             map.put(mapKey, page);
-            this.redisTemplate.setex(EnumRedisKey.TIME_NOTE_PAGE_HOME.name(),
-                    EnumRedisKey.TIME_NOTE_PAGE_HOME.getTime(), JSON.toJSONString(map));
-            return page;
         }
+        this.redisTemplate.setex(EnumRedisKey.TIME_NOTE_PAGE_HOME.name(),
+                EnumRedisKey.TIME_NOTE_PAGE_HOME.getTime(), JSON.toJSONString(map));
+        return page;
     }
 
     @Override

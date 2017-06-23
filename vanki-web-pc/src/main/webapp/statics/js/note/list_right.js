@@ -134,13 +134,17 @@ function buildMarkdownEdit(val, heightDiff) {
             "h1", "h2", "h3", "h4", "h5", "h6", "|",
             "list-ul", "list-ol", "hr", "|",
             "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",
-            "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-            "info", "|", "saveNoteContent"
+            "goto-line", "watch", "preview", "fullscreen", "clear", "search", "info"
+            , "|", "addImage", "|", "saveNoteContent"
         ],
         toolbarIconTexts: {
+            addImage: '<span style="font-size: 14px; font-weight: 700">添加图片</span>',
             saveNoteContent: '<span style="font-size: 14px; font-weight: 700">保存内容</span>'
         },
         toolbarHandlers: {
+            addImage: function () {
+                createAddImagePop();
+            },
             saveNoteContent: function () {
                 var noteId = $('#j_curr_note_id').val();
                 var contentId = $('#j_curr_note_detail_id').val();

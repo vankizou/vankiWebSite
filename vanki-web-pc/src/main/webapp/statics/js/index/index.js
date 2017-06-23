@@ -45,7 +45,6 @@ function getNoteList(pageNo, pageSize, navNum) {
         $('#j_page_next').attr('val', pageNext);
         $('#j_page_jump_val').val(pageJump);
 
-
         var node = '';
         var datas = data['data'];
         for (var i in datas) {

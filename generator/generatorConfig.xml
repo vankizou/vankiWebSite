@@ -52,8 +52,8 @@
         <!--<table tableName="t_env_var" domainObjectName="EnvVar"/>-->
         <!--<table tableName="t_note" domainObjectName="Note"/>-->
         <!--<table tableName="t_note_detail" domainObjectName="NoteDetail"/>-->
-        <!--<table tableName="t_picture" domainObjectName="Picture"/>-->
-        <table tableName="t_user" domainObjectName="User"/>
+        <table tableName="t_picture" domainObjectName="Picture"/>
+        <!--<table tableName="t_user" domainObjectName="User"/>-->
         <!--<table tableName="t_auth_role" domainObjectName="AuthRole"/>-->
         <!--<table tableName="t_auth_user_role" domainObjectName="AuthUserRole"/>-->
         <!--<table tableName="t_auth_resource" domainObjectName="AuthResource"/>-->

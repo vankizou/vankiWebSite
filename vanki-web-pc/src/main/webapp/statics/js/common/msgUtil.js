@@ -25,7 +25,7 @@ function vankiMsgBubble(msg) {
 }
 
 function vankiMsgAlertAutoClose(msg, time) {
-    if (!time) time = 1000;
+    if (!time) time = 2000;
     var d = dialog({
         content: msg,
         quickClose: true
@@ -65,4 +65,28 @@ function vankiMsgWindow(content, winAttrJson) {
     });
     d.width(width).height(height).show();
     return d;
+}
+
+function vankiLayerMsgSuccGou(msg, time) {
+    if (!msg) return;
+    time = time ? time : 3000;
+    layer.msg(msg, {time: time, icon: 6});
+}
+
+function vankiLayerMsgSuccTou(msg, time) {
+    if (!msg) return;
+    time = time ? time : 3000;
+    layer.msg(msg, {time: time, icon: 1});
+}
+
+function vankiLayerMsgFailCha(msg, time) {
+    if (!msg) return;
+    time = time ? time : 3000;
+    layer.msg(msg, {time: time, icon: 5});
+}
+
+function vankiLayerMsgFailTou(msg, time) {
+    if (!msg) return;
+    time = time ? time : 3000;
+    layer.msg(msg, {time: time, icon: 2});
 }

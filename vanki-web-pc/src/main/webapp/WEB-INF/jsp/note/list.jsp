@@ -23,10 +23,16 @@
     <jsp:include page="../common/markdown.jsp"></jsp:include>
     <jsp:include page="../common/markdown-preview.jsp"></jsp:include>
 
-    <link href="/statics/css/note/list.css" rel="stylesheet" type="text/css">
+    <link href="/statics/third/layer/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/statics/third/layer/layui/layui.js"></script>
 
+    <link href="/statics/css/note/list.css" rel="stylesheet" type="text/css">
+    <link href="/statics/css/note/imagePop.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="/statics/js/note/imagePop.js"></script>
     <script type="text/javascript" src="/statics/js/note/list_right.js"></script>
     <script type="text/javascript" src="/statics/js/note/list.js"></script>
+
 
     <script type="text/javascript">
         var c_myUserId = '${userContext.user.id}';
@@ -86,18 +92,10 @@
                             <input type="text" class="form-control" id="j_note_info_edit_keyword" size="18"/>
                         </span>
                     </div>
-                    <%--<div class="form-group has-success pull-left">
-                        <span class="label label-info pull-left">浏览数：
-                            <code class="form-control" id="j_note_info_edit_viewNum"></code>
-                        </span>
-                    </div>--%>
                 </div>
             </div>
         </div>
         <div id="j_vanki-editormd-dynamic"></div>
-        <%--<div id="vanki-editormd-edit-note">
-            <textarea id="j_note_content_edit" style="display: none;"></textarea>
-        </div>--%>
         <input id="j_curr_note_detail_id" value="" style="display: none">
         <input id="j_curr_note_id" value="" style="display: none">
     </div>
@@ -120,6 +118,46 @@
         <hr id="m_hr2" style="height:1px;border:none;border-top:1px solid #555555;"/>
         <li id="m_download" onclick="downloadNote();"><i class="fa fa-download"></i> 下载笔记</li>
     </ul>
+</div>
+
+<div id="j_imagePop">
+    <div id="j_imageUploadDiv">
+        <form id="j_imageUploadForm" enctype="multipart/form-data">
+            <input id="j_images" type="file" class="c_upload_file" name="images"
+                   accept="image/png,image/jpg,image/jpeg,image/gif"
+                   multiple>
+        </form>
+    </div>
+    <div id="j_historyImage">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">历史图片</h3>
+            </div>
+            <div id="j_historyImageData" class="panel-body">
+            </div>
+            <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination">
+                    <li><a href="javascript:;" style="font-size: 14px;" id="j_page_info"></a></li>
+                    <li title="上一页">
+                        <a href="javascript:;" aria-label="Previous"
+                           id="j_page_previous" class="j_page_prev_next" val="">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li title="下一页">
+                        <a href="javascript:;" aria-label="Next" id="j_page_next" class="j_page_prev_next" val="">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="form-inline">
+                        &nbsp;<input type="text" class="form-control" size="2" id="j_page_jump_val"/>
+                        <button class="btn btn_info1" id="j_page_jump">跳转</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

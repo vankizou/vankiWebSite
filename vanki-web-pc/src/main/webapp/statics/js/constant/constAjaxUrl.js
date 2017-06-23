@@ -3,6 +3,10 @@
  */
 
 var ConstAjaxUrl = {
+    Image: {
+      uploadMulti: ["/image/uploadMulti.json"],
+    },
+
     ImageCode: {
         getImageCode: ["/imageCode/getImageCode.json"],
         validate: ["/imageCode/validate.json"]
@@ -22,6 +26,10 @@ var ConstAjaxUrl = {
         getById: ['/note/getNoteVoById.json', 'GET', 'JSON'],
         getPageForHome: ['/note/getPageForHome.json', 'GET', 'JSON'],
         getTreeList: ['/note/getTreeList.json', 'GET', 'JSON']
+    },
+
+    Picture: {
+        getPage: ['/picture/getPage.json', 'GET', 'json']
     },
 
     Root: {
