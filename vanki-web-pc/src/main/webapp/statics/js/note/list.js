@@ -104,6 +104,7 @@ function addNote() {
  * @param treeNode
  */
 function addDiyDom(treeId, treeNode) {
+    if (treeNode.id < 0) return;
     var num = childNoteNumJson[treeNode.id];
 
     var spanId = 'j_diy_span_' + treeNode.id;

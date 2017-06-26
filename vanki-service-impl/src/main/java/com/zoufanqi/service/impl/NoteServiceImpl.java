@@ -145,8 +145,7 @@ public class NoteServiceImpl implements NoteService {
 
         int status = this.noteMapper.updateByPrimaryKeySelective(note);
         if (status > 0) {
-            if (StringUtil.isId(note.getParentId()) &&
-                    StringUtil.notEquals(note.getParentId(), old.getParentId())) {
+            if (note.getParentId() != null && StringUtil.notEquals(note.getParentId(), old.getParentId())) {
                 /**
                  * 更新旧父节点笔记数量
                  */
