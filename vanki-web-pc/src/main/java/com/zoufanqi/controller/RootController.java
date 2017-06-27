@@ -23,7 +23,7 @@ public class RootController extends BaseController {
         return mv;
     }
 
-    @RequestMapping("/404.html")
+    @RequestMapping("/error/404.html")
     public String error404() {
         return "common/404";
     }

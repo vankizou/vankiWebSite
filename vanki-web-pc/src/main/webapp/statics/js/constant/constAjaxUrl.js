@@ -14,7 +14,7 @@ var ConstAjaxUrl = {
 
     Note: {
         editHtm: ['/note/edit/${id}.htm', '${id}'],
-        viewHtml: ['/note/view/${id}.html', '${id}'],
+        viewHtml: ['/note/${id}.html', '${id}'],
         download: ['/note/download.json'],
         doDownload: ['/note/doDownload.json'],
 
@@ -33,7 +33,7 @@ var ConstAjaxUrl = {
     },
 
     Root: {
-        error404: ['/404.html'],
+        error404: ['/error/404.html'],
     },
 
     User: {

@@ -60,7 +60,7 @@ public class NoteController extends BaseController {
         return mv;
     }
 
-    @RequestMapping(value = "/view/{id}.html")
+    @RequestMapping(value = "/{id}.html")
     public ModelAndView viewHtml(@PathVariable("id") Long id, String password) throws ZouFanqiException {
         Long loginUserId = this.justGetUserId();
         ModelAndView mv = new ModelAndView("note/view");

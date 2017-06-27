@@ -3,13 +3,15 @@ div#rMenu {
     position: absolute;
     visibility: hidden;
     top: 0;
-    background-color: #f3f3f3;
+    background-color: #0593d3;
     text-align: left;
     /*padding: 2px;*/
 }
 
 div#rMenu ul {
+    color: #FFF;
     padding: 5px 10px 0;
+    margin-bottom: 5px;
 }
 
 div#rMenu ul li {
@@ -17,7 +19,7 @@ div#rMenu ul li {
     padding: 0;
     cursor: pointer;
     list-style: none outside none;
-    background-color: #f3f3f3;
+    /*background-color: #f3f3f3;*/
     font-size: 12px;
 }
 
