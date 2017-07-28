@@ -3,6 +3,9 @@ package com.zoufanqi.service.redis.init;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.JedisPool;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * Created by vanki on 16/11/7.
  */

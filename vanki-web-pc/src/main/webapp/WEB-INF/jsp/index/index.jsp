@@ -7,6 +7,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
+    <meta name="baidu-site-verification" content="vzLAJqujvV" />
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Expires" content="0"/>

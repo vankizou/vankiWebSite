@@ -75,7 +75,7 @@
                 <div class="col-xs-11 form-inline">
                     <div class="form-group has-success pull-left">
                         <span class="label btn_info1 pull-left">标题：
-                            <input type="text" class="form-control c_title" id="j_note_info_edit_title" size="18"/>
+                            <input type="text" class="form-control c_title" id="j_note_info_edit_title" size="26"/>
                         </span>
                     </div>
                     <div class="form-group has-success pull-left">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="form-group has-success pull-left">
                         <span class="label btn_info1 pull-left">关键词：
-                            <input type="text" class="form-control" id="j_note_info_edit_keyword" size="18"/>
+                            <input type="text" class="form-control" id="j_note_info_edit_keyword" size="26"/>
                         </span>
                     </div>
                 </div>

@@ -29,6 +29,7 @@ var setting = {
 
 var setting_noLogin = {
     view: {
+        showTitle: true,
         addDiyDom: addDiyDom
     },
     data: {
@@ -430,6 +431,7 @@ function buildNodeJson(data, noteTreeNodes, existsNodeIdArr) {
 
             var title = note['title'];
             if (title.length > 32) title = title.substring(0, 32) + "...";
+
             noteTreeNodes.push({
                 id: noteId,
                 pId: note['parentId'],

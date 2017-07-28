@@ -185,7 +185,7 @@ function viewNote(noteId, password, isNotAsync) {
 
         buildViewNoteCommonInfo(data['note']);
 
-        history.pushState(null, null, "/note/view/" + noteId + ".html");
+        history.pushState(null, null, "/note/" + noteId + ".html");
 
         context = true;
     };

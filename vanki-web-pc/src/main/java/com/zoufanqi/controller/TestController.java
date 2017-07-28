@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/test")
 public class TestController {
-    //@RequestMapping("/p.html")
+    @RequestMapping("/p.html")
     public String aa(String p) {
         return p;
     }

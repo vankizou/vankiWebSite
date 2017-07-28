@@ -53,6 +53,7 @@
 </script>
 <!-- End Piwik Code -->
 
+<%-- 百度统计 --%>
 <script>
     var _hmt = _hmt || [];
     (function() {
@@ -60,5 +61,21 @@
         hm.src = "https://hm.baidu.com/hm.js?2a12de40c5d7a21b012acccb2287d222";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<%-- 百度站长 --%>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
     })();
 </script>
